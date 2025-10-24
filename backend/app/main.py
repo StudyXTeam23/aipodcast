@@ -34,6 +34,7 @@ app.add_middleware(
         "https://echocast.genstudy.ai",
         "http://echocast.genstudy.ai",
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # 允许所有 Vercel 部署域名
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
