@@ -60,3 +60,4 @@ upload_files/
 # 数据库锁文件
 *.lock
 
+backend/data/*.json
