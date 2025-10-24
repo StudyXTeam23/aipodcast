@@ -187,10 +187,11 @@ async def get_podcasts(
         podcasts = all_podcasts[start:end]
         
         # 为每个播客设置流式播放 URL
+        from app.config import settings
         for podcast in podcasts:
             if podcast.get("audio_s3_key"):
-                # 使用后端流式播放端点
-                podcast["audio_url"] = f"/api/v1/podcasts/{podcast['id']}/stream"
+                # 使用完整的后端流式播放 URL（支持 Vercel 等跨域部署）
+                podcast["audio_url"] = f"{settings.api_domain}/api/v1/podcasts/{podcast['id']}/stream"
         
         return podcasts
     
