@@ -228,3 +228,25 @@ Vercel 部署时会自动使用以下环境变量：
 
 MIT License
 
+
+## SSL 证书配置
+
+项目使用 Let's Encrypt 为 `echocast.genstudy.ai` 配置了 SSL 证书。
+
+### 证书信息
+- **域名**: echocast.genstudy.ai
+- **证书路径**: `/etc/letsencrypt/live/echocast.genstudy.ai/`
+- **有效期**: 90 天（自动续期）
+- **续期**: Certbot 已设置自动续期任务
+
+### 手动续期（如需要）
+```bash
+sudo certbot renew
+sudo systemctl reload nginx
+```
+
+### 重新配置证书（如域名变更）
+```bash
+sudo certbot --nginx -d your-domain.com
+```
+
