@@ -8,8 +8,12 @@ const FileUpload = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
   const [processingStatus, setProcessingStatus] = useState('');
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [estimatedTime, setEstimatedTime] = useState(null);
   const fileInputRef = useRef(null);
   const pollIntervalRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const elapsedTimerRef = useRef(null);
   const navigate = useNavigate();
 
   // 组件卸载时清理定时器
@@ -18,8 +22,18 @@ const FileUpload = () => {
       if (pollIntervalRef.current) {
         clearInterval(pollIntervalRef.current);
       }
+      if (elapsedTimerRef.current) {
+        clearInterval(elapsedTimerRef.current);
+      }
     };
   }, []);
+
+  // 格式化时间显示（秒 -> MM:SS）
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // 支持的文件类型
   const ACCEPTED_TYPES = [
@@ -52,14 +66,28 @@ const FileUpload = () => {
     return null;
   };
 
-  const pollJobStatus = async (jobId, podcastId) => {
-    const maxAttempts = 120; // 最多轮询 2 分钟 (每秒一次)
+  const pollJobStatus = async (jobId, podcastId, isMediaFile = false) => {
+    // 音频/视频分析需要更长时间（10分钟），文档处理2分钟
+    const maxAttempts = isMediaFile ? 600 : 120;
     let attempts = 0;
+
+    // 开始计时
+    startTimeRef.current = Date.now();
+    setElapsedTime(0);
 
     // 清理旧的定时器
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+    }
+
+    // 启动已用时间计时器
+    elapsedTimerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setElapsedTime(elapsed);
+    }, 1000);
 
     pollIntervalRef.current = setInterval(async () => {
       try {
@@ -69,26 +97,49 @@ const FileUpload = () => {
         // 后端直接返回 job 对象
         if (response && response.status === 'completed') {
           clearInterval(pollIntervalRef.current);
+          clearInterval(elapsedTimerRef.current);
           pollIntervalRef.current = null;
-          setProcessingStatus('Completed! Redirecting...');
+          elapsedTimerRef.current = null;
+          setProcessingStatus('✅ Completed! Redirecting...');
           setTimeout(() => {
             navigate(`/podcast/${podcastId}`);
           }, 1000);
         } else if (response && response.status === 'failed') {
           clearInterval(pollIntervalRef.current);
+          clearInterval(elapsedTimerRef.current);
           pollIntervalRef.current = null;
-          setError('Processing failed. Please try again.');
+          elapsedTimerRef.current = null;
+          setError(`Processing failed: ${response.error_message || 'Please try again.'}`);
           setUploading(false);
           setUploadProgress(0);
         } else if (response) {
-          // 更新处理状态
-          setProcessingStatus(`Processing: ${response.status}...`);
+          // 更新处理进度和状态消息
+          if (response.progress) {
+            setUploadProgress(response.progress);
+            
+            // 根据进度估算剩余时间
+            if (response.progress > 5) {
+              const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+              const estimatedTotal = (elapsed / response.progress) * 100;
+              const remaining = Math.max(0, Math.floor(estimatedTotal - elapsed));
+              setEstimatedTime(remaining);
+            }
+          }
+          
+          // 使用后端的详细状态消息
+          if (response.status_message) {
+            setProcessingStatus(response.status_message);
+          } else {
+            setProcessingStatus(`Processing: ${response.status}...`);
+          }
         }
 
         if (attempts >= maxAttempts) {
           clearInterval(pollIntervalRef.current);
+          clearInterval(elapsedTimerRef.current);
           pollIntervalRef.current = null;
-          setError('Processing timeout. Please check your podcast library.');
+          elapsedTimerRef.current = null;
+          setError('Processing is taking longer than expected. The podcast may still be processing. Please check your podcast library in a few minutes.');
           setUploading(false);
           setUploadProgress(0);
         }
@@ -108,21 +159,50 @@ const FileUpload = () => {
     setError('');
     setUploading(true);
     setUploadProgress(0);
-    setProcessingStatus('Uploading...');
 
     try {
-      const response = await podcastAPI.upload(file, (progressEvent) => {
-        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        setUploadProgress(progress);
-      });
+      // 自动检测：音频/视频文件使用 AI 分析生成，文档文件使用原有流程
+      const isMediaFile = file.type.startsWith('audio/') || file.type.startsWith('video/');
+      
+      if (isMediaFile) {
+        // 音频/视频：使用 AI 分析并生成新播客
+        setProcessingStatus('Uploading and analyzing with AI...');
+        
+        const response = await podcastAPI.analyzeAndGenerate(file, {
+          onUploadProgress: (progressEvent) => {
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(Math.min(progress, 50)); // 上传占 50%
+          },
+          style: 'Conversation',
+          durationMinutes: 5,
+          language: 'en',
+        });
 
-      // 后端直接返回数据对象
-      if (response && response.job_id && response.podcast_id) {
-        setProcessingStatus('File uploaded! Processing...');
-        // 开始轮询任务状态
-        pollJobStatus(response.job_id, response.podcast_id);
+        if (response && response.job_id && response.podcast_id) {
+          setProcessingStatus('AI analysis started! Generating podcast...');
+          setUploadProgress(60);
+          // 开始轮询任务状态（媒体文件需要更长超时）
+          pollJobStatus(response.job_id, response.podcast_id, true);
+        } else {
+          throw new Error('Invalid response format');
+        }
       } else {
-        throw new Error('Invalid response format');
+        // 文档：普通上传流程
+        setProcessingStatus('Uploading...');
+        
+        const response = await podcastAPI.upload(file, (progressEvent) => {
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(progress);
+        });
+
+        // 后端直接返回数据对象
+        if (response && response.job_id && response.podcast_id) {
+          setProcessingStatus('File uploaded! Processing...');
+          // 开始轮询任务状态（文档文件）
+          pollJobStatus(response.job_id, response.podcast_id, false);
+        } else {
+          throw new Error('Invalid response format');
+        }
       }
     } catch (err) {
       setError(err.message || 'Failed to upload file');
@@ -179,20 +259,48 @@ const FileUpload = () => {
         onClick={handleClick}
       >
         {uploading ? (
-          <div className="flex flex-col items-center justify-center p-6">
-            <div className="w-full max-w-xs mb-4">
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+          <div className="flex flex-col items-center justify-center p-6 w-full">
+            <div className="w-full max-w-md mb-4">
+              {/* 进度条 */}
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div
-                  className="bg-primary h-2.5 rounded-full transition-all duration-300"
+                  className="bg-gradient-to-r from-primary to-accent-purple h-3 rounded-full transition-all duration-300"
                   style={{ width: `${uploadProgress}%` }}
                 ></div>
               </div>
-              <p className="text-center mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+              
+              {/* 进度百分比 */}
+              <p className="text-center mt-3 text-lg font-bold text-gray-700 dark:text-gray-300">
                 {uploadProgress}%
               </p>
             </div>
-            <p className="text-base font-semibold text-gray-700 dark:text-gray-300">
+
+            {/* 状态消息 */}
+            <p className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-4 text-center max-w-md">
               {processingStatus}
+            </p>
+
+            {/* 时间信息 */}
+            <div className="flex gap-6 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Elapsed: {formatTime(elapsedTime)}</span>
+              </div>
+              {estimatedTime !== null && estimatedTime > 0 && (
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span>Est. remaining: ~{formatTime(estimatedTime)}</span>
+                </div>
+              )}
+            </div>
+
+            {/* 提示信息 */}
+            <p className="text-xs text-gray-500 dark:text-gray-500 mt-4 text-center max-w-md">
+              Processing large audio files may take several minutes. Please keep this page open.
             </p>
           </div>
         ) : (

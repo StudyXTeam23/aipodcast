@@ -78,6 +78,26 @@ export const podcastAPI = {
   generate: async (data) => {
     return api.post('/api/v1/podcasts/generate', data);
   },
+
+  // AI 分析并生成播客（从音频/视频文件）
+  analyzeAndGenerate: async (file, options = {}) => {
+    // 使用新的直接上传接口，一步完成上传和分析
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('style', options.style || 'Conversation');
+    formData.append('duration_minutes', options.durationMinutes || 5);
+    formData.append('language', options.language || 'en');
+    if (options.enhancementPrompt) {
+      formData.append('enhancement_prompt', options.enhancementPrompt);
+    }
+    
+    return api.post('/api/v1/podcasts/analyze-and-generate-direct', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: options.onUploadProgress,
+    });
+  },
 };
 
 export default api;

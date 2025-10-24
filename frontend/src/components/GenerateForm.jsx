@@ -9,7 +9,12 @@ const GenerateForm = () => {
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState('');
   const [processingStatus, setProcessingStatus] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [estimatedTime, setEstimatedTime] = useState(null);
   const pollIntervalRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const elapsedTimerRef = useRef(null);
   const navigate = useNavigate();
 
   // 组件卸载时清理定时器
@@ -18,8 +23,18 @@ const GenerateForm = () => {
       if (pollIntervalRef.current) {
         clearInterval(pollIntervalRef.current);
       }
+      if (elapsedTimerRef.current) {
+        clearInterval(elapsedTimerRef.current);
+      }
     };
   }, []);
+
+  // 格式化时间显示（秒 -> MM:SS）
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const STYLE_OPTIONS = [
     'Solo Talk Show',
@@ -49,10 +64,23 @@ const GenerateForm = () => {
     const maxAttempts = 600; // 最多轮询 10 分钟 (AI 生成和音频处理需要更长时间)
     let attempts = 0;
 
+    // 开始计时
+    startTimeRef.current = Date.now();
+    setElapsedTime(0);
+
     // 清理旧的定时器
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+    }
+
+    // 启动已用时间计时器
+    elapsedTimerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setElapsedTime(elapsed);
+    }, 1000);
 
     pollIntervalRef.current = setInterval(async () => {
       try {
@@ -61,36 +89,48 @@ const GenerateForm = () => {
         
         if (response && response.status === 'completed') {
           clearInterval(pollIntervalRef.current);
+          clearInterval(elapsedTimerRef.current);
           pollIntervalRef.current = null;
-          setProcessingStatus('Completed! Redirecting...');
+          elapsedTimerRef.current = null;
+          setProcessingStatus('✅ Completed! Redirecting...');
           setTimeout(() => {
             navigate(`/podcast/${podcastId}`);
           }, 1000);
         } else if (response && response.status === 'failed') {
           clearInterval(pollIntervalRef.current);
+          clearInterval(elapsedTimerRef.current);
           pollIntervalRef.current = null;
+          elapsedTimerRef.current = null;
           setError(`Generation failed: ${response.error_message || 'Please try again later'}`);
           setGenerating(false);
         } else if (response) {
-          // Update processing status with detailed message
-          let progressText = 'Generating...';
-          if (response.status_message) {
-            // Use the detailed status message from backend
-            progressText = response.status_message;
-            if (response.progress) {
-              progressText += ` (${response.progress}%)`;
+          // 更新处理进度和状态消息
+          if (response.progress) {
+            setProgress(response.progress);
+            
+            // 根据进度估算剩余时间
+            if (response.progress > 5) {
+              const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+              const estimatedTotal = (elapsed / response.progress) * 100;
+              const remaining = Math.max(0, Math.floor(estimatedTotal - elapsed));
+              setEstimatedTime(remaining);
             }
-          } else if (response.progress) {
-            // Fallback to simple progress percentage
-            progressText = `Generating... (${response.progress}%)`;
           }
-          setProcessingStatus(progressText);
+          
+          // 使用后端的详细状态消息
+          if (response.status_message) {
+            setProcessingStatus(response.status_message);
+          } else {
+            setProcessingStatus(`Generating... (${response.progress || 0}%)`);
+          }
         }
 
         if (attempts >= maxAttempts) {
           clearInterval(pollIntervalRef.current);
+          clearInterval(elapsedTimerRef.current);
           pollIntervalRef.current = null;
-          setError('Generation timeout. Please check your podcast library or try again later');
+          elapsedTimerRef.current = null;
+          setError('Generation is taking longer than expected. The podcast may still be processing. Please check your podcast library in a few minutes.');
           setGenerating(false);
         }
       } catch (err) {
@@ -110,6 +150,7 @@ const GenerateForm = () => {
 
     setError('');
     setGenerating(true);
+    setProgress(0);
     setProcessingStatus('Generating podcast script...');
 
     try {
@@ -197,34 +238,66 @@ const GenerateForm = () => {
           </select>
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={generating}
-          className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 ${
-            generating
-              ? 'bg-gray-600 cursor-not-allowed opacity-60'
-              : 'bg-primary text-gray-900 hover:bg-primary/90 hover:shadow-lg'
-          }`}
-        >
-          {generating ? (
-            <span className="flex items-center justify-center space-x-2">
-              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" role="img" aria-label="Loading spinner">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              <span>{processingStatus || 'Generating...'}</span>
-            </span>
-          ) : (
-            'Generate Podcast'
-          )}
-        </button>
+        {/* Submit Button or Progress Display */}
+        {!generating ? (
+          <>
+            <button
+              type="submit"
+              className="w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 bg-primary text-gray-900 hover:bg-primary/90 hover:shadow-lg"
+            >
+              Generate Podcast
+            </button>
+            
+            {/* Description Text */}
+            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+              AI will generate a complete podcast script and convert it to audio (takes 1-2 minutes)
+            </p>
+          </>
+        ) : (
+          <div className="space-y-4">
+            {/* 进度条 */}
+            <div className="w-full">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-primary to-accent-purple h-3 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              
+              {/* 进度百分比 */}
+              <p className="text-center mt-3 text-lg font-bold text-gray-700 dark:text-gray-300">
+                {progress}%
+              </p>
+            </div>
 
-        {/* Description Text */}
-        {!generating && (
-          <p className="text-sm text-center text-gray-500 dark:text-gray-400">
-            AI will generate a complete podcast script and convert it to audio (takes 1-2 minutes)
-          </p>
+            {/* 状态消息 */}
+            <p className="text-base font-semibold text-gray-700 dark:text-gray-300 text-center">
+              {processingStatus || 'Generating...'}
+            </p>
+
+            {/* 时间信息 */}
+            <div className="flex gap-6 justify-center text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Elapsed: {formatTime(elapsedTime)}</span>
+              </div>
+              {estimatedTime !== null && estimatedTime > 0 && (
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span>Est. remaining: ~{formatTime(estimatedTime)}</span>
+                </div>
+              )}
+            </div>
+
+            {/* 提示信息 */}
+            <p className="text-xs text-gray-500 dark:text-gray-500 text-center">
+              AI is generating your podcast. This may take a few minutes. Please keep this page open.
+            </p>
+          </div>
         )}
       </form>
 
