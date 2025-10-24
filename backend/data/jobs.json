@@ -1,0 +1,464 @@
+{
+  "jobs": [
+    {
+      "id": "19ca0731-640c-4969-bf5c-834252909718",
+      "podcast_id": "9f171dbe-0e5c-4ece-b0c6-fd43f5b80d22",
+      "status": "pending",
+      "progress": 0,
+      "s3_key": "uploads/39e320bd-6fec-42f3-a0dd-ea16954bbbac.txt",
+      "created_at": "2025-10-20T06:00:53.414974",
+      "updated_at": "2025-10-20T06:00:53.414980"
+    },
+    {
+      "id": "9c72e20f-2c17-450a-b7c9-f065eb88c3c3",
+      "podcast_id": "e8bfc0c9-8fda-43fb-b42b-edd748d11427",
+      "status": "pending",
+      "progress": 0,
+      "s3_key": "uploads/cf125150-6e28-429a-8e56-3639b3b3e533.txt",
+      "created_at": "2025-10-20T07:19:40.985700",
+      "updated_at": "2025-10-20T07:19:40.985706"
+    },
+    {
+      "id": "58519e25-5ddd-4a02-864e-fcffdf989e64",
+      "podcast_id": "cb0d2cf9-a517-4c18-b417-fa7bf5b5d787",
+      "status": "pending",
+      "progress": 0,
+      "s3_key": "uploads/d242be0b-dbc9-4bb2-b030-ddc50b68b189.txt",
+      "created_at": "2025-10-20T07:19:41.237856",
+      "updated_at": "2025-10-20T07:19:41.237861"
+    },
+    {
+      "id": "342072c2-5358-4914-a127-105c18763092",
+      "podcast_id": "63ee5476-534b-4870-a7b1-1fa179004d9f",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/e67a8148-0b1e-4974-999f-e185e4295ca1.txt",
+      "created_at": "2025-10-20T07:47:56.318677",
+      "updated_at": "2025-10-20T07:48:04.157844"
+    },
+    {
+      "id": "09cc22d9-a17c-4ff1-954f-5df0b0538874",
+      "podcast_id": "845dbf74-4e62-473a-90c1-fb57c13068a8",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/43ada5f3-cc71-4765-999e-65b6a4f8afe6.txt",
+      "created_at": "2025-10-20T10:16:22.122957",
+      "updated_at": "2025-10-20T10:16:38.325632"
+    },
+    {
+      "id": "6078fe8b-4e46-4851-9fb2-02a000963276",
+      "podcast_id": "8a7f41ca-1206-44b9-81ec-af372033fd47",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/107daf16-4ef2-4475-a4fe-b674648beb7f.txt",
+      "created_at": "2025-10-20T10:26:00.824728",
+      "updated_at": "2025-10-20T10:26:13.267051"
+    },
+    {
+      "id": "1544aaf1-2f38-475f-b2c2-94fb660d7628",
+      "podcast_id": "c0d6b98f-10a0-442b-9971-553ed234f8a8",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/beb9ff38-9844-438f-9829-721d88a6155d.txt",
+      "created_at": "2025-10-20T14:48:27.355834",
+      "updated_at": "2025-10-20T14:48:53.790727"
+    },
+    {
+      "id": "81f5c93a-c582-4d86-8e0a-f224859df360",
+      "podcast_id": "8accf81e-1bda-4d81-a3de-5354b8e277e0",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/f490377a-aaf8-4046-9be7-5358a07a1a9f.txt",
+      "created_at": "2025-10-21T06:04:09.789105",
+      "updated_at": "2025-10-21T06:04:25.780613"
+    },
+    {
+      "id": "95a027e4-2936-47b9-97bb-c2f7a8cfad58",
+      "podcast_id": "38c8003a-51f6-405b-8b64-f2c05072eb42",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/a7024209-1743-422f-849d-d876beb6be48.txt",
+      "created_at": "2025-10-21T06:13:18.996095",
+      "updated_at": "2025-10-21T06:13:46.543583"
+    },
+    {
+      "id": "2c2c31d3-0c03-41ec-924e-8d7adc289741",
+      "podcast_id": "c305e7bf-3d80-4824-953a-1c28dd967f4f",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/5adb8f27-3232-4912-ae56-6dd02afe4c56.txt",
+      "created_at": "2025-10-21T06:55:15.714495",
+      "updated_at": "2025-10-21T06:55:30.987572"
+    },
+    {
+      "id": "8b4051f0-08c0-4db8-a77e-23b492cc067f",
+      "podcast_id": "b33ae0bd-6030-4659-9647-ee4b47b7b7e3",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/3018ab35-e2cf-417b-bbe0-4b909ba85627.txt",
+      "created_at": "2025-10-21T07:07:46.436382",
+      "updated_at": "2025-10-21T07:08:14.577062"
+    },
+    {
+      "id": "abed11ca-5f41-4631-839f-7089752b31dc",
+      "podcast_id": "e9971fb8-9acc-4c7b-8f85-7e976c4fa67d",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/ebb885da-4a8c-41d6-b49a-4b0ded7f0dc5.txt",
+      "created_at": "2025-10-21T07:13:33.405655",
+      "updated_at": "2025-10-21T07:13:49.227594"
+    },
+    {
+      "id": "ea619c28-3401-4902-b5f9-700636c90542",
+      "podcast_id": "0d0005f7-8881-4a65-9830-8c64ce32eac0",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/4b2f6d6b-d445-4981-af75-df965ca0ed82.txt",
+      "created_at": "2025-10-21T07:21:56.173322",
+      "updated_at": "2025-10-21T07:22:11.526941"
+    },
+    {
+      "id": "52f7d724-f45f-4cd1-9515-3bd7358a9d7d",
+      "podcast_id": "5fb0399f-a156-4ff9-b61c-b1df86777a62",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/f9f4572a-7532-4e0b-9502-b7d32cf5d9ab.txt",
+      "created_at": "2025-10-21T07:37:11.711919",
+      "updated_at": "2025-10-21T07:37:40.362459"
+    },
+    {
+      "id": "92fa0f8d-87a1-4db2-add6-c6b0544e1d07",
+      "podcast_id": "9c61fe7d-561b-4af1-be45-9ae133f8e53f",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/eff9bcf1-cf36-441f-baea-e1c43e850d6c.mp3",
+      "created_at": "2025-10-21T08:22:57.305206",
+      "updated_at": "2025-10-21T08:23:00.244789"
+    },
+    {
+      "id": "4e99bff2-8851-4b1a-9386-032f5a4e4781",
+      "podcast_id": "2c78ac52-dd49-4cb7-b5db-87f4f27574c2",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/222a6ded-88ce-413a-95a6-287c2234c53c.mp3",
+      "created_at": "2025-10-21T09:09:20.214322",
+      "updated_at": "2025-10-21T09:09:21.568794"
+    },
+    {
+      "id": "c6c9bdff-75e8-439b-9c34-9b5ff4f30065",
+      "podcast_id": "b3955467-c451-44b7-85a5-6b01fc857440",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/0bab3584-ea1a-4e96-966f-812cfe461f1d.mp3",
+      "created_at": "2025-10-21T09:12:53.061958",
+      "updated_at": "2025-10-21T09:12:54.425658"
+    },
+    {
+      "id": "1b114fb7-9f4a-4d52-b40f-d99273e9c21a",
+      "podcast_id": "4cb24ad0-8da2-4ae6-96fb-85bbc77e592d",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/1aa97c94-521a-44a5-8334-6b12919ece93.mp3",
+      "created_at": "2025-10-21T09:15:37.826857",
+      "updated_at": "2025-10-21T09:15:54.383802"
+    },
+    {
+      "id": "001fdb7c-71c2-415c-8de2-ed078cd0b9de",
+      "podcast_id": "dfbeb897-1b13-4a50-ad19-5326bf420c74",
+      "type": "generate",
+      "inputs": {
+        "topic": "人工智能如何改变我们的生活",
+        "style": "单人脱口秀",
+        "duration_minutes": 3
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T10:26:24.416356",
+      "updated_at": "2025-10-21T10:28:05.517768"
+    },
+    {
+      "id": "4d0f468b-4858-49db-b5ff-40fa0cf2b1c6",
+      "podcast_id": "f69834cf-721a-4278-9e22-99c907f39225",
+      "type": "generate",
+      "inputs": {
+        "topic": "Teach me how to use cursor workflow to help me quickly develop tools",
+        "style": "双人对话",
+        "duration_minutes": 5
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T10:40:05.717087",
+      "updated_at": "2025-10-21T10:42:06.442091"
+    },
+    {
+      "id": "bcbe0698-3824-4113-825e-ad7bc516324c",
+      "podcast_id": "554e71b5-897e-41df-bf5b-9eca2ec527bf",
+      "type": "generate",
+      "inputs": {
+        "topic": "咖啡文化的魅力",
+        "style": "单人脱口秀",
+        "duration_minutes": 3
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T10:42:40.043528",
+      "updated_at": "2025-10-21T10:44:07.746764"
+    },
+    {
+      "id": "af4f70a2-f567-4611-9252-9d791c9daa00",
+      "podcast_id": "c0cf01b1-8eaa-44f3-a9d6-b2411ccaba69",
+      "type": "generate",
+      "inputs": {
+        "topic": "健康睡眠的重要性",
+        "style": "单人脱口秀",
+        "duration_minutes": 3
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T10:44:56.196109",
+      "updated_at": "2025-10-21T10:46:23.938200"
+    },
+    {
+      "id": "fbc5b3d8-6bf0-4730-876b-8478d82824d4",
+      "podcast_id": "58a04ea0-daf0-4b80-814f-83ba5611fc0c",
+      "type": "generate",
+      "inputs": {
+        "topic": "The benefits of exercise",
+        "style": "Conversation",
+        "duration_minutes": 3,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T10:57:16.762733",
+      "updated_at": "2025-10-21T10:58:25.061444"
+    },
+    {
+      "id": "d98bf92f-ffcf-44fc-9954-702c30cbc0df",
+      "podcast_id": "d305388f-52b3-40e7-a631-bc5c05fe92bd",
+      "type": "generate",
+      "inputs": {
+        "topic": "咖啡文化的魅力",
+        "style": "Conversation",
+        "duration_minutes": 3,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T10:59:20.855107",
+      "updated_at": "2025-10-21T11:00:28.874442"
+    },
+    {
+      "id": "15e35158-5c15-4ecb-8f30-a49abdeb7501",
+      "podcast_id": "c02db88e-4b9c-4aea-a9ae-3998a8b7214a",
+      "type": "generate",
+      "inputs": {
+        "topic": "Teach me how to use cursor workflow to help me quickly develop tools",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T16:22:22.249513",
+      "updated_at": "2025-10-21T16:23:30.647681"
+    },
+    {
+      "id": "d7ad3311-07b7-4dac-9805-3e60130603c7",
+      "podcast_id": "b3f6e456-4dbe-4937-9cd0-e75dd0305b13",
+      "type": "generate",
+      "inputs": {
+        "topic": "Give me a story for learning ap biology course",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T16:29:30.747634",
+      "updated_at": "2025-10-21T16:30:39.728276"
+    },
+    {
+      "id": "f75a6578-240f-41c7-9cc0-f0474b8669de",
+      "podcast_id": "b85c4efb-fb09-4c00-aa4b-85a19ccef6de",
+      "type": "generate",
+      "inputs": {
+        "topic": "tell me the future of ai developer",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T16:40:45.128631",
+      "updated_at": "2025-10-21T16:41:54.933556"
+    },
+    {
+      "id": "84a127d3-0220-4f8c-927d-0181f36c627c",
+      "podcast_id": "355cd705-38b8-4ec1-a433-954f8e372190",
+      "type": "generate",
+      "inputs": {
+        "topic": "Tell me the future of ai developer",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T16:47:44.326578",
+      "updated_at": "2025-10-21T16:48:24.004945"
+    },
+    {
+      "id": "e9a4791a-f617-43c5-a698-62fa50a1de1b",
+      "podcast_id": "f67c3428-f92e-442c-9e48-33aa5b91032d",
+      "type": "generate",
+      "inputs": {
+        "topic": "Tell me the future of ai developer",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T16:59:03.568189",
+      "updated_at": "2025-10-21T17:01:08.175063"
+    },
+    {
+      "id": "f484e934-57c1-42bb-9cd2-a3914d1b2c34",
+      "podcast_id": "18d3dec0-5fe5-4aeb-8be6-9957fd6788f3",
+      "type": "generate",
+      "inputs": {
+        "topic": "女人如何对抗衰老",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T17:04:27.153622",
+      "updated_at": "2025-10-21T17:08:02.397096"
+    },
+    {
+      "id": "a7b32378-f0d9-4ea1-9580-af5348825b11",
+      "podcast_id": "be968b03-7aa4-452c-b676-4907bd944046",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/b8bd322f-5c75-4a36-af22-18f44081bde9.txt",
+      "created_at": "2025-10-21T17:13:36.379181",
+      "updated_at": "2025-10-21T17:14:50.768723"
+    },
+    {
+      "id": "cddcad77-7420-4c54-998c-6c6209f2834c",
+      "podcast_id": "bdf77c6a-4191-4e97-bbfc-b17009bf2593",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/38e12f7b-5898-46ab-8f30-cd797d193ece.txt",
+      "created_at": "2025-10-21T17:22:22.628042",
+      "updated_at": "2025-10-21T17:23:39.839569"
+    },
+    {
+      "id": "8c491995-094d-433c-afdd-c98ec7a8c93a",
+      "podcast_id": "91ddf7b1-11df-4bc5-9d4c-799421233ff6",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/507adcb4-01b6-40bc-98ae-f579781462fa.txt",
+      "created_at": "2025-10-21T17:27:25.831714",
+      "updated_at": "2025-10-21T17:28:31.847497"
+    },
+    {
+      "id": "72e9a04e-8793-4319-86c8-1b472d60a1b1",
+      "podcast_id": "21916a1c-9ca9-45e7-9893-7964ba462978",
+      "type": "generate",
+      "inputs": {
+        "topic": "如何提高代码开发的工作效率？",
+        "style": "Storytelling",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-21T17:31:40.789668",
+      "updated_at": "2025-10-21T17:35:44.035054"
+    },
+    {
+      "id": "332bf8da-874c-4061-ad11-f8b9ebb1747a",
+      "podcast_id": "d81470ad-c3c5-4993-a9b2-b066edc12adf",
+      "type": "generate",
+      "inputs": {
+        "topic": "fdsafa dsaf sda fasdfas fas",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-22T01:10:57.392268",
+      "updated_at": "2025-10-22T01:12:47.704360",
+      "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "41f45655-d4de-4930-b8a6-953759a4866b",
+      "podcast_id": "05754bea-4b22-4982-8b10-393515fe6697",
+      "type": "generate",
+      "inputs": {
+        "topic": "Tell me about your thought on Studyx experience",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-22T01:29:09.402918",
+      "updated_at": "2025-10-22T01:31:08.470259",
+      "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "8a85db3d-18d1-483e-8e62-b69affc409b9",
+      "podcast_id": "3ba1d9fd-1a1e-4910-9945-163acd1e568d",
+      "type": "generate",
+      "inputs": {
+        "topic": "The future of learning",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-22T02:03:37.652880",
+      "updated_at": "2025-10-22T02:07:06.196885",
+      "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "5a73020e-f122-45bf-bdd2-11dea56fdd18",
+      "podcast_id": "e7234290-e304-45d4-9e5c-250946033c24",
+      "type": "generate",
+      "inputs": {
+        "topic": "如何用好平衡好工作和生活",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-23T03:26:16.796328",
+      "updated_at": "2025-10-23T03:30:33.691121",
+      "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "ff3f2665-7af9-4f74-a6c4-d3dd0c0dd3e3",
+      "podcast_id": "98326f8e-fef5-44b6-9358-f37ff96c6c11",
+      "type": "generate",
+      "inputs": {
+        "topic": "Tell me the future of ai developer",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-23T08:27:12.492667",
+      "updated_at": "2025-10-23T08:28:51.938565",
+      "status_message": "💾 保存播客信息..."
+    }
+  ]
+}

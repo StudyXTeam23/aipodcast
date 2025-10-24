@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EchoCast - My Podcasts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#ee8c2b",
+                "background-light": "#fcfaf8",
+                "background-dark": "#221910",
+              },
+              fontFamily: {
+                "display": ["Epilogue", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#1b140d] dark:text-[#f3ede7]">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3ede7] dark:border-b-[#2f261c] px-10 py-3">
+<div class="flex items-center gap-4 text-[#1b140d] dark:text-[#f3ede7]">
+<a class="flex items-center gap-4" href="#">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-[#1b140d] dark:text-[#f3ede7] text-lg font-bold leading-tight tracking-[-0.015em]">EchoCast</h2>
+</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#1b140d] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Create new podcast</span>
+</button>
+</header>
+<main class="p-10">
+<div class="flex flex-wrap justify-between gap-3 mb-8">
+<p class="text-[#1b140d] dark:text-[#f3ede7] text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">My podcasts</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between border border-transparent hover:border-[#f3ede7] dark:hover:border-[#2f261c] rounded-lg transition-all">
+<div class="flex items-center gap-4 flex-grow">
+<button class="text-[#1b140d] dark:text-[#f3ede7] flex items-center justify-center rounded-lg bg-[#f3ede7] dark:bg-[#2f261c] shrink-0 size-12 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-[#1b140d] dark:text-[#f3ede7] text-base font-medium leading-normal line-clamp-1">AI in the Modern World</p>
+<p class="text-[#9a734c] dark:text-[#9a734c] text-sm font-normal leading-normal line-clamp-2">Created: Oct 26, 2023</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between border border-transparent hover:border-[#f3ede7] dark:hover:border-[#2f261c] rounded-lg transition-all">
+<div class="flex items-center gap-4 flex-grow">
+<button class="text-[#1b140d] dark:text-[#f3ede7] flex items-center justify-center rounded-lg bg-[#f3ede7] dark:bg-[#2f261c] shrink-0 size-12 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-[#1b140d] dark:text-[#f3ede7] text-base font-medium leading-normal line-clamp-1">The Future of Renewable Energy</p>
+<p class="text-[#9a734c] dark:text-[#9a734c] text-sm font-normal leading-normal line-clamp-2">Created: Oct 24, 2023</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between border border-transparent hover:border-[#f3ede7] dark:hover:border-[#2f261c] rounded-lg transition-all">
+<div class="flex items-center gap-4 flex-grow">
+<button class="text-[#1b140d] dark:text-[#f3ede7] flex items-center justify-center rounded-lg bg-[#f3ede7] dark:bg-[#2f261c] shrink-0 size-12 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-[#1b140d] dark:text-[#f3ede7] text-base font-medium leading-normal line-clamp-1">A Deep Dive into Machine Learning</p>
+<p class="text-[#9a734c] dark:text-[#9a734c] text-sm font-normal leading-normal line-clamp-2">Created: Oct 22, 2023</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<!-- Empty State Example -->
+<!-- <div class="text-center py-20 px-10 border-2 border-dashed border-[#f3ede7] dark:border-[#2f261c] rounded-xl mt-8">
+                                <div class="flex justify-center items-center mb-4">
+                                  <span class="material-symbols-outlined text-6xl text-[#9a734c]">podcasts</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-[#1b140d] dark:text-[#f3ede7] mb-2">Your Podcast Library is Empty</h3>
+                                <p class="text-[#9a734c] mb-6">Start by converting your first file into a high-quality podcast.</p>
+                                <button class="flex mx-auto min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#1b140d] text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                                    <span>Create Your First Podcast</span>
+                                </button>
+                            </div> -->
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,62 @@
+# 环境变量和配置文件
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志文件
+*.log
+
+# 临时文件和数据
+temp/
+*.tmp
+*.bak
+
+# 敏感文件和笔记
+workflow_note/
+*.md.bak
+.spec-workflow/
+
+# 上传文件（如果包含敏感数据）
+upload_files/
+
+# macOS
+.DS_Store
+
+# 数据库锁文件
+*.lock
+

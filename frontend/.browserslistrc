@@ -1,0 +1,11 @@
+# 现代浏览器
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions
+last 2 Edge versions
+
+# 不支持太老的浏览器
+not IE 11
+not dead
+> 0.2%
+

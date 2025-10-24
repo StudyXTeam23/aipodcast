@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Transform your content into professional podcasts with EchoCast AI. Upload text, audio, or video and generate studio-quality podcast episodes in minutes. Free trial available." />
+    
+    <!-- 性能优化：预连接到重要的第三方域 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- DNS 预解析 -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <!-- 预加载关键 CSS -->
+    <link rel="preload" href="/src/index.css" as="style" />
+    
+    <title>EchoCast - AI Podcast Platform</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- 移除 defer，模块脚本默认是延迟的 -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

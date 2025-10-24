@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   EchoCast - My Podcasts
+  </title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+   tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#ee8c2b",
+                "background-light": "#fcfaf8",
+                "background-dark": "#221910",
+              },
+              fontFamily: {
+                "display": ["Epilogue", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+  </script>
+<style>
+   .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#1b140d] dark:text-[#f3ede7]">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3ede7] dark:border-b-[#2f261c] px-10 py-3">
+<div class="flex items-center gap-4 text-[#1b140d] dark:text-[#f3ede7]">
+<a class="flex items-center gap-4" href="#">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd">
+</path>
+</svg>
+</div>
+<h2 class="text-[#1b140d] dark:text-[#f3ede7] text-lg font-bold leading-tight tracking-[-0.015em]">
+          EchoCast
+         </h2>
+</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#1b140d] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">
+         Create new podcast
+        </span>
+</button>
+</header>
+<main class="p-10">
+<div class="flex items-center gap-2 mb-8">
+<button class="p-2 rounded-full hover:bg-[#f3ede7] dark:hover:bg-[#2f261c] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">
+          arrow_back
+         </span>
+</button>
+<p class="text-[#1b140d] dark:text-[#f3ede7] text-4xl font-black leading-tight tracking-[-0.033em]">
+         AI in the Modern World
+        </p>
+</div>
+<div class="flex flex-col gap-8">
+<div class="bg-[#f3ede7] dark:bg-[#2f261c] rounded-lg p-6 flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<button class="text-white flex items-center justify-center rounded-full bg-primary shrink-0 size-12 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-4xl">
+            pause
+           </span>
+</button>
+<div class="flex-grow flex flex-col gap-2">
+<div class="w-full bg-[#e4d9ce] dark:bg-[#4d4033] rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 45%">
+</div>
+</div>
+<div class="flex justify-between text-xs text-[#9a734c] font-medium">
+<span>
+             12:45
+            </span>
+<span>
+             27:30
+            </span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-[#e4d9ce] dark:hover:bg-[#4d4033] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">
+             replay_10
+            </span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#e4d9ce] dark:hover:bg-[#4d4033] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">
+             forward_10
+            </span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#e4d9ce] dark:hover:bg-[#4d4033] transition-colors text-[#9a734c] dark:text-[#9a734c] hover:text-[#1b140d] dark:hover:text-[#f3ede7]">
+<span class="material-symbols-outlined">
+             volume_up
+            </span>
+</button>
+</div>
+</div>
+</div>
+<div class="h-96 overflow-y-auto p-6 bg-[#f3ede7] dark:bg-[#2f261c] rounded-lg">
+<div class="flex flex-col gap-4 text-[#1b140d] dark:text-[#f3ede7] leading-relaxed">
+<p>
+           Welcome to "AI in the Modern World." In this episode, we delve into the transformative impact of artificial intelligence on our daily lives, from the smartphones in our pockets to the complex algorithms that power our favorite streaming services.
+          </p>
+<p>
+           First, let's break down what we mean by AI. At its core, artificial intelligence is the simulation of human intelligence in machines, programmed to think like humans and mimic their actions. The term may be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.
+          </p>
+<p>
+           One of the most visible applications of AI is in the realm of personal assistants. Siri, Alexa, and Google Assistant have become household names. They use natural language processing (NLP), a branch of AI, to understand our voice commands and perform a vast array of tasks. From setting reminders to answering trivia questions, these AI-powered companions are constantly learning and evolving.
+          </p>
+<p>
+           But AI's influence extends far beyond our homes. In healthcare, AI algorithms are being used to analyze medical images, detect diseases at earlier stages, and even predict patient outcomes. This has the potential to revolutionize diagnostics and treatment, making healthcare more personalized and effective.
+          </p>
+<p>
+           In the transportation sector, we are on the cusp of a self-driving car revolution. Companies like Tesla, Waymo, and Cruise are leveraging sophisticated AI systems, including computer vision and machine learning, to navigate our roads safely. The implications for road safety, traffic congestion, and accessibility are enormous.
+          </p>
+<p>
+           Of course, with great power comes great responsibility. The rise of AI also raises important ethical questions. We must consider issues of data privacy, algorithmic bias, and the future of work. As AI systems become more autonomous, how do we ensure they align with human values? These are complex challenges that require a multi-disciplinary approach, involving technologists, policymakers, ethicists, and the public.
+          </p>
+<p>
+           Join us in our next segment as we explore the creative side of AI, from AI-generated art and music to its role in storytelling and entertainment. The future is not just intelligent; it's also incredibly creative.
+          </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

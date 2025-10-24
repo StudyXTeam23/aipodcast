@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EchoCast</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @keyframes waveform {
+            0% { transform: scaleY(0.2); }
+            25% { transform: scaleY(1); }
+            50% { transform: scaleY(0.4); }
+            75% { transform: scaleY(0.8); }
+            100% { transform: scaleY(0.2); }
+        }
+        .waveform-bar {
+            animation: waveform 1.5s ease-in-out infinite;
+        }
+    </style>
+<script>tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#607AFB", "accent-pink": "#F72585", "accent-purple": "#7209B7", "accent-lime": "#A0FF0A", "background-light": "#f5f6f8", "background-dark": "#0f1323", "text-light": "#333333", "text-dark": "#F5F5F7", "border-light": "#E0E0E0", "border-dark": "#333333"}, fontFamily: {display: "Epilogue"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+</head>
+<body class="bg-[#FDEFE3] dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
+<div class="relative py-10 text-center bg-white dark:bg-gray-900/50 rounded-3xl overflow-hidden shadow-sm">
+<div class="absolute inset-0 opacity-10 dark:opacity-20">
+<div class="absolute bottom-0 left-0 right-0 h-1/2 flex items-end justify-center space-x-2 p-4">
+<div class="waveform-bar w-2 h-16 bg-primary rounded-full" style="animation-delay: -0.1s;"></div>
+<div class="waveform-bar w-2 h-24 bg-primary rounded-full" style="animation-delay: -0.2s;"></div>
+<div class="waveform-bar w-2 h-12 bg-primary rounded-full" style="animation-delay: -0.3s;"></div>
+<div class="waveform-bar w-2 h-32 bg-primary rounded-full" style="animation-delay: -0.4s;"></div>
+<div class="waveform-bar w-2 h-20 bg-primary rounded-full" style="animation-delay: -0.5s;"></div>
+<div class="waveform-bar w-2 h-16 bg-primary rounded-full" style="animation-delay: -0.6s;"></div>
+<div class="waveform-bar w-2 h-28 bg-primary rounded-full" style="animation-delay: -0.7s;"></div>
+<div class="waveform-bar w-2 h-10 bg-primary rounded-full" style="animation-delay: -0.8s;"></div>
+<div class="waveform-bar w-2 h-24 bg-primary rounded-full" style="animation-delay: -0.9s;"></div>
+<div class="waveform-bar w-2 h-14 bg-primary rounded-full" style="animation-delay: -1.0s;"></div>
+<div class="waveform-bar w-2 h-20 bg-primary rounded-full" style="animation-delay: -0.1s;"></div>
+<div class="waveform-bar w-2 h-32 bg-primary rounded-full" style="animation-delay: -0.2s;"></div>
+<div class="waveform-bar w-2 h-12 bg-primary rounded-full" style="animation-delay: -0.3s;"></div>
+<div class="waveform-bar w-2 h-24 bg-primary rounded-full" style="animation-delay: -0.4s;"></div>
+<div class="waveform-bar w-2 h-16 bg-primary rounded-full" style="animation-delay: -0.5s;"></div>
+<div class="waveform-bar w-2 h-28 bg-primary rounded-full" style="animation-delay: -0.6s;"></div>
+<div class="waveform-bar w-2 h-10 bg-primary rounded-full" style="animation-delay: -0.7s;"></div>
+<div class="waveform-bar w-2 h-20 bg-primary rounded-full" style="animation-delay: -0.8s;"></div>
+<div class="waveform-bar w-2 h-32 bg-primary rounded-full" style="animation-delay: -0.9s;"></div>
+<div class="waveform-bar w-2 h-14 bg-primary rounded-full" style="animation-delay: -1.0s;"></div>
+<div class="waveform-bar w-2 h-16 bg-primary rounded-full" style="animation-delay: -0.1s;"></div>
+<div class="waveform-bar w-2 h-24 bg-primary rounded-full" style="animation-delay: -0.2s;"></div>
+<div class="waveform-bar w-2 h-12 bg-primary rounded-full" style="animation-delay: -0.3s;"></div>
+<div class="waveform-bar w-2 h-32 bg-primary rounded-full" style="animation-delay: -0.4s;"></div>
+<div class="waveform-bar w-2 h-20 bg-primary rounded-full" style="animation-delay: -0.5s;"></div>
+<div class="waveform-bar w-2 h-16 bg-primary rounded-full" style="animation-delay: -0.6s;"></div>
+<div class="waveform-bar w-2 h-28 bg-primary rounded-full" style="animation-delay: -0.7s;"></div>
+<div class="waveform-bar w-2 h-10 bg-primary rounded-full" style="animation-delay: -0.8s;"></div>
+<div class="waveform-bar w-2 h-24 bg-primary rounded-full" style="animation-delay: -0.9s;"></div>
+<div class="waveform-bar w-2 h-14 bg-primary rounded-full" style="animation-delay: -1.0s;"></div>
+<div class="waveform-bar w-2 h-20 bg-primary rounded-full" style="animation-delay: -0.1s;"></div>
+<div class="waveform-bar w-2 h-32 bg-primary rounded-full" style="animation-delay: -0.2s;"></div>
+<div class="waveform-bar w-2 h-12 bg-primary rounded-full" style="animation-delay: -0.3s;"></div>
+<div class="waveform-bar w-2 h-24 bg-primary rounded-full" style="animation-delay: -0.4s;"></div>
+<div class="waveform-bar w-2 h-16 bg-primary rounded-full" style="animation-delay: -0.5s;"></div>
+<div class="waveform-bar w-2 h-28 bg-primary rounded-full" style="animation-delay: -0.6s;"></div>
+<div class="waveform-bar w-2 h-10 bg-primary rounded-full" style="animation-delay: -0.7s;"></div>
+<div class="waveform-bar w-2 h-20 bg-primary rounded-full" style="animation-delay: -0.8s;"></div>
+<div class="waveform-bar w-2 h-32 bg-primary rounded-full" style="animation-delay: -0.9s;"></div>
+<div class="waveform-bar w-2 h-14 bg-primary rounded-full" style="animation-delay: -1.0s;"></div>
+</div>
+</div>
+<div class="relative z-10 px-4 sm:px-6 lg:px-8">
+<h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-purple">
+                            Turn Content into Conversation
+                        </h1>
+<p class="mt-4 text-lg sm:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+                            Upload your article, lecture, or video and let our AI create your next studio-quality podcast episode in minutes.
+                        </p>
+<div class="mt-10 max-w-2xl mx-auto">
+<div class="relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-accent-pink/50 dark:border-accent-pink/70 rounded-2xl bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm hover:border-accent-pink transition-all duration-300 group">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<div class="flex space-x-6 mb-4 text-gray-400 group-hover:text-accent-purple transition-colors duration-300">
+<span class="material-symbols-outlined text-5xl transform group-hover:scale-110 transition-transform duration-300">description</span>
+<span class="material-symbols-outlined text-5xl transform group-hover:scale-110 transition-transform duration-300">audiotrack</span>
+<span class="material-symbols-outlined text-5xl transform group-hover:scale-110 transition-transform duration-300">videocam</span>
+</div>
+<p class="mb-2 text-base font-semibold text-gray-500 dark:text-gray-400"><span class="text-accent-purple">Click to upload</span> or drag and drop</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Any text, audio, or video file</p>
+</div>
+<input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="dropzone-file" type="file"/>
+</div>
+</div>
+</div>
+</div>
+<div class="py-16 bg-white dark:bg-background-dark rounded-2xl my-10 shadow-sm">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+<div class="flex flex-col items-center p-4">
+<div class="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-accent-pink to-accent-purple mb-5 shadow-lg transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-white">record_voice_over</span>
+</div>
+<h3 class="text-xl font-bold mb-2">AI-Powered Voices</h3>
+<p class="text-gray-600 dark:text-gray-300">Our AI-generated voices are natural and engaging, making your podcast sound professional.</p>
+</div>
+<div class="flex flex-col items-center p-4">
+<div class="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary to-blue-300 mb-5 shadow-lg transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-white">collections_bookmark</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Multi-Format Support</h3>
+<p class="text-gray-600 dark:text-gray-300">Upload text, audio, or video files and we'll handle the rest.</p>
+</div>
+<div class="flex flex-col items-center p-4">
+<div class="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-accent-lime to-green-400 mb-5 shadow-lg transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-gray-800">rocket_launch</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Instant Conversion</h3>
+<p class="text-gray-600 dark:text-gray-300">Go from content to podcast in minutes with our fast and efficient conversion process.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="py-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-4xl font-extrabold text-center mb-12">How It Works</h2>
+<div class="relative">
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-accent-pink via-primary to-accent-lime rounded-full -translate-y-1/2 opacity-30"></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+<div class="flex flex-col items-center text-center">
+<div class="flex items-center justify-center h-24 w-24 rounded-full bg-white dark:bg-gray-800 mb-4 border-4 border-accent-pink shadow-xl relative">
+<span class="material-symbols-outlined text-5xl text-accent-pink">upload_file</span>
+<div class="absolute -top-3 -right-3 h-8 w-8 bg-accent-pink text-white font-bold text-lg rounded-full flex items-center justify-center">1</div>
+</div>
+<h3 class="text-xl font-bold mb-2">Upload Your Content</h3>
+<p class="text-gray-600 dark:text-gray-300">Drag and drop any text, audio, or video file to get started.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="flex items-center justify-center h-24 w-24 rounded-full bg-white dark:bg-gray-800 mb-4 border-4 border-primary shadow-xl relative">
+<span class="material-symbols-outlined text-5xl text-primary">model_training</span>
+<div class="absolute -top-3 -right-3 h-8 w-8 bg-primary text-white font-bold text-lg rounded-full flex items-center justify-center">2</div>
+</div>
+<h3 class="text-xl font-bold mb-2">AI Transforms</h3>
+<p class="text-gray-600 dark:text-gray-300">Our AI analyzes and converts your content into a high-quality podcast.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="flex items-center justify-center h-24 w-24 rounded-full bg-white dark:bg-gray-800 mb-4 border-4 border-accent-lime shadow-xl relative">
+<span class="material-symbols-outlined text-5xl text-accent-lime">download_for_offline</span>
+<div class="absolute -top-3 -right-3 h-8 w-8 bg-accent-lime text-gray-800 font-bold text-lg rounded-full flex items-center justify-center">3</div>
+</div>
+<h3 class="text-xl font-bold mb-2">Download &amp; Share</h3>
+<p class="text-gray-600 dark:text-gray-300">Download your podcast and share it with your audience.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="py-16 max-w-3xl mx-auto">
+<h2 class="text-4xl font-extrabold text-center mb-8">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<details class="group bg-white dark:bg-gray-800 p-6 rounded-xl border border-transparent hover:border-primary transition-all shadow-sm">
+<summary class="flex items-center justify-between cursor-pointer list-none">
+<h3 class="text-lg font-semibold">What is EchoCast?</h3>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="mt-4 text-gray-600 dark:text-gray-300">EchoCast is an AI-powered platform that transforms your existing content into high-quality podcasts.</p>
+</details>
+<details class="group bg-white dark:bg-gray-800 p-6 rounded-xl border border-transparent hover:border-primary transition-all shadow-sm">
+<summary class="flex items-center justify-between cursor-pointer list-none">
+<h3 class="text-lg font-semibold">What file formats do you support?</h3>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="mt-4 text-gray-600 dark:text-gray-300">We support a wide range of formats including .txt, .pdf, .doc, .mp3, .wav, .mp4, and .mov.</p>
+</details>
+<details class="group bg-white dark:bg-gray-800 p-6 rounded-xl border border-transparent hover:border-primary transition-all shadow-sm">
+<summary class="flex items-center justify-between cursor-pointer list-none">
+<h3 class="text-lg font-semibold">Is there a free trial?</h3>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="mt-4 text-gray-600 dark:text-gray-300">Yes, we offer a free trial that allows you to convert up to 10 minutes of content to see how EchoCast works.</p>
+</details>
+<details class="group bg-white dark:bg-gray-800 p-6 rounded-xl border border-transparent hover:border-primary transition-all shadow-sm">
+<summary class="flex items-center justify-between cursor-pointer list-none">
+<h3 class="text-lg font-semibold">How do you ensure data privacy?</h3>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<p class="mt-4 text-gray-600 dark:text-gray-300">We take data privacy seriously. Your uploaded files are encrypted and processed securely. We do not store your content after conversion unless you explicitly choose to save it.</p>
+</details>
+</div>
+</div>
+<footer class="py-10 text-center border-t border-border-light dark:border-border-dark mt-10">
+<div class="flex justify-center gap-6 mb-4">
+<a class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors" href="#">Contact Us</a>
+</div>
+<div class="flex justify-center gap-6 mb-4">
+<a class="text-gray-500 dark:text-gray-400 hover:text-accent-pink transition-colors" href="#"><svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg></a>
+<a class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors" href="#"><svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg></a>
+<a class="text-gray-500 dark:text-gray-400 hover:text-accent-purple transition-colors" href="#"><svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.585.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"></path></svg></a>
+</div>
+<p class="text-gray-500 dark:text-gray-400">© 2023 EchoCast. All rights reserved.</p>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</body></html>
