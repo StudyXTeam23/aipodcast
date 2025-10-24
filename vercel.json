@@ -3,12 +3,6 @@
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install --prefix frontend",
   "framework": "vite",
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://echocast.genstudy.ai/api/:path*"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
