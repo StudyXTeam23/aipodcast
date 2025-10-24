@@ -78,6 +78,63 @@ export const podcastAPI = {
   generate: async (data) => {
     return api.post('/api/v1/podcasts/generate', data);
   },
+
+  // AI 分析并生成播客（从音频/视频文件）
+  analyzeAndGenerate: async (file, options = {}) => {
+    // 先上传文件获取 S3 key
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const uploadResponse = await api.post('/api/v1/podcasts/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: options.onUploadProgress,
+    });
+
+    // 等待上传任务完成，获取 S3 key
+    const jobId = uploadResponse.job_id;
+    const podcastId = uploadResponse.podcast_id;
+    
+    // 轮询等待上传完成
+    let attempts = 0;
+    const maxAttempts = 60; // 最多等待60秒
+    
+    while (attempts < maxAttempts) {
+      const jobStatus = await api.get(`/api/v1/jobs/${jobId}`);
+      
+      if (jobStatus.status === 'completed') {
+        // 获取上传的文件的 S3 key
+        const podcastDetail = await api.get(`/api/v1/podcasts/${podcastId}`);
+        const s3Key = podcastDetail.audio_s3_key || podcastDetail.s3_key;
+        
+        if (!s3Key) {
+          throw new Error('Failed to get S3 key from uploaded file');
+        }
+        
+        // 确定文件类型
+        const fileType = file.type;
+        const sourceType = fileType.startsWith('video/') ? 'video' : 'audio';
+        
+        // 调用 analyze-and-generate API
+        return api.post('/api/v1/podcasts/analyze-and-generate', {
+          file_s3_key: s3Key,
+          source_type: sourceType,
+          enhancement_prompt: options.enhancementPrompt || '',
+          style: options.style || 'Conversation',
+          duration_minutes: options.durationMinutes || 5,
+          language: options.language || 'en',
+        });
+      } else if (jobStatus.status === 'failed') {
+        throw new Error('File upload failed');
+      }
+      
+      attempts++;
+      await new Promise(resolve => setTimeout(resolve, 1000)); // 等待1秒
+    }
+    
+    throw new Error('Upload timeout');
+  },
 };
 
 export default api;
