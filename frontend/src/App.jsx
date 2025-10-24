@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 // 首页直接导入（关键路径）
 import LandingPage from './pages/LandingPage';
@@ -39,6 +40,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </Router>
   );
 }

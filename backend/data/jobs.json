@@ -459,6 +459,202 @@
       "created_at": "2025-10-23T08:27:12.492667",
       "updated_at": "2025-10-23T08:28:51.938565",
       "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "b74958b5-008d-4750-a0b5-632caa1ff992",
+      "podcast_id": "a10a9514-d3d1-43fb-a88e-c49702011bc1",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/25b77cd4-0502-49a2-aaec-be5ceb056728.mp3",
+      "created_at": "2025-10-24T07:15:12.551455",
+      "updated_at": "2025-10-24T07:15:13.929188",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "0e5e87f9-9826-4a92-9532-9af9c8381269",
+      "podcast_id": "85a75fb2-cf98-41c6-b3c7-46b118426280",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "test_key",
+        "source_type": "audio",
+        "enhancement_prompt": "关注教育内容和学习要点",
+        "style": "Conversation",
+        "duration_minutes": 3,
+        "language": "en"
+      },
+      "status": "failed",
+      "progress": 5,
+      "created_at": "2025-10-24T07:15:43.966013",
+      "updated_at": "2025-10-24T07:15:44.237338",
+      "status_message": "❌ 生成失败: 从 S3 下载文件失败: test_key",
+      "error_message": "从 S3 下载文件失败: test_key"
+    },
+    {
+      "id": "c2a34b73-4968-4702-b72a-610a6b9c4980",
+      "podcast_id": "f44c3b75-197b-4ddb-b3e9-50c29f10d063",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/4f52c1aa-1a1c-4f1b-945e-571899be4015.mp3",
+      "created_at": "2025-10-24T07:17:15.995563",
+      "updated_at": "2025-10-24T07:17:18.554100",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "2db241de-741e-4578-acdf-95c12a0eca53",
+      "podcast_id": "c2d585c8-2677-498e-b40e-a6737cd3a6cd",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/4f52c1aa-1a1c-4f1b-945e-571899be4015.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "Focus on educational content and AP Biology exam preparation",
+        "style": "Conversation",
+        "duration_minutes": 3,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-24T07:20:05.546767",
+      "updated_at": "2025-10-24T07:21:48.865562",
+      "status_message": "🎉 播客生成成功！时长 165 秒"
+    },
+    {
+      "id": "2af27580-bf0c-4eac-91c7-3a9ed1506cf2",
+      "podcast_id": "097496c7-0d61-45ed-977e-9323b2eb3c6f",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/4f52c1aa-1a1c-4f1b-945e-571899be4015.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "Focus on key takeaways",
+        "style": "Conversation",
+        "duration_minutes": 3,
+        "language": "en"
+      },
+      "status": "failed",
+      "progress": 5,
+      "created_at": "2025-10-24T07:50:50.705253",
+      "updated_at": "2025-10-24T07:50:51.206344",
+      "status_message": "❌ 生成失败: 从 S3 下载文件失败: uploads/4f52c1aa-1a1c-4f1b-945e-571899be4015.mp3",
+      "error_message": "从 S3 下载文件失败: uploads/4f52c1aa-1a1c-4f1b-945e-571899be4015.mp3"
+    },
+    {
+      "id": "6d5bed81-a1c1-4b73-ba2b-10456e94e5fe",
+      "podcast_id": "3369b4b6-4afe-4829-8873-48d836da461b",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/06c7c8ef-fcf5-4a5c-bef0-774b63c93312.mp3",
+      "created_at": "2025-10-24T07:54:20.829514",
+      "updated_at": "2025-10-24T07:54:22.313633",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "40560138-4905-4e9b-8c5e-60dcb6cc52bc",
+      "podcast_id": "cb5c2305-e554-4c39-97b6-d2450e90291d",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/524cb98e-687b-42fd-a2ca-f0afd885d3b0.pdf",
+      "created_at": "2025-10-24T08:10:01.781959",
+      "updated_at": "2025-10-24T08:11:30.716761",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "c9636d06-54ee-478f-b7d1-f3793eb2288e",
+      "podcast_id": "f342e8fa-9aa0-47ff-b892-a3a69ef0e8a6",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/7e491b09-ccf6-44e8-8f51-088f40ac52be.mp3",
+      "created_at": "2025-10-24T08:40:42.910207",
+      "updated_at": "2025-10-24T08:41:00.518015",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "0705f29e-68af-42fb-a825-0f172af365cc",
+      "podcast_id": "b714309a-006c-4c6b-a776-ce55a6730264",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/bbd2a9dc-d6dd-4e7f-825b-80251b8170d1.mp3",
+      "created_at": "2025-10-24T08:48:11.548059",
+      "updated_at": "2025-10-24T08:48:27.047727",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "0751ae94-888d-4f06-a03c-14e2d95ba576",
+      "podcast_id": "1957ae67-035d-4063-b568-75109a073472",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/bbd2a9dc-d6dd-4e7f-825b-80251b8170d1.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-24T08:48:28.164895",
+      "updated_at": "2025-10-24T08:50:49.645191",
+      "status_message": "🎉 播客生成成功！时长 175 秒"
+    },
+    {
+      "id": "d86b0d36-c8d5-44a7-b149-d386c4849777",
+      "podcast_id": "0e89b341-8d6d-4bb1-a239-32c4d5e0a709",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/3570fd1c-d807-4b45-84c8-273d9471a1a8.mp3",
+      "created_at": "2025-10-24T09:07:05.223934",
+      "updated_at": "2025-10-24T09:07:10.108399",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "53b2a98e-c03f-4fde-9d7a-5a294c65c74b",
+      "podcast_id": "e4ae6971-e0d6-4fcf-9793-9f34d2148b59",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/3570fd1c-d807-4b45-84c8-273d9471a1a8.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-24T09:07:11.848745",
+      "updated_at": "2025-10-24T09:09:20.531513",
+      "status_message": "🎉 播客生成成功！时长 183 秒"
+    },
+    {
+      "id": "5ed82f53-51c2-4b54-a93d-97f109134ef6",
+      "podcast_id": "4a75da4c-e397-43c9-b7ff-0c6b133f6d80",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/d76c5c8b-2304-4538-9336-7d903561c8bb.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-24T09:16:01.935537",
+      "updated_at": "2025-10-24T09:18:33.257852",
+      "status_message": "🎉 播客生成成功！时长 182 秒"
+    },
+    {
+      "id": "d664fd68-0873-485d-93ac-12af0fa471b4",
+      "podcast_id": "0282568c-bf45-4295-b76a-fb6c5255136b",
+      "type": "generate",
+      "inputs": {
+        "topic": "steve curry vs lebron legacy competition",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-24T09:20:07.572925",
+      "updated_at": "2025-10-24T09:23:36.918210",
+      "status_message": "💾 保存播客信息..."
     }
   ]
 }
