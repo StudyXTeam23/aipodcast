@@ -163,6 +163,8 @@ async def get_podcasts(
     - **limit**: 每页数量（1-100）
     - **search**: 搜索关键词（匹配标题）
     """
+    from fastapi.responses import JSONResponse
+    
     try:
         # 读取所有播客
         all_podcasts = data_service.read_podcasts()
@@ -193,7 +195,15 @@ async def get_podcasts(
                 # 使用完整的后端流式播放 URL（支持 Vercel 等跨域部署）
                 podcast["audio_url"] = f"{settings.api_domain}/api/v1/podcasts/{podcast['id']}/stream"
         
-        return podcasts
+        # 返回带缓存控制头的响应，避免浏览器缓存动态内容
+        return JSONResponse(
+            content=podcasts,
+            headers={
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0"
+            }
+        )
     
     except Exception as e:
         print(f"❌ 获取播客列表异常: {e}")
@@ -210,6 +220,8 @@ async def get_podcast(podcast_id: str):
     
     - **podcast_id**: 播客ID
     """
+    from fastapi.responses import JSONResponse
+    
     podcast = data_service.get_podcast(podcast_id)
     
     if not podcast:
@@ -224,7 +236,15 @@ async def get_podcast(podcast_id: str):
         from app.config import settings
         podcast["audio_url"] = f"{settings.api_domain}/api/v1/podcasts/{podcast_id}/stream"
     
-    return podcast
+    # 返回带缓存控制头的响应，避免浏览器缓存动态内容
+    return JSONResponse(
+        content=podcast,
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
+    )
 
 
 @router.delete("/{podcast_id}")
