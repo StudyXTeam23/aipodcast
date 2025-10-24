@@ -181,6 +181,24 @@ aipodcast/
 - Swagger UI: `http://localhost:18188/docs`
 - ReDoc: `http://localhost:18188/redoc`
 
+## Vercel 部署
+
+### 自动部署
+项目已配置 Vercel 自动部署，每次推送到 `main` 分支会自动触发部署。
+
+### 配置说明
+- **构建命令**: `cd frontend && npm install && npm run build`
+- **输出目录**: `frontend/dist`
+- **API 代理**: `/api/*` 自动代理到 `https://echocast.genstudy.ai/api/*`
+
+### 环境变量
+Vercel 部署时会自动使用以下环境变量：
+- `VITE_API_BASE_URL=https://echocast.genstudy.ai`
+
+### 查看部署
+- Vercel 部署地址: https://vercel.com/study-x-inc/aipodcast
+- 生产域名将在部署成功后显示
+
 ## 环境变量说明
 
 ### 后端环境变量（`.env`）
