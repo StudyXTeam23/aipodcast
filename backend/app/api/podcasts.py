@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 import io
 
-from app.schemas.podcast import UploadResponse, ApiResponse, PodcastResponse, GenerateRequest
+from app.schemas.podcast import UploadResponse, ApiResponse, PodcastResponse, GenerateRequest, AnalyzeAndGenerateRequest
 from app.services.data_service import data_service
 from app.utils.s3_storage import s3_storage
 from app.config import settings
@@ -482,3 +482,102 @@ async def generate_podcast(request: GenerateRequest):
             detail=f"AI生成播客失败: {str(e)}"
         )
 
+
+
+@router.post("/analyze-and-generate", response_model=UploadResponse)
+async def analyze_and_generate_podcast(request: AnalyzeAndGenerateRequest):
+    """
+    从音频/视频文件分析并生成播客
+    
+    从已上传的音频/视频文件中提取内容，分析后生成新的播客。
+    该端点结合了内容分析和 AI 生成功能。
+    
+    - **file_s3_key**: 已上传文件的 S3 key
+    - **enhancement_prompt**: 可选的增强提示（指导 AI 关注特定方面）
+    - **source_type**: 源文件类型（audio 或 video）
+    - **style**: 播客风格（单人脱口秀/双人对话/故事叙述）
+    - **duration_minutes**: 目标时长（3-15分钟）
+    - **language**: 播客语言（en/zh）
+    """
+    try:
+        # 1. 验证 S3 key 存在
+        print(f"🎬 开始从文件生成播客...")
+        print(f"   S3 Key: {request.file_s3_key}")
+        print(f"   源类型: {request.source_type}")
+        
+        # 验证源类型
+        if request.source_type not in ["audio", "video"]:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="源类型必须是 'audio' 或 'video'"
+            )
+        
+        # 2. 创建 podcast 和 job 记录
+        podcast_id = str(uuid.uuid4())
+        job_id = str(uuid.uuid4())
+        
+        # 从 S3 key 中提取原始文件名
+        original_filename = Path(request.file_s3_key).name
+        title = f"AI分析-{original_filename[:30]}..."
+        
+        # 保存 podcast 记录
+        podcast_data = {
+            "id": podcast_id,
+            "title": title,
+            "original_filename": original_filename,
+            "status": "processing"
+        }
+        
+        success = data_service.save_podcast(podcast_data)
+        if not success:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="保存播客记录失败"
+            )
+        
+        # 保存 job 记录（包含 type 和 inputs）
+        job_data = {
+            "id": job_id,
+            "podcast_id": podcast_id,
+            "type": "analyze_generate",  # 新类型：分析并生成
+            "inputs": {
+                "file_s3_key": request.file_s3_key,
+                "source_type": request.source_type,
+                "enhancement_prompt": request.enhancement_prompt,
+                "style": request.style,
+                "duration_minutes": request.duration_minutes,
+                "language": request.language
+            },
+            "status": "pending",
+            "progress": 0
+        }
+        
+        success = data_service.save_job(job_data)
+        if not success:
+            # 回滚
+            data_service.delete_podcast(podcast_id)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="保存任务记录失败"
+            )
+        
+        # 3. 启动后台分析和生成任务
+        from app.tasks.process_podcast import start_analyze_generate_task
+        start_analyze_generate_task(podcast_id, job_id, request.file_s3_key)
+        
+        # 4. 返回响应
+        return UploadResponse(
+            podcast_id=podcast_id,
+            job_id=job_id,
+            status="processing",
+            message=f"正在分析并生成播客：{title}"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ 分析生成播客异常: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"分析生成播客失败: {str(e)}"
+        )
