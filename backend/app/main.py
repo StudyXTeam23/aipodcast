@@ -18,10 +18,12 @@ app = FastAPI(
 app.include_router(podcasts.router)
 app.include_router(jobs.router)
 
-# 配置 CORS
+# 配置 CORS - 明确列出所有允许的域名，避免使用regex和列表混用导致重复
+# 注意：不要同时使用 allow_origins 和 allow_origin_regex，会导致CORS头重复
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        # 本地开发环境
         "http://localhost:3000",
         "http://localhost:3003",
         "http://localhost:5173",
@@ -30,11 +32,14 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://13.52.175.51:3003",
         "http://172.31.1.167:3003",
-        # Production domain
+        # 生产域名
         "https://echocast.genstudy.ai",
         "http://echocast.genstudy.ai",
+        # Vercel 部署域名 - 明确列出而不是使用regex
+        "https://aipodcast.vercel.app",
+        "https://aipodcast-git-kimidev-study-x-inc.vercel.app",
+        "https://aipodcast-study-x-inc.vercel.app",
     ],
-    allow_origin_regex=r"https://.*\.vercel\.app",  # 允许所有 Vercel 部署域名
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
