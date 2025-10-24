@@ -504,13 +504,132 @@ async def generate_podcast(request: GenerateRequest):
 
 
 
+@router.post("/analyze-and-generate-direct", response_model=UploadResponse)
+async def analyze_and_generate_direct(
+    file: UploadFile = File(...),
+    style: str = Query("Conversation", description="播客风格"),
+    duration_minutes: int = Query(5, ge=3, le=15, description="目标时长"),
+    language: str = Query("en", description="播客语言"),
+    enhancement_prompt: str = Query("", description="增强提示")
+):
+    """
+    直接上传音频/视频文件并分析生成播客（推荐使用）
+    
+    一步完成：上传文件 + AI分析 + 生成播客，不会在library中留下临时记录
+    
+    - **file**: 音频或视频文件
+    - **style**: 播客风格（Conversation/Storytelling/Solo）
+    - **duration_minutes**: 目标时长（3-15分钟）
+    - **language**: 播客语言（en/zh）
+    - **enhancement_prompt**: 可选的增强提示
+    """
+    try:
+        # 1. 验证文件
+        is_valid, error_msg = validate_file(file)
+        if not is_valid:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=error_msg
+            )
+        
+        # 2. 上传文件到 S3（临时存储）
+        file_content = await file.read()
+        file_obj = io.BytesIO(file_content)
+        
+        s3_key = s3_storage.upload_file(
+            file_obj=file_obj,
+            original_filename=file.filename,
+            prefix="uploads",
+            content_type=file.content_type
+        )
+        
+        if not s3_key:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="文件上传到 S3 失败"
+            )
+        
+        # 3. 确定文件类型
+        source_type = "video" if file.content_type.startswith("video/") else "audio"
+        
+        # 4. 创建 podcast 和 job 记录
+        podcast_id = str(uuid.uuid4())
+        job_id = str(uuid.uuid4())
+        
+        # 使用临时标题（会在处理后更新为AI生成的标题）
+        title = f"Processing: {file.filename[:40]}..."
+        
+        podcast_data = {
+            "id": podcast_id,
+            "title": title,
+            "original_filename": file.filename,
+            "status": "processing"
+        }
+        
+        success = data_service.save_podcast(podcast_data)
+        if not success:
+            s3_storage.delete_file(s3_key)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="保存播客记录失败"
+            )
+        
+        # 5. 创建任务记录
+        job_data = {
+            "id": job_id,
+            "podcast_id": podcast_id,
+            "type": "analyze_generate",
+            "inputs": {
+                "file_s3_key": s3_key,
+                "source_type": source_type,
+                "enhancement_prompt": enhancement_prompt,
+                "style": style,
+                "duration_minutes": duration_minutes,
+                "language": language
+            },
+            "status": "pending",
+            "progress": 0
+        }
+        
+        success = data_service.save_job(job_data)
+        if not success:
+            data_service.delete_podcast(podcast_id)
+            s3_storage.delete_file(s3_key)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="保存任务记录失败"
+            )
+        
+        # 6. 启动后台分析和生成任务
+        from app.tasks.process_podcast import start_analyze_generate_task
+        start_analyze_generate_task(podcast_id, job_id, s3_key)
+        
+        return UploadResponse(
+            podcast_id=podcast_id,
+            job_id=job_id,
+            status="processing",
+            message=f"正在分析并生成播客：{file.filename}"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ 直接分析生成失败: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"处理失败: {str(e)}"
+        )
+
+
 @router.post("/analyze-and-generate", response_model=UploadResponse)
 async def analyze_and_generate_podcast(request: AnalyzeAndGenerateRequest):
     """
-    从音频/视频文件分析并生成播客
+    从音频/视频文件分析并生成播客（旧接口，需要先上传获取S3 key）
     
     从已上传的音频/视频文件中提取内容，分析后生成新的播客。
     该端点结合了内容分析和 AI 生成功能。
+    
+    推荐使用 /analyze-and-generate-direct 直接上传文件
     
     - **file_s3_key**: 已上传文件的 S3 key
     - **enhancement_prompt**: 可选的增强提示（指导 AI 关注特定方面）
