@@ -710,7 +710,41 @@ def analyze_generate_podcast_background(podcast_id: str, job_id: str, s3_key: st
         
         print(f"✅ 上传成功！S3 Key: {audio_s3_key}")
         
-        # 6. 更新播客记录
+        # 6. 生成有意义的标题
+        print("\n📝 生成播客标题...")
+        generated_title = None
+        try:
+            # 使用summary和topics生成简洁的标题
+            title_prompt = f"""Based on this podcast summary, create a concise, engaging title (max 60 characters):
+
+Summary: {summary[:300]}
+Topics: {', '.join(topics[:3])}
+
+Title should be:
+- Clear and descriptive
+- Professional and engaging
+- Maximum 60 characters
+- No quotes or special formatting
+
+Title:"""
+            
+            generated_title = ai_service._call_gemini_api(title_prompt, temperature=0.7, max_tokens=50)
+            if generated_title:
+                # 清理标题（去除引号、换行等）
+                generated_title = generated_title.strip().strip('"').strip("'").replace('\n', ' ')
+                # 限制长度
+                if len(generated_title) > 60:
+                    generated_title = generated_title[:57] + "..."
+                print(f"✅ 标题生成成功: {generated_title}")
+        except Exception as e:
+            print(f"⚠️  标题生成失败，使用备用标题: {e}")
+            # 备用标题：使用第一个主题或摘要
+            if topics:
+                generated_title = f"{topics[0][:57]}..." if len(topics[0]) > 60 else topics[0]
+            elif summary:
+                generated_title = f"{summary[:57]}..." if len(summary) > 60 else summary
+        
+        # 7. 更新播客记录
         podcast_update = {
             "status": "completed",
             "audio_s3_key": audio_s3_key,
@@ -718,6 +752,10 @@ def analyze_generate_podcast_background(podcast_id: str, job_id: str, s3_key: st
             "duration_seconds": duration_seconds,
             "file_size_bytes": len(audio_data)
         }
+        
+        # 如果成功生成标题，更新标题
+        if generated_title:
+            podcast_update["title"] = generated_title
         
         data_service.update_podcast(podcast_id, podcast_update)
         
