@@ -91,6 +91,50 @@ class S3Storage:
             print(f"❌ 上传异常: {e}")
             return None
     
+    def upload_file_with_key(
+        self,
+        file_data: bytes,
+        key: str,
+        content_type: Optional[str] = "audio/mpeg"
+    ) -> bool:
+        """
+        上传文件到指定的 S3 键（不生成随机文件名）
+        
+        Args:
+            file_data: 文件数据（字节）
+            key: 完整的 S3 对象键
+            content_type: 文件 MIME 类型
+        
+        Returns:
+            是否上传成功
+        """
+        try:
+            # 准备上传参数
+            upload_args = {
+                'Bucket': self.bucket,
+                'Key': key,
+                'Body': file_data
+            }
+            
+            if content_type:
+                upload_args['ContentType'] = content_type
+            
+            # 上传文件
+            self.s3_client.put_object(**upload_args)
+            
+            print(f"✅ 文件上传成功: s3://{self.bucket}/{key}")
+            return True
+        
+        except NoCredentialsError:
+            print("❌ AWS 凭证错误")
+            return False
+        except ClientError as e:
+            print(f"❌ S3 上传失败: {e}")
+            return False
+        except Exception as e:
+            print(f"❌ 上传异常: {e}")
+            return False
+    
     def download_file(self, key: str) -> Optional[bytes]:
         """
         从 S3 下载文件

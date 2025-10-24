@@ -703,7 +703,7 @@ def analyze_generate_podcast_background(podcast_id: str, job_id: str, s3_key: st
         # 5. 上传到 S3
         print("\n☁️  步骤 5/5: 上传到 S3...")
         audio_s3_key = f"podcasts/{podcast_id}.mp3"
-        success = s3_storage.upload_file(audio_data, audio_s3_key)
+        success = s3_storage.upload_file_with_key(audio_data, audio_s3_key, content_type="audio/mpeg")
         
         if not success:
             raise Exception("音频上传 S3 失败")
