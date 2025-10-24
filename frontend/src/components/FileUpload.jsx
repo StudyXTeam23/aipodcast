@@ -8,7 +8,6 @@ const FileUpload = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
   const [processingStatus, setProcessingStatus] = useState('');
-  const [useAIAnalysis, setUseAIAnalysis] = useState(false);
   const fileInputRef = useRef(null);
   const pollIntervalRef = useRef(null);
   const navigate = useNavigate();
@@ -111,11 +110,11 @@ const FileUpload = () => {
     setUploadProgress(0);
 
     try {
-      // 检查是否是音频/视频文件，且用户选择了 AI 分析
+      // 自动检测：音频/视频文件使用 AI 分析生成，文档文件使用原有流程
       const isMediaFile = file.type.startsWith('audio/') || file.type.startsWith('video/');
       
-      if (isMediaFile && useAIAnalysis) {
-        // 使用 AI 分析并生成新播客
+      if (isMediaFile) {
+        // 音频/视频：使用 AI 分析并生成新播客
         setProcessingStatus('Uploading and analyzing with AI...');
         
         const response = await podcastAPI.analyzeAndGenerate(file, {
@@ -137,7 +136,7 @@ const FileUpload = () => {
           throw new Error('Invalid response format');
         }
       } else {
-        // 普通上传流程
+        // 文档：普通上传流程
         setProcessingStatus('Uploading...');
         
         const response = await podcastAPI.upload(file, (progressEvent) => {
@@ -197,22 +196,6 @@ const FileUpload = () => {
 
   return (
     <div className="mt-10 max-w-2xl mx-auto min-h-[320px]">
-      {/* AI Analysis Toggle */}
-      <div className="mb-4 flex items-center justify-center">
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={useAIAnalysis}
-            onChange={(e) => setUseAIAnalysis(e.target.checked)}
-            disabled={uploading}
-            className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary dark:focus:ring-primary dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-            🤖 Use AI to analyze and generate podcast from audio/video
-          </span>
-        </label>
-      </div>
-
       <div
         className={`relative flex flex-col items-center justify-center w-full h-64 min-h-[256px] border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer ${
           isDragging
