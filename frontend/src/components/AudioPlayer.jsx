@@ -136,6 +136,13 @@ const AudioPlayer = ({ audioUrl }) => {
 
     const newTime = audio.currentTime + seconds;
     const maxTime = duration > 0 ? duration : audio.duration;
+    
+    // 检查 maxTime 是否有效
+    if (!isFinite(maxTime) || maxTime <= 0) {
+      console.warn('Cannot skip: audio duration not available');
+      return;
+    }
+    
     audio.currentTime = Math.max(0, Math.min(maxTime, newTime));
     setCurrentTime(audio.currentTime);
   };

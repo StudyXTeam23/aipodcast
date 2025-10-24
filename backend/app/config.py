@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     # 应用配置
     app_name: str = "EchoCast API"
     api_port: int = 18188
+    api_domain: str = "https://echocast.genstudy.ai"  # API 域名（用于生成完整 URL）
     debug: bool = True
     
     # AWS S3 配置

@@ -219,8 +219,9 @@ async def get_podcast(podcast_id: str):
     
     # 如果有音频文件，使用流式播放 URL
     if podcast.get("audio_s3_key"):
-        # 使用后端流式播放端点
-        podcast["audio_url"] = f"/api/v1/podcasts/{podcast_id}/stream"
+        # 使用完整的后端流式播放 URL（支持 Vercel 等跨域部署）
+        from app.config import settings
+        podcast["audio_url"] = f"{settings.api_domain}/api/v1/podcasts/{podcast_id}/stream"
     
     return podcast
 
