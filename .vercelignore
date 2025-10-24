@@ -1,0 +1,11 @@
+.git/
+backend/
+workflow_note/
+upload_files/
+.spec-workflow/
+.env
+.env.*
+!frontend/.env.production
+stitch_echocast_landing_page/
+*.sh
+echocast.service
