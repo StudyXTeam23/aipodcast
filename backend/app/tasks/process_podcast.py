@@ -898,8 +898,9 @@ def youtube_generate_podcast_background(podcast_id: str, job_id: str, youtube_ur
             "status_message": "📝 正在创作播客脚本..."
         })
         
-        # 构建 AI 提示词
-        topic_prompt = f"""基于以下 YouTube 视频内容创作播客：
+        # 构建 AI 提示词（根据语言动态生成）
+        if language == "zh":
+            topic_prompt = f"""基于以下 YouTube 视频内容创作播客：
 
 视频标题：{youtube_metadata.get('title', 'Unknown')}
 
@@ -916,9 +917,28 @@ def youtube_generate_podcast_background(podcast_id: str, job_id: str, youtube_ur
 {transcript[:1000]}...
 
 """
-        
-        if enhancement_prompt:
-            topic_prompt += f"\n特别关注：{enhancement_prompt}\n"
+            if enhancement_prompt:
+                topic_prompt += f"\n特别关注：{enhancement_prompt}\n"
+        else:  # English
+            topic_prompt = f"""Create a podcast based on the following YouTube video content:
+
+Video Title: {youtube_metadata.get('title', 'Unknown')}
+
+Content Summary:
+{summary}
+
+Key Topics:
+{', '.join(topics)}
+
+Core Insights:
+{', '.join(insights)}
+
+Original Content (Excerpt):
+{transcript[:1000]}...
+
+"""
+            if enhancement_prompt:
+                topic_prompt += f"\nSpecial Focus: {enhancement_prompt}\n"
         
         # 使用 AI 服务生成播客脚本
         script = ai_service.generate_script_from_topic(

@@ -107,18 +107,6 @@
       "duration_seconds": 155
     },
     {
-      "id": "e4ae6971-e0d6-4fcf-9793-9f34d2148b59",
-      "title": "Porter: The Better Way to Fly",
-      "original_filename": "3570fd1c-d807-4b45-84c8-273d9471a1a8.mp3",
-      "status": "completed",
-      "created_at": "2025-10-24T09:07:11.847119",
-      "updated_at": "2025-10-24T09:09:20.530247",
-      "audio_s3_key": "podcasts/e4ae6971-e0d6-4fcf-9793-9f34d2148b59.mp3",
-      "transcript": "Mike: Hey everyone, and welcome back to Travel Talk! I'm Mike, and I have a feeling many of you can relate to what I’m about to say. Let's talk about flying. For so many of us, it’s become… well, let's just say a bit of a chore, right? A whole lot of sheer misery before you even get off the ground.\n\nSarah: Hi there! I'm Sarah, and oh Mike, you are hitting the nail on the head. Absolutely. From battling traffic to the airport, to the endless queues and that unmistakable 'cattle car' feeling once you're onboard… it’s enough to make anyone dread their next trip.\n\nMike: It really is! But what if I told you there’s an airline that’s actually… dare I say it… pleasant to fly with? We're talking about Porter Airlines, and they might just be the antidote to your air travel woes.\n\nSarah: That's a bold claim, Mike! But I'm intrigued. So, tell us, what’s so different about Porter? Because for me, the general experience of flying these days feels like a constant uphill battle.\n\nMike: Exactly, Sarah! You know, I've spent a significant chunk of my life on airplanes, flying close to 100,000 miles a year all over the planet. I’ve experienced flying on at least four dozen different airlines from a huge variety of countries. And so much of this time is spent in sheer misery. Between the hassles of getting to the airport, the hassles at the airport, and then the onboard staff, you know, there’s very little that’s civil about civil aviation anymore. It feels like you're just another number, another piece of luggage being processed. It’s a stark contrast to what a flying experience *should* be, isn't it?\n\nSarah: It really is. It feels like ‘civil aviation’ has completely lost its civility. You’re just not treated like a person, more like a commodity. And that’s where Porter Airlines truly shines, you say? They are all about a ‘refined flying experience.’\n\nMike: Precisely! And it starts the moment you even consider booking. For me, the biggest game-changer, the absolute differentiator, is their location. Billy Bishop Airport in downtown Toronto. It’s right there, at the base of Bathurst Street. No fighting the traffic out to Pearson, no hours spent navigating the highway.\n\nSarah: Oh, that’s huge! I can only imagine how much time and stress that saves. So many people I know complain about the trek to Pearson.\n\nMike: It’s a massive time and stress saver. And the convenience continues once you’re there. Drop-off is easy, it's quick. And then there’s that complimentary shuttle to and from Union Station. That means simple, seamless connections to the TTC and the Go Train. You can practically walk off your flight and be on your way downtown or to your next connection without breaking a sweat. It’s just incredibly smart planning.\n\nSarah: That sounds like a dream compared to the usual airport scramble. So, once you’re actually at the airport, what’s the experience like?\n\nMike: Once you’re at the airport, it’s just… smooth sailing. Check-in is quick and easy.",
-      "duration_seconds": 183,
-      "file_size_bytes": 2932028
-    },
-    {
       "id": "4a75da4c-e397-43c9-b7ff-0c6b133f6d80",
       "title": "Air Travel Misery & Porter's Relief",
       "original_filename": "AlanCross-Porter-v2.mp3",
@@ -170,20 +158,42 @@
     },
     {
       "id": "70cbce7f-8f9f-475e-b487-e86f008c110d",
-      "title": "Processing: YouTube Video mEBCQidaNTQ...",
+      "title": "Video Analysis: What Went Wrong?",
       "original_filename": "YouTube-mEBCQidaNTQ",
-      "status": "processing",
+      "status": "completed",
       "source_type": "youtube",
       "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
       "extraction_metadata": {
-        "youtube_title": "YouTube Video mEBCQidaNTQ",
-        "youtube_uploader": "Unknown",
-        "youtube_duration": 300
+        "summary": "Failed to parse video content",
+        "topics": [
+          "video analysis"
+        ],
+        "insights": [
+          "Unable to extract insights"
+        ],
+        "transcript_length": 1000,
+        "source": "gemini_video_analysis",
+        "youtube_metadata": {
+          "title": "YouTube Video mEBCQidaNTQ",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "mEBCQidaNTQ",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/mEBCQidaNTQ/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        }
       },
       "original_duration": 300.0,
       "original_format": "youtube",
       "created_at": "2025-10-27T03:46:34.434304",
-      "updated_at": "2025-10-27T03:46:34.434315"
+      "updated_at": "2025-10-27T03:50:43.334064",
+      "audio_s3_key": "podcasts/70cbce7f-8f9f-475e-b487-e86f008c110d.mp3",
+      "transcript": "Mike: Hey everyone, and welcome back to Tech Unpacked! I'm Mike, and I'm super excited to dive into something that sounds straight out of a sci-fi movie today.\n\nSarah: And I'm Sarah, and I'm equally thrilled, Mike! Because what we're talking about today is a genuine leap forward. Imagine a computer so powerful, it can tackle problems that are literally impossible for even the biggest supercomputers on Earth.\n\nMike: Sounds like science fiction, right? Well, Google Quantum AI just made a huge leap towards that reality. They've announced their first demonstration of what they're calling \"verifiable quantum advantage.\"\n\nSarah: And we're here to break down exactly what that means for you, in plain English. Because it's a pretty big deal.\n\nMike: So, Sarah, let's start with the fundamental question: why do we even need quantum computers? I mean, our current computers are pretty amazing, aren't they?\n\nSarah: They are, Mike, they absolutely are. But think about it – our universe is incredibly complex. For centuries, scientists have been trying to understand it, from the smallest subatomic particles to the vastness of galaxies. And the deeper we dig, the more we realize how intricate and mind-bogglingly complicated nature actually is.\n\nMike: Right. It’s like trying to map out every single grain of sand on every beach in the world simultaneously.\n\nSarah: Exactly! And our current computational tools, as powerful as they are, hit a wall when it comes to simulating or understanding these incredibly complex systems. They just don't have the capacity. Quantum computers are designed to overcome this barrier. They offer a fundamentally new way to compute that can handle these intricate problems that are currently beyond our reach.\n\nMike: So, it’s like upgrading from a basic calculator to a super-powered research lab specifically designed to understand the deepest mysteries of nature. That makes a lot of sense.\n\nSarah: Precisely. It's about unlocking new frontiers of scientific understanding. And that brings us to the core of Google's announcement: this concept of \"quantum advantage.\" Now, it's not *just* about being faster, which is what a lot of people initially think.\n\nMike: That's the crucial part, isn't it? Because we hear \"faster\" and we think, \"Okay, my laptop will be faster.\" But it's more profound than that.\n\nSarah: Absolutely. Google's achievement isn't just about speed for speed's sake. It’s about performing a computation that is *both* significantly faster than any classical supercomputer could ever hope to achieve, *and* – and this is the \"verifiable\" part – whose results can be independently proven to be correct.\n\nMike: So, it's not just about getting an answer, but about being absolutely certain that the answer is right, even though it was obtained in a way that a classical computer simply couldn't replicate.\n\nSarah: Exactly.",
+      "duration_seconds": 160,
+      "file_size_bytes": 2572165
     },
     {
       "id": "ee445c2b-cc9a-4b74-b84b-189ed10aafaf",
