@@ -9,7 +9,7 @@ const PodcastList = () => {
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;  // 每页10条
   const navigate = useNavigate();
 
   useEffect(() => {
