@@ -214,20 +214,42 @@
     },
     {
       "id": "c723f9d1-8b66-4cd5-b4e5-b52f50242f65",
-      "title": "Processing: YouTube Video mEBCQidaNTQ...",
+      "title": "Video Analysis: Unpacking YouTube Content",
       "original_filename": "YouTube-mEBCQidaNTQ",
-      "status": "processing",
+      "status": "completed",
       "source_type": "youtube",
       "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
       "extraction_metadata": {
-        "youtube_title": "YouTube Video mEBCQidaNTQ",
-        "youtube_uploader": "Unknown",
-        "youtube_duration": 300
+        "summary": "Failed to parse video content",
+        "topics": [
+          "video analysis"
+        ],
+        "insights": [
+          "Unable to extract insights"
+        ],
+        "transcript_length": 1000,
+        "source": "gemini_video_analysis",
+        "youtube_metadata": {
+          "title": "YouTube Video mEBCQidaNTQ",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "mEBCQidaNTQ",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/mEBCQidaNTQ/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        }
       },
       "original_duration": 300.0,
       "original_format": "youtube",
       "created_at": "2025-10-27T03:55:24.573030",
-      "updated_at": "2025-10-27T03:55:24.573039"
+      "updated_at": "2025-10-27T03:59:43.357576",
+      "audio_s3_key": "podcasts/c723f9d1-8b66-4cd5-b4e5-b52f50242f65.mp3",
+      "transcript": "Alex：嘿，大家好！我是Alex，欢迎来到我们的播客。今天我们要聊一个超级酷、超级前沿的话题，可能会彻底改变我们对世界的认知！\n\nEmma：你好！我是Emma，很高兴来到这里。没错，想象一下，我们正在见证一项科学上的重大突破，由 Google Quantum AI 带来的，叫做“量子优势”！听起来是不是有点像科幻电影？\n\nAlex：完全是！但它却是真实发生的。而且，今天我们就要用最通俗易懂的方式，来聊聊这个“量子优势”到底是什么意思，为什么它如此重要。\n\nEmma：我们先从一个宏大的视角说起。人类探索自然的历程，其实就是不断挑战我们认知边界的过程。而在这个过程中，我们最强大的工具之一就是计算。\n\nAlex：对，就像我们过去只能用肉眼看星星，后来发明了望远镜，才能看到更远更深邃的宇宙。计算也是如此，我们现在的计算机虽然很强大，但在处理某些极其复杂的问题时，还是显得力不从心。\n\nEmma：而量子计算机，就是为了突破这些计算的极限而诞生的！\n\nAlex：之前我们可能听到过“量子霸权”这个词，听起来很厉害，但 Google 这次提出的“量子优势”，有更深一层的含义。\n\nEmma：没错，简单来说，“量子霸权”可能只是说量子计算机在某个特定任务上比最快的经典计算机快一点点，但“量子优势”则强调的是，量子计算机能够完成一项有意义的任务，而经典计算机无论如何都无法高效完成。\n\nAlex：就像不是跑得快多少的问题，而是能不能跑起来，能不能完成这项任务的问题。Google 这次用他们的“Willow”量子芯片，通过一个叫做“Quantum Echoes”的算法，就证明了这一点。\n\nEmma：这个“Quantum Echoes”算法，它就像一个全新的探测器，能够以前所未有的方式去研究和理解那些极其复杂的量子系统。\n\nAlex：听起来就超神奇！这些复杂的量子系统，比如分子、磁铁，甚至… 黑洞！我们之前可能只能隔靴搔痒，但有了量子计算机，我们就能更深入地一探究竟。\n\nEmma：这就意味着，在药物研发、材料科学、人工智能，甚至天体物理学等领域，都可能迎来颠覆性的进展。想想看，我们可以设计出更有效的药物，创造出更先进的材料，甚至更准确地模拟宇宙的运行。\n\nAlex：所以，“量子优势”不仅仅是一个技术上的里程碑，它更是开启了人类理解和改造世界的新篇章。\n\nEmma：没错！这是一个激动人心的时刻，预示着量子计算的时代真的要来了。\n\nAlex：感谢收听！我们下期再见！",
+      "duration_seconds": 230,
+      "file_size_bytes": 3691042
     }
   ]
 }

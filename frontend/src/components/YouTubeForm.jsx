@@ -171,23 +171,19 @@ const YouTubeForm = () => {
         enhancementPrompt: enhancementPrompt.trim() || undefined,
       });
 
-      console.log('✅ YouTube API 完整响应:', response);
-      console.log('✅ YouTube API response.data:', response.data);
-      console.log('   podcast_id:', response.data?.podcast_id);
-      console.log('   job_id:', response.data?.job_id);
-      console.log('   类型检查:', typeof response.data);
+      console.log('✅ YouTube API 响应:', response);
+      console.log('   podcast_id:', response?.podcast_id);
+      console.log('   job_id:', response?.job_id);
+      console.log('   status:', response?.status);
 
-      // 提取数据（兼容不同的响应结构）
-      const data = response.data || response;
-      
-      if (data && data.podcast_id && data.job_id) {
-        console.log('🎯 开始轮询任务状态:', data.job_id);
+      // 注意：axios 拦截器已经解包了 response.data，所以 response 本身就是数据
+      if (response && response.podcast_id && response.job_id) {
+        console.log('🎯 开始轮询任务状态:', response.job_id);
         setProcessingStatus('📥 Extracting content from YouTube...');
         setProgress(5);
-        await pollJobStatus(data.job_id, data.podcast_id);
+        await pollJobStatus(response.job_id, response.podcast_id);
       } else {
-        console.error('❌ 响应缺少必要字段:', data);
-        console.error('   完整响应对象:', response);
+        console.error('❌ 响应缺少必要字段:', response);
         setError('Invalid response from server. Please try again.');
         setGenerating(false);
         setProgress(0);

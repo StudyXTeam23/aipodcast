@@ -787,11 +787,11 @@
         "duration_minutes": 3,
         "language": "zh"
       },
-      "status": "processing",
-      "progress": 65,
+      "status": "completed",
+      "progress": 100,
       "created_at": "2025-10-27T03:55:24.576406",
-      "updated_at": "2025-10-27T03:57:52.603647",
-      "status_message": "🎭 正在生成多声道对话音频..."
+      "updated_at": "2025-10-27T03:59:43.358938",
+      "status_message": "🎉 YouTube 播客生成成功！时长 230 秒"
     }
   ]
 }
