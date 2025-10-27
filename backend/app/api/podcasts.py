@@ -90,6 +90,14 @@ async def upload_file(file: UploadFile = File(...)):
         podcast_id = str(uuid.uuid4())
         job_id = str(uuid.uuid4())
         
+        # 确定文件类型
+        file_type = "text"  # 默认是文本/文档
+        if file.content_type:
+            if file.content_type.startswith("audio/"):
+                file_type = "audio"
+            elif file.content_type.startswith("video/"):
+                file_type = "video"
+        
         # 保存 podcast 记录
         podcast_data = {
             "id": podcast_id,
@@ -97,7 +105,13 @@ async def upload_file(file: UploadFile = File(...)):
             "original_filename": file.filename,
             "s3_key": s3_key,
             "file_size_bytes": len(file_content),
-            "status": "processing"
+            "status": "processing",
+            # 新增字段：支持多种内容源
+            "source_type": file_type,
+            "source_url": None,
+            "extraction_metadata": None,
+            "original_duration": None,
+            "original_format": file.filename.split('.')[-1].lower() if '.' in file.filename else None
         }
         
         success = data_service.save_podcast(podcast_data)
@@ -447,7 +461,13 @@ async def generate_podcast(request: GenerateRequest):
             "id": podcast_id,
             "title": title,
             "original_filename": f"AI生成-{request.style}",
-            "status": "processing"
+            "status": "processing",
+            # 新增字段：支持多种内容源
+            "source_type": "text",  # AI 文本生成
+            "source_url": None,
+            "extraction_metadata": {"topic": request.topic, "style": request.style},
+            "original_duration": None,
+            "original_format": "ai_generated"
         }
         
         success = data_service.save_podcast(podcast_data)
@@ -563,7 +583,13 @@ async def analyze_and_generate_direct(
             "id": podcast_id,
             "title": title,
             "original_filename": file.filename,
-            "status": "processing"
+            "status": "processing",
+            # 新增字段：支持多种内容源
+            "source_type": source_type,  # "audio" 或 "video"
+            "source_url": None,  # 文件上传没有 URL
+            "extraction_metadata": None,  # 将在处理后填充
+            "original_duration": None,  # 将在处理后填充
+            "original_format": file.filename.split('.')[-1].lower() if '.' in file.filename else None
         }
         
         success = data_service.save_podcast(podcast_data)

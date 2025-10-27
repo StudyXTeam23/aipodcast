@@ -750,7 +750,15 @@ Title:"""
             "audio_s3_key": audio_s3_key,
             "transcript": script,
             "duration_seconds": duration_seconds,
-            "file_size_bytes": len(audio_data)
+            "file_size_bytes": len(audio_data),
+            # 新增字段：填充提取的元数据
+            "extraction_metadata": {
+                "summary": summary,
+                "topics": topics,
+                "insights": insights,
+                "transcript_length": len(transcript)
+            },
+            "original_duration": extraction_result.get('duration', None)
         }
         
         # 如果成功生成标题，更新标题
