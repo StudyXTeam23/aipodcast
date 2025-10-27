@@ -123,17 +123,38 @@ CRITICAL: Return ONLY the JSON, no markdown code blocks, no extra text."""
                 max_tokens=500
             )
             
-            # 解析 JSON
+            # 解析 JSON（增强容错性）
             response_text = response_text.strip()
+            
+            # 移除 markdown 代码块标记
             if response_text.startswith("```json"):
                 response_text = response_text[7:]
-            if response_text.startswith("```"):
+            elif response_text.startswith("```"):
                 response_text = response_text[3:]
             if response_text.endswith("```"):
                 response_text = response_text[:-3]
+            
             response_text = response_text.strip()
             
-            metadata_json = json.loads(response_text)
+            # 尝试提取 JSON 对象（如果有额外文本）
+            if '{' in response_text and '}' in response_text:
+                start = response_text.find('{')
+                end = response_text.rfind('}') + 1
+                response_text = response_text[start:end]
+            
+            try:
+                metadata_json = json.loads(response_text)
+            except json.JSONDecodeError as e:
+                print(f"❌ JSON 解析失败: {e}")
+                print(f"   原始响应: {response_text[:200]}...")
+                # 如果解析失败，使用默认值
+                video_id = self.extract_video_id(url) or "unknown"
+                metadata_json = {
+                    "title": f"YouTube Video {video_id}",
+                    "description": "Failed to extract metadata",
+                    "duration": 300,
+                    "uploader": "Unknown"
+                }
             
             # 提取视频 ID
             video_id = self.extract_video_id(url) or "unknown"
@@ -212,17 +233,37 @@ CRITICAL: Return ONLY the JSON, no markdown code blocks, no extra text."""
             max_tokens=3000
         )
         
-        # 解析 JSON
+        # 解析 JSON（增强容错性）
         response_text = response_text.strip()
+        
+        # 移除 markdown 代码块标记
         if response_text.startswith("```json"):
             response_text = response_text[7:]
-        if response_text.startswith("```"):
+        elif response_text.startswith("```"):
             response_text = response_text[3:]
         if response_text.endswith("```"):
             response_text = response_text[:-3]
+        
         response_text = response_text.strip()
         
-        return json.loads(response_text)
+        # 尝试提取 JSON 对象（如果有额外文本）
+        if '{' in response_text and '}' in response_text:
+            start = response_text.find('{')
+            end = response_text.rfind('}') + 1
+            response_text = response_text[start:end]
+        
+        try:
+            return json.loads(response_text)
+        except json.JSONDecodeError as e:
+            print(f"❌ JSON 解析失败: {e}")
+            print(f"   原始响应: {response_text[:200]}...")
+            # 返回默认结构
+            return {
+                "transcript": response_text[:1000] if len(response_text) > 100 else "Content extraction failed",
+                "summary": "Failed to parse video content",
+                "topics": ["video analysis"],
+                "insights": ["Unable to extract insights"]
+            }
     
     def download_subtitles(self, url: str, language: str = 'en') -> Optional[str]:
         """
