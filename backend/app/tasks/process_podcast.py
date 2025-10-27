@@ -337,7 +337,7 @@ def generate_podcast_background(podcast_id: str, job_id: str):
         })
         
         # 1. 使用 Gemini 生成播客稿件
-        print("🤖 步骤 1/4: 使用 Gemini AI 生成播客稿件...")
+        print("🤖 步骤 1/5: 使用 Gemini AI 生成播客稿件...")
         script = ai_service.generate_script_from_topic(
             topic=topic,
             style=style,
@@ -355,7 +355,7 @@ def generate_podcast_background(podcast_id: str, job_id: str):
         })
         
         # 2. 使用 ElevenLabs 生成音频（支持多声音对话）
-        print("\n🎙️  步骤 2/4: 使用 ElevenLabs 生成音频...")
+        print("\n🎙️  步骤 2/5: 使用 ElevenLabs 生成音频...")
         data_service.update_job(job_id, {
             "progress": 45,
             "status_message": "🎭 生成多声道对话音频 (需要3-5分钟)..."
@@ -402,7 +402,7 @@ def generate_podcast_background(podcast_id: str, job_id: str):
         })
         
         # 3. 上传音频到 S3
-        print("\n📤 步骤 3/4: 上传音频到 S3...")
+        print("\n📤 步骤 3/5: 上传音频到 S3...")
         data_service.update_job(job_id, {
             "progress": 75,
             "status_message": "📤 上传音频到云端..."
@@ -425,8 +425,37 @@ def generate_podcast_background(podcast_id: str, job_id: str):
             "status_message": "✅ 上传完成！正在保存..."
         })
         
-        # 4. 更新播客状态
-        print("\n✅ 步骤 4/4: 更新播客状态...")
+        # 4. 生成播客标题
+        print("\n📝 步骤 4/5: 生成播客标题...")
+        generated_title = None
+        try:
+            # 使用脚本内容生成简洁的标题
+            title_prompt = f"""Based on this podcast script, create a concise, engaging title (max 60 characters):
+
+Script excerpt: {script[:500]}
+
+Title should be:
+- Clear and descriptive
+- Professional and engaging
+- Maximum 60 characters
+- No quotes or special formatting
+
+Title:"""
+            
+            generated_title = ai_service._call_gemini_api(title_prompt, temperature=0.7, max_tokens=50)
+            if generated_title:
+                # 清理标题（去除引号、换行等）
+                generated_title = generated_title.strip().strip('"').strip("'").replace('\n', ' ')
+                # 限制长度
+                if len(generated_title) > 60:
+                    generated_title = generated_title[:57] + "..."
+                print(f"✅ 标题生成成功: {generated_title}")
+        except Exception as e:
+            print(f"⚠️  标题生成失败，使用原标题: {e}")
+            generated_title = None
+        
+        # 5. 更新播客状态
+        print("\n✅ 步骤 5/5: 更新播客状态...")
         data_service.update_job(job_id, {
             "progress": 90,
             "status_message": "💾 保存播客信息..."
@@ -438,14 +467,20 @@ def generate_podcast_background(podcast_id: str, job_id: str):
         duration_seconds = get_mp3_duration(audio_data)
         print(f"   ⏱️  音频时长: {duration_seconds} 秒")
         
-        data_service.update_podcast(podcast_id, {
+        podcast_update = {
             "audio_url": audio_url,
             "audio_s3_key": uploaded_key,
             "transcript": script,
             "extracted_text": script,
             "duration_seconds": duration_seconds,
             "status": "completed"
-        })
+        }
+        
+        # 如果成功生成标题，更新标题
+        if generated_title:
+            podcast_update["title"] = generated_title
+        
+        data_service.update_podcast(podcast_id, podcast_update)
         
         data_service.update_job(job_id, {
             "status": "completed",
