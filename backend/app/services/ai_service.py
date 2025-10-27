@@ -522,51 +522,86 @@ class AIService:
 
 请直接输出大纲内容，不要额外的解释。"""
 
-                script_prompt_base = f"""你是一位专业的播客编剧。根据以下大纲，生成一份完整的播客稿件。
+                script_prompt_base = f"""你是一位专业的播客编剧。根据以下大纲，生成一份完整、专业的播客稿件。
 
 主题：{topic}
 风格：{style}
-目标时长：{duration_minutes} 分钟
+目标时长：{duration_minutes} 分钟（约 {duration_minutes * 200}-{duration_minutes * 300} 字）
 
 大纲：
 {{outline}}
 
-请根据大纲生成完整的播客稿件：
+请按以下结构生成完整的播客稿件：
 
-要求：
-1. 开场白要引人入胜，快速吸引听众注意力
-2. 内容要详细展开，但保持节奏流畅
-3. 使用{style}的表达方式和语气
-4. 使用自然口语化的表达，避免书面语
-5. 结尾要有力，给听众留下深刻印象
-6. 总字数控制在 {duration_minutes * 200}-{duration_minutes * 300} 字左右
-7. 对于对话风格，使用具体的主持人名字作为标签（如"Alex："、"Emma："），并在第一次说话时简短自我介绍
+**稿件结构：**
+1. 开场引子（10-15秒）
+   - 以吸引人的问题或陈述开场
+   - 自然地介绍主持人
+   - 预告将要讨论的内容
 
-CRITICAL - 绝对禁止以下内容：
-- 任何括号标注：(**音乐**) (**轻笑**) (**停顿**) （音乐起） [音效]
-- 任何Markdown格式：**粗体** *斜体* 
-- 任何方括号占位符：[你的名字] [主持人名字] [播客名称] [节目名] [话题] [任何内容]
-- 音效、舞台指示、动作、场景描述
-- 使用"主持人A"、"主持人B"这样的标签（要用真实名字）
+2. 主体内容（占80%时长）
+   - 根据大纲逐一展开要点
+   - 使用对话式来回交流
+   - 包含具体例子和深入见解
+   - 保持自然节奏，流畅过渡
 
-正确示例（对话风格）：
-Alex：嗨，大家好！我是Alex，欢迎收听今天这期节目，我们会聊一些有趣的话题。
-Emma：你好！我是Emma，很高兴来到这里。
-Alex：今天我们要聊一个非常有趣的话题。
-Emma：没错，让我们开始吧！
+3. 结尾总结（10-15秒）
+   - 总结核心要点
+   - 以令人印象深刻的语句结束
+   - 感谢听众
 
-错误示例（绝对不要这样做）：
-Alex：欢迎来到[播客名称]。
-Emma：今天在[节目名]中，我们要讨论[话题]。
+**核心要求：**
 
-对话格式说明：
-- 固定使用这两个名字："Alex"（男主持）和"Emma"（女主持）
-- 每个主持人在第一句话中简短自我介绍（"我是Alex"、"我是Emma"）
-- 后续对话中不需要重复名字
-- 标签仅用于区分说话者，TTS时会被自动过滤
-- Alex先说，Emma回应
+{style}风格指南：
+- 使用自然、口语化的语言（避免书面或正式用语）
+- 包含反问句以吸引听众
+- 使用具体案例和故事
+- 保持适当的节奏感
+- 展现对话题的真诚热情
 
-请直接输出完整稿件。"""
+主持人配置：
+- 固定使用这两个名字："Alex"（主持人，男声）和 "Emma"（搭档主持，女声）
+- Alex先开场："大家好，我是Alex..."
+- Emma紧接着介绍："我是Emma..."
+- 介绍后在对话中自然使用名字
+- 绝不使用"主持人A"、"主持人B"、"嘉宾1"等泛称
+
+对话质量标准：
+- 每次发言控制在1-3句话（避免长篇独白）
+- 包含自然反应和回应（"太有意思了"、"确实"、"说得好"）
+- 基于前面的发言继续讨论，形成流畅对话
+- 用问题来过渡话题
+- 两位主持人发言时间要均衡
+
+**绝对禁止：**
+❌ 任何括号标注：(**音乐**) (**轻笑**) (**停顿**) （音乐起） [音效] [任何内容]
+❌ 任何Markdown格式：**粗体** *斜体* _下划线_
+❌ 任何占位符：[你的名字] [主持人名] [播客名称] [节目名] [话题] [嘉宾姓名]
+❌ 舞台指示、音效或场景描述
+❌ 泛称式的说话者标签或编号
+
+**正确示例：**
+
+Alex：大家好，我是Alex，今天我们要聊一个特别有意思的话题。
+Emma：我是Emma。Alex，这个话题确实太及时了，我都等不及要和你讨论了。
+Alex：那我们就直接进入正题吧。最有意思的是，这其实和我们每个人都息息相关。
+Emma：完全同意。而且我觉得最让人意外的是它的影响范围。
+Alex：对，我举个具体的例子...
+
+**错误示例 - 绝对不要这样：**
+
+Alex：欢迎来到[播客名称]。今天我们要讨论[话题]。
+Emma：没错，[主持人名]。让我们深入了解[主题]。
+(**音乐渐弱**)
+Alex：**这很重要**。我们的[嘉宾]会解释...
+
+输出格式：
+- 直接输出对话内容
+- 只使用"Alex："和"Emma："作为标签
+- 不要标题、不要元数据、不要舞台指示
+- 只输出纯对话稿件
+
+现在请根据上述大纲生成完整的播客稿件。"""
             else:  # English
                 outline_prompt = f"""You are a professional podcast scriptwriter. Generate a podcast outline for the following topic.
 
@@ -587,51 +622,86 @@ Requirements:
 
 Output the outline directly without extra explanations."""
 
-                script_prompt_base = f"""You are a professional podcast scriptwriter. Based on the following outline, generate a complete podcast script.
+                script_prompt_base = f"""You are a professional podcast scriptwriter. Based on the following outline, generate a complete, professional podcast script.
 
 Topic: {topic}
 Style: {style}
-Target Duration: {duration_minutes} minutes
+Target Duration: {duration_minutes} minutes (approximately {duration_minutes * 150}-{duration_minutes * 250} words)
 
 Outline:
 {{outline}}
 
-Generate a complete podcast script based on the outline:
+Generate a complete podcast script with the following structure:
 
-Requirements:
-1. Opening should be captivating and quickly grab the audience's attention
-2. Content should be detailed but maintain smooth pacing
-3. Use the expression style and tone of {style}
-4. Use natural conversational language, avoid formal writing
-5. Closing should be powerful and leave a lasting impression
-6. Word count: {duration_minutes * 150}-{duration_minutes * 250} words
-7. For conversation style, use REAL HOST NAMES as labels (like "Alex:", "Ben:", "Sarah:"), and have each host briefly introduce themselves in their FIRST line only
+**Script Structure:**
+1. Opening hook (10-15 seconds)
+   - Start with an engaging question or statement
+   - Introduce the hosts naturally
+   - Preview what will be covered
 
-CRITICAL - ABSOLUTELY FORBIDDEN:
-- Any bracketed annotations: (**music**) (**laughs**) (**pause**) (music starts) [sound effect]
-- Any Markdown formatting: **bold** *italic*
-- ANY placeholders in brackets: [your name] [host name] [Podcast Name] [show name] [topic] [anything]
-- Sound effects, stage directions, actions, scene descriptions
-- Using generic labels like "Host A", "Host B", "Speaker 1" (use real names instead)
+2. Main content (80% of duration)
+   - Develop each point from the outline
+   - Use conversational back-and-forth dialogue
+   - Include specific examples and insights
+   - Maintain natural pacing with smooth transitions
 
-CORRECT Example (Conversation style):
-Mike: Hey everyone, I'm Mike, and welcome back to the show where we explore fascinating topics.
-Sarah: Hi there! I'm Sarah, excited to be here today.
-Mike: So Sarah, let's dive right into today's fascinating topic.
-Sarah: Absolutely! This is going to be great.
+3. Closing (10-15 seconds)
+   - Summarize key takeaways
+   - End with a memorable statement
+   - Thank the audience
 
-WRONG Example (DO NOT DO THIS):
-Mike: Hey everyone, I'm Mike, and welcome back to [Podcast Name].
-Sarah: Today on [Show Name], we're going to discuss [topic].
+**CRITICAL REQUIREMENTS:**
 
-Conversation format guidelines:
-- ALWAYS use these EXACT names: "Mike" (male host) and "Sarah" (female host)
-- Each host introduces themselves ONLY in their first line ("I'm Mike", "I'm Sarah")
-- After introduction, just continue the conversation naturally
-- Labels are for speaker identification and will be filtered during TTS
-- Mike speaks first, Sarah responds
+Style Guidelines for {style}:
+- Use natural, conversational language (avoid formal or written style)
+- Include rhetorical questions to engage listeners
+- Use specific examples and anecdotes
+- Maintain appropriate pacing and rhythm
+- Show genuine enthusiasm for the topic
 
-Output the complete script directly."""
+Host Configuration:
+- ALWAYS use these EXACT names: "Alex" (primary host, male voice) and "Emma" (co-host, female voice)
+- Alex introduces first: "Hi everyone, I'm Alex..."
+- Emma introduces immediately after: "And I'm Emma..."
+- After introductions, use names naturally in conversation
+- Never use generic labels like "Host A", "Host B", or "Speaker 1"
+
+Dialogue Quality Standards:
+- Each speaker turn should be 1-3 sentences (avoid long monologues)
+- Include natural reactions and acknowledgments ("That's fascinating", "Exactly", "Great point")
+- Build on previous statements to create flow
+- Use questions to transition between topics
+- Maintain balanced speaking time between hosts
+
+**ABSOLUTELY FORBIDDEN:**
+❌ ANY bracketed annotations: (**music**) (**laughs**) (**pause**) (music starts) [sound effect] [anything]
+❌ ANY Markdown formatting: **bold** *italic* _underline_
+❌ ANY placeholders: [your name] [host name] [Podcast Name] [show name] [topic] [guest name]
+❌ Stage directions, sound effects, or scene descriptions
+❌ Generic speaker labels or numbered speakers
+
+**CORRECT Example:**
+
+Alex: Hi everyone, I'm Alex, and today we're diving into something I've been curious about for ages.
+Emma: And I'm Emma. This is such a timely topic, Alex. I can't wait to unpack it with you.
+Alex: So let's jump right in. What makes this so interesting is how it affects all of us daily.
+Emma: Absolutely. And I think what surprises most people is the scale of it.
+Alex: Right. Let me give you a concrete example...
+
+**WRONG Example - Never Do This:**
+
+Alex: Welcome to [Podcast Name]. Today we'll discuss [topic].
+Emma: That's right, [Host Name]. Let's dive into [subject].
+(**music fades**)
+Alex: **This is important**. Our [guest] will explain...
+
+Output Format:
+- Start directly with the dialogue
+- Use "Alex:" and "Emma:" as the only labels
+- No title, no metadata, no stage directions
+- Pure conversational script only
+
+Now generate the complete podcast script based on the outline above."""
             
             print("\n📋 步骤1: 生成大纲...")
             outline = self._call_gemini_api(outline_prompt, temperature=0.8, max_tokens=2000)

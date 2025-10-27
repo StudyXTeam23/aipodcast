@@ -1059,6 +1059,46 @@
       "created_at": "2025-10-27T08:48:06.792076",
       "updated_at": "2025-10-27T08:52:31.588031",
       "status_message": "🎉 YouTube 播客生成成功！时长 184 秒"
+    },
+    {
+      "id": "be1a4884-92f5-4915-8c89-aaa4eca34408",
+      "podcast_id": "d6475719-2286-4959-8edf-2e0e9d4bed7b",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/2d40f380-3c81-4dbc-a14b-1c9fa6654e64.pdf",
+      "created_at": "2025-10-27T09:13:48.146815",
+      "updated_at": "2025-10-27T09:15:19.044890",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "4dda09e3-4fe9-4d57-a4cd-ff0f1102aac7",
+      "podcast_id": "162f5844-e32e-433a-a55a-ea4dc52213bf",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+        "youtube_metadata": {
+          "title": "YouTube Video FwOTs4UxQS4",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "FwOTs4UxQS4",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focusing on AI agent workflow explaining and case study contents",
+        "style": "Conversation",
+        "duration_minutes": 6,
+        "language": "zh"
+      },
+      "status": "failed",
+      "progress": 65,
+      "created_at": "2025-10-27T09:20:47.253816",
+      "updated_at": "2025-10-27T09:23:21.273132",
+      "status_message": "❌ 生成失败: ElevenLabs API 调用失败: headers: {'date': 'Mon, 27 Oct 2025 09:23:20 GMT', 'server': 'uvicorn', 'content-length': '175', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'POST, PATCH, OPTIONS, DELETE, GET, PUT', 'access-control-max-age': '600', 'strict-transport-security': 'max-age=31536000; includeSubDomains', 'x-trace-id': '4b707fa762cdd9bc79a376c7a7892474', 'x-region': 'us-central1', 'via': '1.1 google, 1.1 google', 'alt-svc': 'h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000'}, status_code: 401, body: {'detail': {'status': 'quota_exceeded', 'message': 'This request exceeds your quota of 100659. You have 893 credits remaining, while 2997 credits are required for this request.'}}",
+      "error_message": "ElevenLabs API 调用失败: headers: {'date': 'Mon, 27 Oct 2025 09:23:20 GMT', 'server': 'uvicorn', 'content-length': '175', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'POST, PATCH, OPTIONS, DELETE, GET, PUT', 'access-control-max-age': '600', 'strict-transport-security': 'max-age=31536000; includeSubDomains', 'x-trace-id': '4b707fa762cdd9bc79a376c7a7892474', 'x-region': 'us-central1', 'via': '1.1 google, 1.1 google', 'alt-svc': 'h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000'}, status_code: 401, body: {'detail': {'status': 'quota_exceeded', 'message': 'This request exceeds your quota of 100659. You have 893 credits remaining, while 2997 credits are required for this request.'}}"
     }
   ]
 }

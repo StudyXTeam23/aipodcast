@@ -109,23 +109,10 @@ const FileUpload = () => {
     const maxAttempts = isMediaFile ? 600 : 120;
     let attempts = 0;
 
-    // 开始计时
-    startTimeRef.current = Date.now();
-    setElapsedTime(0);
-
-    // 清理旧的定时器
+    // 清理旧的轮询定时器（计时器已在handleFileUpload中启动）
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
-    if (elapsedTimerRef.current) {
-      clearInterval(elapsedTimerRef.current);
-    }
-
-    // 启动已用时间计时器
-    elapsedTimerRef.current = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      setElapsedTime(elapsed);
-    }, 1000);
 
     pollIntervalRef.current = setInterval(async () => {
       try {
@@ -153,13 +140,41 @@ const FileUpload = () => {
         } else if (response) {
           // 更新处理进度和状态消息
           if (response.progress) {
-            setUploadProgress(response.progress);
+            const currentProgress = response.progress;
+            setUploadProgress(currentProgress);
             
-            // 根据进度估算剩余时间
-            if (response.progress > 5) {
-              const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-              const estimatedTotal = (elapsed / response.progress) * 100;
-              const remaining = Math.max(0, Math.floor(estimatedTotal - elapsed));
+            // 改进的预估时间算法 - 基于阶段权重
+            if (startTimeRef.current && currentProgress > 5) {
+              const elapsed = (Date.now() - startTimeRef.current) / 1000;
+              
+              // 不同阶段的预估时间权重
+              // 0-30%: 上传和解析（快）- 30秒
+              // 30-70%: AI生成脚本（较慢）- 90秒  
+              // 70-95%: 生成音频（最慢）- 90秒
+              // 95-100%: 上传和保存（快）- 10秒
+              
+              let estimatedTotal;
+              if (currentProgress < 30) {
+                // 前期阶段：预估总时间约 3.5 分钟
+                estimatedTotal = 210;
+              } else if (currentProgress < 70) {
+                // 脚本生成阶段：根据实际进度调整
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                // 使用加权平均，避免剧烈波动
+                estimatedTotal = estimatedTotal * 0.6 + 220 * 0.4;
+              } else if (currentProgress < 95) {
+                // 音频生成阶段：最耗时
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                // 确保预估时间合理（3-4.5分钟）
+                estimatedTotal = Math.min(estimatedTotal, 270);
+                estimatedTotal = Math.max(estimatedTotal, 180);
+              } else {
+                // 最后阶段：快速完成
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                estimatedTotal = Math.min(estimatedTotal, elapsed + 15);
+              }
+              
+              const remaining = Math.max(5, Math.ceil(estimatedTotal - elapsed));
               setEstimatedTime(remaining);
             }
           }
