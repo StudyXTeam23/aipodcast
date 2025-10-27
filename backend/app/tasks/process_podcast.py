@@ -810,3 +810,271 @@ def start_analyze_generate_task(podcast_id: str, job_id: str, s3_key: str):
     thread.daemon = True
     thread.start()
     print(f"✅ 后台分析生成任务已启动")
+
+
+def youtube_generate_podcast_background(podcast_id: str, job_id: str, youtube_url: str):
+    """
+    后台从 YouTube 视频生成播客
+    
+    Args:
+        podcast_id: 播客ID
+        job_id: 任务ID
+        youtube_url: YouTube 视频链接
+    """
+    print(f"\n{'='*60}")
+    print(f"🎬 开始从 YouTube 视频生成播客")
+    print(f"   Podcast ID: {podcast_id}")
+    print(f"   Job ID: {job_id}")
+    print(f"   YouTube URL: {youtube_url}")
+    print(f"{'='*60}\n")
+    
+    try:
+        # 获取任务信息
+        job = data_service.get_job(job_id)
+        if not job:
+            raise Exception("任务不存在")
+        
+        inputs = job.get("inputs", {})
+        youtube_metadata = inputs.get("youtube_metadata", {})
+        enhancement_prompt = inputs.get("enhancement_prompt")
+        style = inputs.get("style", "Conversation")
+        duration_minutes = inputs.get("duration_minutes", 5)
+        language = inputs.get("language", "en")
+        
+        print(f"📋 处理参数:")
+        print(f"   YouTube 标题: {youtube_metadata.get('title', 'Unknown')}")
+        print(f"   风格: {style}")
+        print(f"   时长: {duration_minutes}分钟")
+        print(f"   语言: {language}")
+        if enhancement_prompt:
+            print(f"   增强提示: {enhancement_prompt}")
+        
+        # 更新任务状态
+        data_service.update_job(job_id, {
+            "status": "processing",
+            "progress": 5,
+            "status_message": "📥 正在从 YouTube 提取内容..."
+        })
+        
+        # 1. 从 YouTube 提取内容
+        print("\n📥 步骤 1/5: 从 YouTube 提取内容...")
+        from app.services.youtube_extractor import youtube_extractor
+        import asyncio
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            extraction_result = loop.run_until_complete(
+                youtube_extractor.extract_content(
+                    url=youtube_url,
+                    language=language,
+                    enhancement_prompt=enhancement_prompt
+                )
+            )
+        finally:
+            loop.close()
+        
+        transcript = extraction_result.get('transcript', '')
+        summary = extraction_result.get('summary', '')
+        topics = extraction_result.get('topics', [])
+        insights = extraction_result.get('insights', [])
+        source = extraction_result.get('source', 'subtitles')
+        
+        print(f"✅ 内容提取完成！")
+        print(f"   来源: {source}")
+        print(f"   转录: {len(transcript)} 字符")
+        print(f"   主题: {len(topics)} 个")
+        
+        data_service.update_job(job_id, {
+            "progress": 40,
+            "status_message": f"✅ 内容提取完成 ({len(transcript)} 字符)"
+        })
+        
+        # 2. 生成播客脚本
+        print("\n📝 步骤 2/5: 生成播客脚本...")
+        data_service.update_job(job_id, {
+            "progress": 45,
+            "status_message": "📝 正在创作播客脚本..."
+        })
+        
+        # 构建 AI 提示词
+        topic_prompt = f"""基于以下 YouTube 视频内容创作播客：
+
+视频标题：{youtube_metadata.get('title', 'Unknown')}
+
+内容摘要：
+{summary}
+
+关键主题：
+{', '.join(topics)}
+
+核心观点：
+{', '.join(insights)}
+
+原始内容（节选）：
+{transcript[:1000]}...
+
+"""
+        
+        if enhancement_prompt:
+            topic_prompt += f"\n特别关注：{enhancement_prompt}\n"
+        
+        # 使用 AI 服务生成播客脚本
+        script = ai_service.generate_script_from_topic(
+            topic=topic_prompt,
+            style=style,
+            duration_minutes=duration_minutes,
+            language=language
+        )
+        
+        if not script or len(script) < 50:
+            raise Exception("生成的脚本太短或为空")
+        
+        print(f"✅ 脚本生成完成！长度: {len(script)} 字符")
+        data_service.update_job(job_id, {
+            "progress": 60,
+            "status_message": f"✅ 脚本创作完成 ({len(script)} 字符)"
+        })
+        
+        # 3. 生成音频
+        print("\n🎙️  步骤 3/5: 生成音频...")
+        data_service.update_job(job_id, {
+            "progress": 65,
+            "status_message": "🎭 正在生成多声道对话音频..."
+        })
+        
+        # 智能截取（如果需要）
+        max_chars = 3000
+        if len(script) > max_chars:
+            print(f"   ⚠️  脚本过长({len(script)}字符)，智能截取...")
+            truncated = script[:max_chars]
+            for delimiter in ['. ', '。', '! ', '！', '? ', '？', '\n\n', '\n']:
+                last_delimiter_pos = truncated.rfind(delimiter)
+                if last_delimiter_pos > max_chars * 0.8:
+                    script = truncated[:last_delimiter_pos + len(delimiter)].strip()
+                    break
+            else:
+                script = truncated
+            print(f"   截取后: {len(script)} 字符")
+        
+        # 生成音频
+        audio_data = ai_service.generate_dialogue_audio(script, language=language)
+        
+        if not audio_data or len(audio_data) < 1000:
+            raise Exception("音频生成失败或音频太小")
+        
+        duration_seconds = get_mp3_duration(audio_data)
+        print(f"✅ 音频生成完成！")
+        print(f"   大小: {len(audio_data)} bytes")
+        print(f"   时长: {duration_seconds} 秒")
+        
+        data_service.update_job(job_id, {
+            "progress": 85,
+            "status_message": f"✅ 音频生成完成 ({duration_seconds}秒)"
+        })
+        
+        # 4. 上传到 S3
+        print("\n☁️  步骤 4/5: 上传到 S3...")
+        audio_s3_key = f"podcasts/{podcast_id}.mp3"
+        success = s3_storage.upload_file_with_key(audio_data, audio_s3_key, content_type="audio/mpeg")
+        
+        if not success:
+            raise Exception("音频上传 S3 失败")
+        
+        print(f"✅ 上传成功！S3 Key: {audio_s3_key}")
+        
+        # 5. 生成标题
+        print("\n📝 生成播客标题...")
+        generated_title = None
+        try:
+            title_prompt = f"""Based on this YouTube video podcast, create a concise, engaging title (max 60 characters):
+
+Video Title: {youtube_metadata.get('title', '')}
+Summary: {summary[:300]}
+Topics: {', '.join(topics[:3])}
+
+Title should be:
+- Clear and descriptive
+- Professional and engaging
+- Maximum 60 characters
+- No quotes or special formatting
+
+Title:"""
+            
+            generated_title = ai_service._call_gemini_api(title_prompt, temperature=0.7, max_tokens=50)
+            if generated_title:
+                generated_title = generated_title.strip().strip('"').strip("'").replace('\n', ' ')
+                if len(generated_title) > 60:
+                    generated_title = generated_title[:57] + "..."
+                print(f"✅ 标题生成成功: {generated_title}")
+        except Exception as e:
+            print(f"⚠️  标题生成失败: {e}")
+            generated_title = youtube_metadata.get('title', 'YouTube Podcast')
+            if len(generated_title) > 60:
+                generated_title = generated_title[:57] + "..."
+        
+        # 6. 更新播客记录
+        podcast_update = {
+            "status": "completed",
+            "audio_s3_key": audio_s3_key,
+            "transcript": script,
+            "duration_seconds": duration_seconds,
+            "file_size_bytes": len(audio_data),
+            "extraction_metadata": {
+                "summary": summary,
+                "topics": topics,
+                "insights": insights,
+                "transcript_length": len(transcript),
+                "source": source,
+                "youtube_metadata": youtube_metadata
+            }
+        }
+        
+        if generated_title:
+            podcast_update["title"] = generated_title
+        
+        data_service.update_podcast(podcast_id, podcast_update)
+        
+        # 7. 更新任务状态
+        data_service.update_job(job_id, {
+            "status": "completed",
+            "progress": 100,
+            "status_message": f"🎉 YouTube 播客生成成功！时长 {duration_seconds} 秒"
+        })
+        
+        print(f"\n{'='*60}")
+        print(f"🎉 YouTube 播客生成完成！")
+        print(f"   Podcast ID: {podcast_id}")
+        print(f"   时长: {duration_seconds} 秒")
+        print(f"{'='*60}\n")
+    
+    except Exception as e:
+        error_msg = str(e)
+        print(f"\n❌ YouTube 播客生成失败: {error_msg}")
+        
+        # 更新播客和任务状态为失败
+        data_service.update_podcast(podcast_id, {"status": "failed"})
+        data_service.update_job(job_id, {
+            "status": "failed",
+            "error_message": error_msg,
+            "status_message": f"❌ 生成失败: {error_msg}"
+        })
+
+
+def start_youtube_generate_task(podcast_id: str, job_id: str, youtube_url: str):
+    """
+    启动 YouTube 生成任务（在新线程中）
+    
+    Args:
+        podcast_id: 播客ID
+        job_id: 任务ID
+        youtube_url: YouTube 视频链接
+    """
+    thread = threading.Thread(
+        target=youtube_generate_podcast_background,
+        args=(podcast_id, job_id, youtube_url)
+    )
+    thread.daemon = True
+    thread.start()
+    print(f"✅ 后台 YouTube 生成任务已启动")
