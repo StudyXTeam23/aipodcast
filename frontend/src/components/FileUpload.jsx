@@ -246,9 +246,9 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="mt-10 max-w-2xl mx-auto min-h-[320px]">
+    <div className="mt-6 sm:mt-10 max-w-2xl mx-auto min-h-[280px] sm:min-h-[320px] px-4 sm:px-0">
       <div
-        className={`relative flex flex-col items-center justify-center w-full h-64 min-h-[256px] border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer ${
+        className={`relative flex flex-col items-center justify-center w-full h-56 sm:h-64 min-h-[224px] sm:min-h-[256px] border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer ${
           isDragging
             ? 'border-accent-pink bg-accent-pink/10'
             : 'border-accent-pink/50 dark:border-accent-pink/70 bg-white/50 dark:bg-background-dark/50 hover:border-accent-pink'
@@ -281,15 +281,15 @@ const FileUpload = () => {
             </p>
 
             {/* 时间信息 */}
-            <div className="flex gap-6 text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2 justify-center">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Elapsed: {formatTime(elapsedTime)}</span>
               </div>
               {estimatedTime !== null && estimatedTime > 0 && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 justify-center">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -299,27 +299,27 @@ const FileUpload = () => {
             </div>
 
             {/* 提示信息 */}
-            <p className="text-xs text-gray-500 dark:text-gray-500 mt-4 text-center max-w-md">
+            <p className="text-xs text-gray-500 dark:text-gray-500 mt-4 text-center max-w-md px-4">
               Processing large audio files may take several minutes. Please keep this page open.
             </p>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            <div className="flex space-x-6 mb-4 text-gray-400 group-hover:text-accent-purple transition-colors duration-300">
-              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Document file icon">
+          <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4">
+            <div className="flex space-x-4 sm:space-x-6 mb-4 text-gray-400 group-hover:text-accent-purple transition-colors duration-300">
+              <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Document file icon">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
-              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Audio file icon">
+              <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Audio file icon">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
               </svg>
-              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Video file icon">
+              <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Video file icon">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
-            <p className="mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">
+            <p className="mb-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 text-center">
               <span className="text-primary font-bold">Click to upload</span> or drag and drop
             </p>
-            <p className="text-sm text-gray-700 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-400 text-center">
               Text, PDF, DOC, Audio, or Video (Max 100MB)
             </p>
           </div>

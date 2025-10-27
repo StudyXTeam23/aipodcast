@@ -9,9 +9,9 @@ function Library() {
         <div className="layout-container flex h-full grow flex-col">
           <div className="flex flex-1 justify-center py-5">
             <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-              <main className="p-4 sm:p-10">
-                <div className="flex flex-wrap justify-between gap-3 mb-8">
-                  <p className="text-[#1b140d] dark:text-[#f3ede7] text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">
+              <main className="p-4 sm:p-6 md:p-10">
+                <div className="flex flex-wrap justify-between gap-3 mb-6 sm:mb-8">
+                  <p className="text-[#1b140d] dark:text-[#f3ede7] text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">
                     My podcasts
                   </p>
                 </div>

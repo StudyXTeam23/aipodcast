@@ -176,17 +176,17 @@ const GenerateForm = () => {
   };
 
   return (
-    <div className="mt-10 max-w-2xl mx-auto min-h-[520px]">
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="mt-6 sm:mt-10 max-w-2xl mx-auto min-h-[480px] sm:min-h-[520px] px-4 sm:px-0">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         {/* Topic Input */}
         <div>
-          <label htmlFor="topic" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label htmlFor="topic" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Podcast Topic *
           </label>
           <textarea
             id="topic"
             rows={4}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border border-gray-700 rounded-xl text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
             placeholder="Enter podcast topic, e.g.: The Future of AI, Healthy Eating Habits, Travel Stories..."
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
@@ -200,12 +200,12 @@ const GenerateForm = () => {
 
         {/* Style Selector */}
         <div>
-          <label htmlFor="style" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label htmlFor="style" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Podcast Style
           </label>
           <select
             id="style"
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer"
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border border-gray-700 rounded-xl text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer"
             value={style}
             onChange={(e) => setStyle(e.target.value)}
             disabled={generating}
@@ -220,12 +220,12 @@ const GenerateForm = () => {
 
         {/* Language Selector */}
         <div>
-          <label htmlFor="language" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label htmlFor="language" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Language
           </label>
           <select
             id="language"
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer"
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border border-gray-700 rounded-xl text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
             disabled={generating}
@@ -243,13 +243,13 @@ const GenerateForm = () => {
           <>
             <button
               type="submit"
-              className="w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 bg-primary text-gray-900 hover:bg-primary/90 hover:shadow-lg"
+              className="w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 bg-primary text-gray-900 hover:bg-primary/90 hover:shadow-lg"
             >
               Generate Podcast
             </button>
             
             {/* Description Text */}
-            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-center text-gray-500 dark:text-gray-400 px-4">
               AI will generate a complete podcast script and convert it to audio (takes 1-2 minutes)
             </p>
           </>
@@ -265,26 +265,26 @@ const GenerateForm = () => {
               </div>
               
               {/* 进度百分比 */}
-              <p className="text-center mt-3 text-lg font-bold text-gray-700 dark:text-gray-300">
+              <p className="text-center mt-3 text-base sm:text-lg font-bold text-gray-700 dark:text-gray-300">
                 {progress}%
               </p>
             </div>
 
             {/* 状态消息 */}
-            <p className="text-base font-semibold text-gray-700 dark:text-gray-300 text-center">
+            <p className="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 text-center px-4">
               {processingStatus || 'Generating...'}
             </p>
 
             {/* 时间信息 */}
-            <div className="flex gap-6 justify-center text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2 justify-center">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Elapsed: {formatTime(elapsedTime)}</span>
               </div>
               {estimatedTime !== null && estimatedTime > 0 && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 justify-center">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -294,7 +294,7 @@ const GenerateForm = () => {
             </div>
 
             {/* 提示信息 */}
-            <p className="text-xs text-gray-500 dark:text-gray-500 text-center">
+            <p className="text-xs text-gray-500 dark:text-gray-500 text-center px-4">
               AI is generating your podcast. This may take a few minutes. Please keep this page open.
             </p>
           </div>
