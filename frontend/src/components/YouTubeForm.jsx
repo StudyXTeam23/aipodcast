@@ -124,11 +124,39 @@ const YouTubeForm = () => {
           setProgress(currentProgress);
           setProcessingStatus(response.status_message || 'Processing...');
 
-          // 计算预估剩余时间（基于当前进度）
-          if (currentProgress > 5 && startTimeRef.current) {
+          // 改进的预估时间算法 - 基于阶段权重
+          if (startTimeRef.current) {
             const elapsed = (Date.now() - startTimeRef.current) / 1000;
-            const estimatedTotal = (elapsed / currentProgress) * 100;
-            const remaining = Math.max(0, Math.ceil(estimatedTotal - elapsed));
+            
+            // 不同阶段的预估时间权重
+            // 0-20%: 获取YouTube内容（快）- 30秒
+            // 20-60%: AI生成脚本（较慢）- 90秒  
+            // 60-90%: 生成音频（最慢）- 120秒
+            // 90-100%: 上传和保存（快）- 10秒
+            
+            let estimatedTotal;
+            if (currentProgress < 20) {
+              // 前期阶段：预估总时间约 4 分钟
+              estimatedTotal = 240;
+            } else if (currentProgress < 60) {
+              // 脚本生成阶段：根据实际进度调整
+              const baseTime = 30 + ((currentProgress - 20) / 40) * 90;
+              estimatedTotal = (elapsed / currentProgress) * 100;
+              // 使用加权平均，避免剧烈波动
+              estimatedTotal = estimatedTotal * 0.7 + 240 * 0.3;
+            } else if (currentProgress < 90) {
+              // 音频生成阶段：最耗时
+              estimatedTotal = (elapsed / currentProgress) * 100;
+              // 确保预估时间合理（3-5分钟）
+              estimatedTotal = Math.min(estimatedTotal, 300);
+              estimatedTotal = Math.max(estimatedTotal, 180);
+            } else {
+              // 最后阶段：快速完成
+              estimatedTotal = (elapsed / currentProgress) * 100;
+              estimatedTotal = Math.min(estimatedTotal, elapsed + 20);
+            }
+            
+            const remaining = Math.max(5, Math.ceil(estimatedTotal - elapsed));
             setEstimatedTime(remaining);
           }
         }
@@ -382,15 +410,15 @@ const YouTubeForm = () => {
           </div>
 
           {/* Time Information */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
               <span className="font-semibold">⏱️ Elapsed:</span>
-              <span className="font-mono">{formatTime(elapsedTime)}</span>
+              <span className="font-mono font-bold text-primary">{formatTime(elapsedTime)}</span>
             </div>
-            {estimatedTime !== null && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">⏳ Estimated:</span>
-                <span className="font-mono">{formatTime(estimatedTime)}</span>
+            {estimatedTime !== null && estimatedTime > 0 && (
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
+                <span className="font-semibold">⏳ Remaining:</span>
+                <span className="font-mono font-bold text-accent-purple">{formatTime(estimatedTime)}</span>
               </div>
             )}
           </div>

@@ -944,6 +944,35 @@
       "created_at": "2025-10-27T08:24:40.434509",
       "updated_at": "2025-10-27T08:26:55.002727",
       "status_message": "🎉 播客生成成功！时长 169 秒"
+    },
+    {
+      "id": "d18067eb-8678-4fad-8545-f92bb6227e40",
+      "podcast_id": "da1e9236-ccf2-42f8-a76f-d780d21ce312",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+        "youtube_metadata": {
+          "title": "YouTube Video FwOTs4UxQS4",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "FwOTs4UxQS4",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focusing on AI agent workflow explaining and case study contents discussion",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "processing",
+      "progress": 85,
+      "created_at": "2025-10-27T08:36:00.692488",
+      "updated_at": "2025-10-27T08:39:55.973129",
+      "status_message": "✅ 音频生成完成 (180秒)"
     }
   ]
 }

@@ -236,6 +236,23 @@
       "transcript": "Mike: Hey everyone, I'm Mike, and I've been doing a lot of flying lately, and honestly, most of the time it feels like a battle. Getting to the airport, dealing with the crowds, the whole \"cattle car\" experience... it's just not fun anymore.\n\nSarah: Oh, tell me about it! I'm Sarah, and I dread air travel sometimes. It feels like there's so little civility in civil aviation these days, right?\n\nMike: Exactly! But you know what? I recently discovered an airline that’s completely changed my perspective. It's Porter Airlines, and honestly, it's a breath of fresh air.\n\nSarah: That sounds amazing! So, what makes them so different? Is it the planes?\n\nMike: It's more than just the planes. Porter is all about a truly refined flying experience. They've managed to ditch that \"cattle car\" treatment you get on so many other airlines. It feels like they actually care about making your journey pleasant.\n\nSarah: I can see how that would make a huge difference. I've had my fair share of uncomfortable flights, and the thought of a more refined experience is very appealing. So, what's the secret sauce? Where does this refined experience begin?\n\nMike: It starts with their incredible location. Their main hub, Billy Bishop Airport, is right in downtown Toronto! Can you believe it? At the base of Bathurst Street.\n\nSarah: Wow, that's a game-changer! No more battling traffic out to Pearson. I always find that part of flying to be such a drain.\n\nMike: Exactly! Drop-off is a breeze, it's so quick. And get this – they have a free shuttle service to and from Union Station. That means super easy connections to the TTC and the Go Train. It's so convenient for business trips or just getting around. Imagine actually enjoying the start of your trip instead of stressing about transit.\n\nSarah: That’s brilliant! I can already picture how much smoother that makes the whole process. No more worrying about being late because of unpredictable highway traffic. And what about the airport itself? Is it as streamlined as the location suggests?\n\nMike: The whole process is just smooth. Check-in is quick and easy. And their departure lounges are actually clean and comfortable, not like some other places I could mention where you’re just crammed into a crowded space. You can actually relax before your flight.\n\nSarah: And what about onboard? Is the service as good as you say? Because a comfortable lounge is one thing, but the actual flight experience is crucial.\n\nMike: Absolutely. The onboard service is genuinely friendly. The flight attendants are attentive and pleasant, not rushed or indifferent. And here's a little perk that always makes me happy – complimentary drinks and snacks. It’s a small thing, but it makes a huge difference. They offer a selection of complimentary beer and wine, along with a variety of snacks. It feels like a genuine amenity, not a luxury add-on.\n\nSarah: Complimentary drinks and snacks? That’s fantastic! It really does elevate the whole experience.",
       "duration_seconds": 169,
       "file_size_bytes": 2713018
+    },
+    {
+      "id": "da1e9236-ccf2-42f8-a76f-d780d21ce312",
+      "title": "Processing: YouTube Video FwOTs4UxQS4...",
+      "original_filename": "YouTube-FwOTs4UxQS4",
+      "status": "processing",
+      "source_type": "youtube",
+      "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+      "extraction_metadata": {
+        "youtube_title": "YouTube Video FwOTs4UxQS4",
+        "youtube_uploader": "Unknown",
+        "youtube_duration": 300
+      },
+      "original_duration": 300.0,
+      "original_format": "youtube",
+      "created_at": "2025-10-27T08:36:00.689790",
+      "updated_at": "2025-10-27T08:36:00.689800"
     }
   ]
 }
