@@ -1,12 +1,13 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FileUpload from '../components/FileUpload';
+import YouTubeForm from '../components/YouTubeForm';
 import GenerateForm from '../components/GenerateForm';
 import Header from '../components/Header';
 
 const LandingPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
-  const [activeTab, setActiveTab] = useState('upload'); // 'upload' or 'generate'
+  const [activeTab, setActiveTab] = useState('upload'); // 'upload', 'youtube', or 'generate'
   const navigate = useNavigate();
 
   const toggleFaq = (index) => {
@@ -58,9 +59,13 @@ const LandingPage = () => {
 
   // 缓存描述文字以减少重新渲染
   const heroDescription = useMemo(() => {
-    return activeTab === 'upload' 
-      ? 'Upload your article, lecture, or video and let our AI create your next studio-quality podcast episode in minutes.'
-      : 'Describe your podcast topic and let AI generate a complete script and audio for you.';
+    if (activeTab === 'upload') {
+      return 'Upload your text, PDF, or audio files and let our AI transform them into engaging podcast episodes.';
+    } else if (activeTab === 'youtube') {
+      return 'Paste a YouTube video URL and watch as AI converts it into a professional podcast episode.';
+    } else {
+      return 'Describe your podcast topic and let AI generate a complete script and audio for you.';
+    }
   }, [activeTab]);
 
   return (
@@ -95,20 +100,30 @@ const LandingPage = () => {
                   </p>
 
                   {/* Tab Switcher */}
-                  <div className="flex justify-center mt-8 space-x-4">
+                  <div className="flex justify-center mt-8 space-x-2 sm:space-x-4">
                     <button
                       onClick={() => setActiveTab('upload')}
-                      className={`px-6 py-3 rounded-xl font-semibold text-base transition-all duration-300 ${
+                      className={`px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
                         activeTab === 'upload'
                           ? 'bg-primary text-gray-900 shadow-lg'
                           : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700'
                       }`}
                     >
-                      📁 Upload File
+                      📁 File Upload
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('youtube')}
+                      className={`px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
+                        activeTab === 'youtube'
+                          ? 'bg-primary text-gray-900 shadow-lg'
+                          : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      🎬 YouTube
                     </button>
                     <button
                       onClick={() => setActiveTab('generate')}
-                      className={`px-6 py-3 rounded-xl font-semibold text-base transition-all duration-300 ${
+                      className={`px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
                         activeTab === 'generate'
                           ? 'bg-primary text-gray-900 shadow-lg'
                           : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700'
@@ -119,7 +134,9 @@ const LandingPage = () => {
                   </div>
 
                   {/* Dynamic Content Based on Tab */}
-                  {activeTab === 'upload' ? <FileUpload /> : <GenerateForm />}
+                  {activeTab === 'upload' && <FileUpload />}
+                  {activeTab === 'youtube' && <YouTubeForm />}
+                  {activeTab === 'generate' && <GenerateForm />}
                 </div>
               </div>
 

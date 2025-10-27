@@ -98,6 +98,17 @@ export const podcastAPI = {
       onUploadProgress: options.onUploadProgress,
     });
   },
+
+  // 从 YouTube 视频生成播客
+  generateFromYouTube: async (data) => {
+    return api.post('/api/v1/podcasts/generate-from-youtube', {
+      youtube_url: data.youtubeUrl,
+      style: data.style || 'Conversation',
+      language: data.language || 'en',
+      duration_minutes: data.durationMinutes || 5,
+      enhancement_prompt: data.enhancementPrompt || null,
+    });
+  },
 };
 
 export default api;
