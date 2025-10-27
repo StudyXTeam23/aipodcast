@@ -181,7 +181,7 @@ class AIService:
         """
         try:
             # 使用 gemini-2.5-flash 或 gemini-2.5-pro 支持视频分析
-            model = "gemini-2.0-flash-exp" if "flash" in self.gemini_model else self.gemini_model
+            model = "gemini-2.5-pro"
             api_url = f"{self.gemini_api_url}/{model}:generateContent?key={self.gemini_api_key}"
             
             # 构建请求体（支持视频 URL）
@@ -192,7 +192,8 @@ class AIService:
                         {"text": prompt},
                         {
                             "fileData": {
-                                "fileUri": url
+                                "fileUri": url,
+                                "mimeType": "video/mp4"  # ← 必须指定 mimeType！
                             }
                         }
                     ]
