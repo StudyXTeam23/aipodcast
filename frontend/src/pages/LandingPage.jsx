@@ -16,8 +16,8 @@ const LandingPage = () => {
 
   const faqs = [
     {
-      question: 'What is AIPODCAST?',
-      answer: 'AIPODCAST is an AI Podcast Generator that transforms your existing content into high-quality podcasts using advanced artificial intelligence.',
+      question: 'What is AIPodcast?',
+      answer: 'AIPodcast is an AI Podcast Generator that transforms your existing content into high-quality podcasts using advanced artificial intelligence.',
     },
     {
       question: 'What file formats do you support?',
@@ -25,7 +25,7 @@ const LandingPage = () => {
     },
     {
       question: 'Is there a free trial?',
-      answer: 'Yes, we offer a free trial that allows you to test our AI Podcast Generator with up to 10 minutes of content to see how AIPODCAST works.',
+      answer: 'Yes, we offer a free trial that allows you to test our AI Podcast Generator with up to 10 minutes of content to see how AIPodcast works.',
     },
     {
       question: 'How do you ensure data privacy?',
