@@ -18,6 +18,28 @@ class PodcastResponse(BaseModel):
     status: str = Field(description="processing, completed, failed")
     created_at: str
     updated_at: str
+    
+    # 新增字段：支持多种内容源
+    source_type: Optional[str] = Field(
+        default="text",
+        description="内容来源类型：text（文本/文档）/ audio（音频文件）/ video（视频文件）/ youtube（YouTube 视频）"
+    )
+    source_url: Optional[str] = Field(
+        default=None,
+        description="原始来源 URL（如 YouTube 链接）"
+    )
+    extraction_metadata: Optional[dict] = Field(
+        default=None,
+        description="提取的元数据（如主题、摘要、关键点等）"
+    )
+    original_duration: Optional[float] = Field(
+        default=None,
+        description="原始音频/视频时长（秒）"
+    )
+    original_format: Optional[str] = Field(
+        default=None,
+        description="原始文件格式（如 mp3, mp4, youtube 等）"
+    )
 
 
 class JobResponse(BaseModel):
@@ -83,6 +105,29 @@ class AnalyzeAndGenerateRequest(BaseModel):
     language: str = Field(
         default="en",
         description="播客语言：en (English) / zh (Chinese)"
+    )
+
+
+class YouTubeGenerateRequest(BaseModel):
+    """从 YouTube 视频生成播客请求模型"""
+    youtube_url: str = Field(description="YouTube 视频链接")
+    language: str = Field(
+        default="en",
+        description="播客语言：en (English) / zh (Chinese)"
+    )
+    enhancement_prompt: Optional[str] = Field(
+        default=None,
+        description="增强提示：指导 AI 关注特定方面"
+    )
+    style: str = Field(
+        default="Conversation",
+        description="播客风格：Solo Talk Show/Conversation/Storytelling"
+    )
+    duration_minutes: Optional[int] = Field(
+        default=5,
+        ge=3,
+        le=15,
+        description="目标时长（分钟）"
     )
 
 

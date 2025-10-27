@@ -10,6 +10,11 @@ const FileUpload = () => {
   const [processingStatus, setProcessingStatus] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
   const [estimatedTime, setEstimatedTime] = useState(null);
+  const [style, setStyle] = useState('Conversation');
+  const [language, setLanguage] = useState('en');
+  const [durationMinutes, setDurationMinutes] = useState(5);
+  const [enhancementPrompt, setEnhancementPrompt] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
   const pollIntervalRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -35,7 +40,7 @@ const FileUpload = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // 支持的文件类型
+  // 支持的文件类型（移除视频格式，视频现在通过 YouTube URL 处理）
   const ACCEPTED_TYPES = [
     'text/plain',
     'application/pdf',
@@ -44,8 +49,17 @@ const FileUpload = () => {
     'audio/mpeg',
     'audio/wav',
     'audio/mp3',
-    'video/mp4',
-    'video/quicktime',
+  ];
+
+  const STYLE_OPTIONS = [
+    'Solo Talk Show',
+    'Conversation',
+    'Storytelling'
+  ];
+
+  const LANGUAGE_OPTIONS = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' }
   ];
 
   const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
@@ -60,7 +74,7 @@ const FileUpload = () => {
     }
 
     if (!ACCEPTED_TYPES.includes(file.type)) {
-      return `Unsupported file type. Please upload text, audio, or video files.`;
+      return `Unsupported file type. Please upload text, PDF, or audio files.`;
     }
 
     return null;
@@ -161,11 +175,11 @@ const FileUpload = () => {
     setUploadProgress(0);
 
     try {
-      // 自动检测：音频/视频文件使用 AI 分析生成，文档文件使用原有流程
-      const isMediaFile = file.type.startsWith('audio/') || file.type.startsWith('video/');
+      // 自动检测：音频文件使用 AI 分析生成，文档文件使用原有流程
+      const isMediaFile = file.type.startsWith('audio/');
       
       if (isMediaFile) {
-        // 音频/视频：使用 AI 分析并生成新播客
+        // 音频：使用 AI 分析并生成新播客
         setProcessingStatus('Uploading and analyzing with AI...');
         
         const response = await podcastAPI.analyzeAndGenerate(file, {
@@ -173,9 +187,10 @@ const FileUpload = () => {
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
             setUploadProgress(Math.min(progress, 50)); // 上传占 50%
           },
-          style: 'Conversation',
-          durationMinutes: 5,
-          language: 'en',
+          style: style,
+          durationMinutes: parseInt(durationMinutes),
+          language: language,
+          enhancementPrompt: enhancementPrompt.trim() || undefined,
         });
 
         if (response && response.job_id && response.podcast_id) {
@@ -212,6 +227,19 @@ const FileUpload = () => {
     }
   };
 
+  const handleFileSelect = (file) => {
+    setSelectedFile(file);
+    setError('');
+  };
+
+  const handleSubmit = () => {
+    if (!selectedFile) {
+      setError('Please select a file first');
+      return;
+    }
+    handleFileUpload(selectedFile);
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragging(true);
@@ -228,14 +256,14 @@ const FileUpload = () => {
 
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-      handleFileUpload(files[0]);
+      handleFileSelect(files[0]);
     }
   };
 
   const handleFileInputChange = (e) => {
     const files = e.target.files;
     if (files.length > 0) {
-      handleFileUpload(files[0]);
+      handleFileSelect(files[0]);
     }
   };
 
@@ -246,97 +274,217 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="mt-6 sm:mt-10 max-w-2xl mx-auto min-h-[280px] sm:min-h-[320px] px-4 sm:px-0">
-      <div
-        className={`relative flex flex-col items-center justify-center w-full h-56 sm:h-64 min-h-[224px] sm:min-h-[256px] border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer ${
-          isDragging
-            ? 'border-accent-pink bg-accent-pink/10'
-            : 'border-accent-pink/50 dark:border-accent-pink/70 bg-white/50 dark:bg-background-dark/50 hover:border-accent-pink'
-        } ${uploading ? 'pointer-events-none opacity-50' : ''}`}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onClick={handleClick}
-      >
-        {uploading ? (
-          <div className="flex flex-col items-center justify-center p-6 w-full">
-            <div className="w-full max-w-md mb-4">
-              {/* 进度条 */}
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                <div
-                  className="bg-gradient-to-r from-primary to-accent-purple h-3 rounded-full transition-all duration-300"
-                  style={{ width: `${uploadProgress}%` }}
-                ></div>
+    <div className="mt-10 w-full max-w-2xl mx-auto">
+      {!uploading ? (
+        !selectedFile ? (
+          // File Selection UI
+          <div
+            className={`relative flex flex-col items-center justify-center w-full h-56 sm:h-64 border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer ${
+              isDragging
+                ? 'border-accent-pink bg-accent-pink/10'
+                : 'border-accent-pink/50 dark:border-accent-pink/70 bg-white/50 dark:bg-background-dark/50 hover:border-accent-pink'
+            }`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={handleClick}
+          >
+            <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4">
+              <div className="flex space-x-4 sm:space-x-6 mb-4 text-gray-400 hover:text-accent-purple transition-colors duration-300">
+                <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Document file icon">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Audio file icon">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                </svg>
               </div>
-              
-              {/* 进度百分比 */}
-              <p className="text-center mt-3 text-lg font-bold text-gray-700 dark:text-gray-300">
-                {uploadProgress}%
+              <p className="mb-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 text-center">
+                <span className="text-primary font-bold">Click to upload</span> or drag and drop
+              </p>
+              <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-400 text-center">
+                Text, PDF, DOC, or Audio files (Max 100MB)
               </p>
             </div>
-
-            {/* 状态消息 */}
-            <p className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-4 text-center max-w-md">
-              {processingStatus}
-            </p>
-
-            {/* 时间信息 */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-2 justify-center">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Elapsed: {formatTime(elapsedTime)}</span>
-              </div>
-              {estimatedTime !== null && estimatedTime > 0 && (
-                <div className="flex items-center gap-2 justify-center">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  <span>Est. remaining: ~{formatTime(estimatedTime)}</span>
-                </div>
-              )}
-            </div>
-
-            {/* 提示信息 */}
-            <p className="text-xs text-gray-500 dark:text-gray-500 mt-4 text-center max-w-md px-4">
-              Processing large audio files may take several minutes. Please keep this page open.
-            </p>
+            <input
+              ref={fileInputRef}
+              className="hidden"
+              type="file"
+              onChange={handleFileInputChange}
+              accept=".txt,.pdf,.doc,.docx,.mp3,.wav"
+              disabled={uploading}
+            />
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4">
-            <div className="flex space-x-4 sm:space-x-6 mb-4 text-gray-400 group-hover:text-accent-purple transition-colors duration-300">
-              <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Document file icon">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-              <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Audio file icon">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-              </svg>
-              <svg className="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="img" aria-label="Video file icon">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
+          // Configuration Form UI
+          <div className="space-y-6 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-md">
+            {/* Selected File Display */}
+            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white truncate max-w-[200px] sm:max-w-md">
+                    {selectedFile.name}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedFile(null)}
+                className="text-red-500 hover:text-red-700 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-            <p className="mb-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 text-center">
-              <span className="text-primary font-bold">Click to upload</span> or drag and drop
-            </p>
-            <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-400 text-center">
-              Text, PDF, DOC, Audio, or Video (Max 100MB)
+
+            {/* Style Selection */}
+            <div>
+              <label htmlFor="style" className="block text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-200">
+                🎭 Podcast Style
+              </label>
+              <select
+                id="style"
+                value={style}
+                onChange={(e) => setStyle(e.target.value)}
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-sm sm:text-base"
+              >
+                {STYLE_OPTIONS.map((styleOption) => (
+                  <option key={styleOption} value={styleOption}>
+                    {styleOption}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Language Selection */}
+            <div>
+              <label htmlFor="language" className="block text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-200">
+                🌐 Language
+              </label>
+              <select
+                id="language"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-sm sm:text-base"
+              >
+                {LANGUAGE_OPTIONS.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.flag} {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Duration Selection (only for audio files) */}
+            {selectedFile.type.startsWith('audio/') && (
+              <div>
+                <label htmlFor="duration" className="block text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-200">
+                  ⏱️ Target Duration: <span className="text-primary font-bold">{durationMinutes}</span> minutes
+                </label>
+                <input
+                  id="duration"
+                  type="range"
+                  min="3"
+                  max="15"
+                  step="1"
+                  value={durationMinutes}
+                  onChange={(e) => setDurationMinutes(Number(e.target.value))}
+                  className="w-full h-3 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary hover:accent-accent-pink transition-colors"
+                  style={{
+                    WebkitAppearance: 'none',
+                    appearance: 'none',
+                  }}
+                />
+                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <span>3 min</span>
+                  <span>9 min</span>
+                  <span>15 min</span>
+                </div>
+              </div>
+            )}
+
+            {/* Enhancement Prompt (only for audio files) */}
+            {selectedFile.type.startsWith('audio/') && (
+              <div>
+                <label htmlFor="enhancement" className="block text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-200">
+                  💡 Enhancement Prompt (Optional)
+                </label>
+                <textarea
+                  id="enhancement"
+                  value={enhancementPrompt}
+                  onChange={(e) => setEnhancementPrompt(e.target.value)}
+                  placeholder="e.g., Focus on technical details, include practical examples..."
+                  rows="3"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-sm sm:text-base resize-none"
+                />
+              </div>
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-gradient-to-r from-primary to-accent-lime text-gray-900 font-bold py-3 sm:py-4 px-6 rounded-xl hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-sm sm:text-base"
+            >
+              🚀 Generate Podcast
+            </button>
+          </div>
+        )
+      ) : (
+        // Processing Status Display
+        <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-md space-y-6">
+          <div className="text-center">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2">
+              🎙️ Creating Your Podcast
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              {processingStatus}
             </p>
           </div>
-        )}
-        <input
-          ref={fileInputRef}
-          className="hidden"
-          type="file"
-          onChange={handleFileInputChange}
-          accept=".txt,.pdf,.doc,.docx,.mp3,.wav,.mp4,.mov"
-          disabled={uploading}
-        />
-      </div>
 
-      {error && (
-        <div className="mt-4 p-4 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-400 rounded-lg">
-          <p className="font-medium">{error}</p>
+          {/* Progress Bar */}
+          <div className="space-y-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-primary via-accent-pink to-accent-purple rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${uploadProgress}%` }}
+              ></div>
+            </div>
+            <div className="flex justify-between text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              <span>{uploadProgress}%</span>
+              <span>Processing</span>
+            </div>
+          </div>
+
+          {/* Time Information */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2">
+              <span className="font-semibold">⏱️ Elapsed:</span>
+              <span className="font-mono">{formatTime(elapsedTime)}</span>
+            </div>
+            {estimatedTime !== null && (
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">⏳ Estimated:</span>
+                <span className="font-mono">{formatTime(estimatedTime)}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Hint */}
+          <p className="text-center text-xs text-gray-500 dark:text-gray-500 italic">
+            💡 This may take 2-5 minutes. Feel free to explore other pages.
+          </p>
         </div>
       )}
     </div>

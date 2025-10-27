@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 import io
 
-from app.schemas.podcast import UploadResponse, ApiResponse, PodcastResponse, GenerateRequest, AnalyzeAndGenerateRequest
+from app.schemas.podcast import UploadResponse, ApiResponse, PodcastResponse, GenerateRequest, AnalyzeAndGenerateRequest, YouTubeGenerateRequest
 from app.services.data_service import data_service
 from app.utils.s3_storage import s3_storage
 from app.config import settings
@@ -90,6 +90,14 @@ async def upload_file(file: UploadFile = File(...)):
         podcast_id = str(uuid.uuid4())
         job_id = str(uuid.uuid4())
         
+        # 确定文件类型
+        file_type = "text"  # 默认是文本/文档
+        if file.content_type:
+            if file.content_type.startswith("audio/"):
+                file_type = "audio"
+            elif file.content_type.startswith("video/"):
+                file_type = "video"
+        
         # 保存 podcast 记录
         podcast_data = {
             "id": podcast_id,
@@ -97,7 +105,13 @@ async def upload_file(file: UploadFile = File(...)):
             "original_filename": file.filename,
             "s3_key": s3_key,
             "file_size_bytes": len(file_content),
-            "status": "processing"
+            "status": "processing",
+            # 新增字段：支持多种内容源
+            "source_type": file_type,
+            "source_url": None,
+            "extraction_metadata": None,
+            "original_duration": None,
+            "original_format": file.filename.split('.')[-1].lower() if '.' in file.filename else None
         }
         
         success = data_service.save_podcast(podcast_data)
@@ -447,7 +461,13 @@ async def generate_podcast(request: GenerateRequest):
             "id": podcast_id,
             "title": title,
             "original_filename": f"AI生成-{request.style}",
-            "status": "processing"
+            "status": "processing",
+            # 新增字段：支持多种内容源
+            "source_type": "text",  # AI 文本生成
+            "source_url": None,
+            "extraction_metadata": {"topic": request.topic, "style": request.style},
+            "original_duration": None,
+            "original_format": "ai_generated"
         }
         
         success = data_service.save_podcast(podcast_data)
@@ -563,7 +583,13 @@ async def analyze_and_generate_direct(
             "id": podcast_id,
             "title": title,
             "original_filename": file.filename,
-            "status": "processing"
+            "status": "processing",
+            # 新增字段：支持多种内容源
+            "source_type": source_type,  # "audio" 或 "video"
+            "source_url": None,  # 文件上传没有 URL
+            "extraction_metadata": None,  # 将在处理后填充
+            "original_duration": None,  # 将在处理后填充
+            "original_format": file.filename.split('.')[-1].lower() if '.' in file.filename else None
         }
         
         success = data_service.save_podcast(podcast_data)
@@ -719,4 +745,114 @@ async def analyze_and_generate_podcast(request: AnalyzeAndGenerateRequest):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"分析生成播客失败: {str(e)}"
+        )
+
+
+@router.post("/generate-from-youtube", response_model=UploadResponse)
+async def generate_from_youtube(request: YouTubeGenerateRequest):
+    """
+    从 YouTube 视频生成播客
+    
+    提取 YouTube 视频的字幕或音频内容，然后使用 AI 生成播客
+    
+    - **youtube_url**: YouTube 视频链接
+    - **language**: 播客语言 (en/zh)
+    - **enhancement_prompt**: 可选的增强提示
+    - **style**: 播客风格 (Conversation/Storytelling/Solo)
+    - **duration_minutes**: 目标时长（3-15分钟）
+    """
+    try:
+        # 1. 验证 YouTube URL
+        from app.services.youtube_extractor import youtube_extractor
+        
+        is_valid, error_msg = youtube_extractor.validate_url(request.youtube_url)
+        if not is_valid:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=error_msg
+            )
+        
+        # 2. 获取视频元数据
+        try:
+            metadata = youtube_extractor.extract_metadata(request.youtube_url)
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"无法访问 YouTube 视频: {str(e)}"
+            )
+        
+        # 3. 创建 podcast 和 job 记录
+        podcast_id = str(uuid.uuid4())
+        job_id = str(uuid.uuid4())
+        
+        # 使用 YouTube 视频标题作为播客标题
+        title = f"Processing: {metadata['title'][:50]}..."
+        
+        podcast_data = {
+            "id": podcast_id,
+            "title": title,
+            "original_filename": f"YouTube-{metadata['video_id']}",
+            "status": "processing",
+            # 新增字段：YouTube 来源
+            "source_type": "youtube",
+            "source_url": request.youtube_url,
+            "extraction_metadata": {
+                "youtube_title": metadata['title'],
+                "youtube_uploader": metadata['uploader'],
+                "youtube_duration": metadata['duration']
+            },
+            "original_duration": float(metadata['duration']),
+            "original_format": "youtube"
+        }
+        
+        success = data_service.save_podcast(podcast_data)
+        if not success:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="保存播客记录失败"
+            )
+        
+        # 4. 创建任务记录
+        job_data = {
+            "id": job_id,
+            "podcast_id": podcast_id,
+            "type": "youtube_generate",
+            "inputs": {
+                "youtube_url": request.youtube_url,
+                "youtube_metadata": metadata,
+                "enhancement_prompt": request.enhancement_prompt,
+                "style": request.style,
+                "duration_minutes": request.duration_minutes,
+                "language": request.language
+            },
+            "status": "pending",
+            "progress": 0
+        }
+        
+        success = data_service.save_job(job_data)
+        if not success:
+            data_service.delete_podcast(podcast_id)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="保存任务记录失败"
+            )
+        
+        # 5. 启动后台 YouTube 生成任务
+        from app.tasks.process_podcast import start_youtube_generate_task
+        start_youtube_generate_task(podcast_id, job_id, request.youtube_url)
+        
+        return UploadResponse(
+            podcast_id=podcast_id,
+            job_id=job_id,
+            status="processing",
+            message=f"YouTube 视频分析已开始：{metadata['title']}"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in generate_from_youtube: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"生成播客失败: {str(e)}"
         )
