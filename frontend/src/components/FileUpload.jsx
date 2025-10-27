@@ -10,6 +10,7 @@ const FileUpload = () => {
   const [processingStatus, setProcessingStatus] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
   const [estimatedTime, setEstimatedTime] = useState(null);
+  const [currentTip, setCurrentTip] = useState(0);
   const [style, setStyle] = useState('Conversation');
   const [language, setLanguage] = useState('en');
   const [durationMinutes, setDurationMinutes] = useState(5);
@@ -20,6 +21,18 @@ const FileUpload = () => {
   const startTimeRef = useRef(null);
   const elapsedTimerRef = useRef(null);
   const navigate = useNavigate();
+
+  // 播客小贴士
+  const podcastTips = [
+    "💡 Did you know? The first podcast was created in 2003 by Adam Curry and Dave Winer.",
+    "🎙️ Tip: Clear audio quality can increase listener retention by up to 40%.",
+    "📊 Fun fact: Over 2 million podcasts exist worldwide with 48 million episodes.",
+    "⏱️ Studies show: The ideal podcast length is 20-40 minutes for maximum engagement.",
+    "🎵 Pro tip: Adding background music can make your podcast 30% more engaging.",
+    "🌍 Amazing: Podcasts are consumed in over 100 languages across the globe.",
+    "📈 Growth: Podcast listeners have grown by 20% year-over-year since 2015.",
+    "🎧 Insight: 80% of podcast listeners finish entire episodes they start.",
+  ];
 
   // 组件卸载时清理定时器
   useEffect(() => {
@@ -32,6 +45,17 @@ const FileUpload = () => {
       }
     };
   }, []);
+
+  // 提示轮换 - 每8秒切换一次
+  useEffect(() => {
+    if (!uploading) return;
+    
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % podcastTips.length);
+    }, 8000);
+    
+    return () => clearInterval(tipInterval);
+  }, [uploading, podcastTips.length]);
 
   // 格式化时间显示（秒 -> MM:SS）
   const formatTime = (seconds) => {
@@ -173,6 +197,22 @@ const FileUpload = () => {
     setError('');
     setUploading(true);
     setUploadProgress(0);
+
+    // 立即开始计时
+    startTimeRef.current = Date.now();
+    setElapsedTime(0);
+    setEstimatedTime(180); // 初始预估3分钟
+    
+    // 清理旧的定时器
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+    }
+    
+    // 启动已用时间计时器
+    elapsedTimerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setElapsedTime(elapsed);
+    }, 1000);
 
     try {
       // 自动检测：音频文件使用 AI 分析生成，文档文件使用原有流程
@@ -464,17 +504,24 @@ const FileUpload = () => {
           </div>
 
           {/* Time Information */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
               <span className="font-semibold">⏱️ Elapsed:</span>
-              <span className="font-mono">{formatTime(elapsedTime)}</span>
+              <span className="font-mono font-bold text-primary">{formatTime(elapsedTime)}</span>
             </div>
-            {estimatedTime !== null && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">⏳ Estimated:</span>
-                <span className="font-mono">{formatTime(estimatedTime)}</span>
+            {estimatedTime !== null && estimatedTime > 0 && (
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
+                <span className="font-semibold">⏳ Remaining:</span>
+                <span className="font-mono font-bold text-accent-purple">{formatTime(estimatedTime)}</span>
               </div>
             )}
+          </div>
+
+          {/* Podcast Tips - Rotating */}
+          <div className="bg-gradient-to-r from-primary/10 to-accent-purple/10 dark:from-primary/20 dark:to-accent-purple/20 border border-primary/20 dark:border-primary/30 rounded-xl p-4 transition-all duration-500">
+            <p className="text-sm sm:text-base text-center text-gray-700 dark:text-gray-300 font-medium">
+              {podcastTips[currentTip]}
+            </p>
           </div>
 
           {/* Hint */}
