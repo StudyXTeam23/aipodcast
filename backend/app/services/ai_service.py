@@ -545,15 +545,19 @@ class AIService:
 CRITICAL - 绝对禁止以下内容：
 - 任何括号标注：(**音乐**) (**轻笑**) (**停顿**) （音乐起） [音效]
 - 任何Markdown格式：**粗体** *斜体* 
-- 占位符：[你的名字] [主持人名字]
+- 任何方括号占位符：[你的名字] [主持人名字] [播客名称] [节目名] [话题] [任何内容]
 - 音效、舞台指示、动作、场景描述
 - 使用"主持人A"、"主持人B"这样的标签（要用真实名字）
 
 正确示例（对话风格）：
-Alex：嗨，大家好！我是Alex，欢迎收听今天的节目。
+Alex：嗨，大家好！我是Alex，欢迎收听今天这期节目，我们会聊一些有趣的话题。
 Emma：你好！我是Emma，很高兴来到这里。
 Alex：今天我们要聊一个非常有趣的话题。
 Emma：没错，让我们开始吧！
+
+错误示例（绝对不要这样做）：
+Alex：欢迎来到[播客名称]。
+Emma：今天在[节目名]中，我们要讨论[话题]。
 
 对话格式说明：
 - 固定使用这两个名字："Alex"（男主持）和"Emma"（女主持）
@@ -606,15 +610,19 @@ Requirements:
 CRITICAL - ABSOLUTELY FORBIDDEN:
 - Any bracketed annotations: (**music**) (**laughs**) (**pause**) (music starts) [sound effect]
 - Any Markdown formatting: **bold** *italic*
-- Placeholders: [your name] [host name]
+- ANY placeholders in brackets: [your name] [host name] [Podcast Name] [show name] [topic] [anything]
 - Sound effects, stage directions, actions, scene descriptions
 - Using generic labels like "Host A", "Host B", "Speaker 1" (use real names instead)
 
 CORRECT Example (Conversation style):
-Mike: Hey everyone! I'm Mike, and welcome back to the show.
+Mike: Hey everyone, I'm Mike, and welcome back to the show where we explore fascinating topics.
 Sarah: Hi there! I'm Sarah, excited to be here today.
 Mike: So Sarah, let's dive right into today's fascinating topic.
 Sarah: Absolutely! This is going to be great.
+
+WRONG Example (DO NOT DO THIS):
+Mike: Hey everyone, I'm Mike, and welcome back to [Podcast Name].
+Sarah: Today on [Show Name], we're going to discuss [topic].
 
 Conversation format guidelines:
 - ALWAYS use these EXACT names: "Mike" (male host) and "Sarah" (female host)
