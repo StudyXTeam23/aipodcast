@@ -392,7 +392,7 @@ const FileUpload = () => {
                   min="3"
                   max="15"
                   value={durationMinutes}
-                  onChange={(e) => setDurationMinutes(e.target.value)}
+                  onChange={(e) => setDurationMinutes(Number(e.target.value))}
                   className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary"
                 />
                 <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">

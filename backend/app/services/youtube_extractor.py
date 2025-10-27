@@ -100,6 +100,10 @@ class YouTubeExtractor:
                 'no_warnings': True,
                 'extract_flat': False,
                 'skip_download': True,
+                # 绕过 YouTube 的 bot 检测
+                'nocheckcertificate': True,
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -167,6 +171,10 @@ class YouTubeExtractor:
                 'subtitleslangs': [language, 'en'],  # 优先请求的语言，回退到英文
                 'subtitlesformat': 'srt',
                 'outtmpl': temp_path.replace('.txt', ''),
+                # 绕过 YouTube 的 bot 检测
+                'nocheckcertificate': True,
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -284,6 +292,10 @@ class YouTubeExtractor:
                 'outtmpl': temp_path.replace('.mp3', ''),
                 'quiet': True,
                 'no_warnings': True,
+                # 绕过 YouTube 的 bot 检测
+                'nocheckcertificate': True,
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:

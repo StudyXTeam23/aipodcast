@@ -6,7 +6,7 @@ const YouTubeForm = () => {
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [style, setStyle] = useState('Conversation');
   const [language, setLanguage] = useState('en');
-  const [durationMinutes, setDurationMinutes] = useState(5);
+  const [durationMinutes, setDurationMinutes] = useState(5);  // 确保是数字类型
   const [enhancementPrompt, setEnhancementPrompt] = useState('');
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState('');
@@ -258,7 +258,7 @@ const YouTubeForm = () => {
               min="3"
               max="15"
               value={durationMinutes}
-              onChange={(e) => setDurationMinutes(e.target.value)}
+              onChange={(e) => setDurationMinutes(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary"
               disabled={generating}
             />
