@@ -1099,6 +1099,35 @@
       "updated_at": "2025-10-27T09:23:21.273132",
       "status_message": "❌ 生成失败: ElevenLabs API 调用失败: headers: {'date': 'Mon, 27 Oct 2025 09:23:20 GMT', 'server': 'uvicorn', 'content-length': '175', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'POST, PATCH, OPTIONS, DELETE, GET, PUT', 'access-control-max-age': '600', 'strict-transport-security': 'max-age=31536000; includeSubDomains', 'x-trace-id': '4b707fa762cdd9bc79a376c7a7892474', 'x-region': 'us-central1', 'via': '1.1 google, 1.1 google', 'alt-svc': 'h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000'}, status_code: 401, body: {'detail': {'status': 'quota_exceeded', 'message': 'This request exceeds your quota of 100659. You have 893 credits remaining, while 2997 credits are required for this request.'}}",
       "error_message": "ElevenLabs API 调用失败: headers: {'date': 'Mon, 27 Oct 2025 09:23:20 GMT', 'server': 'uvicorn', 'content-length': '175', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'POST, PATCH, OPTIONS, DELETE, GET, PUT', 'access-control-max-age': '600', 'strict-transport-security': 'max-age=31536000; includeSubDomains', 'x-trace-id': '4b707fa762cdd9bc79a376c7a7892474', 'x-region': 'us-central1', 'via': '1.1 google, 1.1 google', 'alt-svc': 'h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000'}, status_code: 401, body: {'detail': {'status': 'quota_exceeded', 'message': 'This request exceeds your quota of 100659. You have 893 credits remaining, while 2997 credits are required for this request.'}}"
+    },
+    {
+      "id": "f00a0b65-3045-4cf4-a2f3-c6077a0d058c",
+      "podcast_id": "27b30e57-ba88-4388-ab91-2648e05afe2d",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+        "youtube_metadata": {
+          "title": "YouTube Video FwOTs4UxQS4",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "FwOTs4UxQS4",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+        "style": "Storytelling",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T09:36:44.215834",
+      "updated_at": "2025-10-27T09:41:00.519905",
+      "status_message": "🎉 YouTube 播客生成成功！时长 188 秒"
     }
   ]
 }
