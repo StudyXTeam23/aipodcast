@@ -250,20 +250,26 @@ const YouTubeForm = () => {
           {/* Duration Selection */}
           <div>
             <label htmlFor="duration" className="block text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-200">
-              ⏱️ Target Duration: {durationMinutes} minutes
+              ⏱️ Target Duration: <span className="text-primary font-bold">{durationMinutes}</span> minutes
             </label>
             <input
               id="duration"
               type="range"
               min="3"
               max="15"
+              step="1"
               value={durationMinutes}
               onChange={(e) => setDurationMinutes(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary"
+              className="w-full h-3 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary hover:accent-accent-pink transition-colors"
+              style={{
+                WebkitAppearance: 'none',
+                appearance: 'none',
+              }}
               disabled={generating}
             />
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
               <span>3 min</span>
+              <span>9 min</span>
               <span>15 min</span>
             </div>
           </div>

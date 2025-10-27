@@ -100,10 +100,21 @@ class YouTubeExtractor:
                 'no_warnings': True,
                 'extract_flat': False,
                 'skip_download': True,
-                # 绕过 YouTube 的 bot 检测
+                # 强力绕过 YouTube 的 bot 检测
                 'nocheckcertificate': True,
                 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                'extractor_args': {
+                    'youtube': {
+                        'player_client': ['android', 'ios', 'web'],
+                        'player_skip': ['webpage', 'configs'],
+                        'skip': ['hls', 'dash'],
+                    }
+                },
+                # 额外的绕过选项
+                'age_limit': None,
+                'no_check_certificate': True,
+                'youtube_include_dash_manifest': False,
+                'youtube_include_hls_manifest': False,
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -130,8 +141,21 @@ class YouTubeExtractor:
                 return metadata
         
         except Exception as e:
-            print(f"❌ 元数据提取失败: {e}")
-            raise Exception(f"无法提取 YouTube 视频元数据: {str(e)}")
+            error_msg = str(e)
+            print(f"❌ 元数据提取失败: {error_msg}")
+            
+            # 检查是否是 YouTube bot 检测错误
+            if "Sign in to confirm" in error_msg or "bot" in error_msg.lower():
+                raise Exception(
+                    "YouTube 视频访问受限：YouTube 目前要求登录验证。\n\n"
+                    "📌 推荐替代方案：\n"
+                    "1. 使用【📁 File Upload】Tab 上传本地音频文件\n"
+                    "2. 使用【🤖 AI Generate】Tab 直接生成播客\n"
+                    "3. 或尝试其他视频源\n\n"
+                    "我们正在开发更稳定的 YouTube 支持方案。"
+                )
+            
+            raise Exception(f"无法提取 YouTube 视频元数据: {error_msg}")
     
     def download_subtitles(self, url: str, language: str = 'en') -> Optional[str]:
         """
@@ -171,10 +195,21 @@ class YouTubeExtractor:
                 'subtitleslangs': [language, 'en'],  # 优先请求的语言，回退到英文
                 'subtitlesformat': 'srt',
                 'outtmpl': temp_path.replace('.txt', ''),
-                # 绕过 YouTube 的 bot 检测
+                # 强力绕过 YouTube 的 bot 检测
                 'nocheckcertificate': True,
                 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                'extractor_args': {
+                    'youtube': {
+                        'player_client': ['android', 'ios', 'web'],
+                        'player_skip': ['webpage', 'configs'],
+                        'skip': ['hls', 'dash'],
+                    }
+                },
+                # 额外的绕过选项
+                'age_limit': None,
+                'no_check_certificate': True,
+                'youtube_include_dash_manifest': False,
+                'youtube_include_hls_manifest': False,
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -292,10 +327,21 @@ class YouTubeExtractor:
                 'outtmpl': temp_path.replace('.mp3', ''),
                 'quiet': True,
                 'no_warnings': True,
-                # 绕过 YouTube 的 bot 检测
+                # 强力绕过 YouTube 的 bot 检测
                 'nocheckcertificate': True,
                 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                'extractor_args': {
+                    'youtube': {
+                        'player_client': ['android', 'ios', 'web'],
+                        'player_skip': ['webpage', 'configs'],
+                        'skip': ['hls', 'dash'],
+                    }
+                },
+                # 额外的绕过选项
+                'age_limit': None,
+                'no_check_certificate': True,
+                'youtube_include_dash_manifest': False,
+                'youtube_include_hls_manifest': False,
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
