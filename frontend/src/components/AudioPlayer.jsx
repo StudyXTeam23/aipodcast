@@ -250,16 +250,16 @@ const AudioPlayer = ({ audioUrl }) => {
                 </svg>
               </button>
               {showVolumeSlider && (
-                <div className="absolute bottom-full right-0 mb-2 p-2 bg-gray-700 rounded-lg shadow-lg z-10">
+                <div className="absolute bottom-full right-0 mb-2 p-3 bg-gray-700 rounded-lg shadow-lg z-50">
                   <input
                     type="range"
                     min="0"
                     max="1"
-                    step="0.1"
+                    step="0.01"
                     value={volume}
                     onChange={handleVolumeChange}
                     orient="vertical"
-                    className="h-20 w-2 appearance-none bg-gray-600 rounded-full cursor-pointer"
+                    className="h-24 w-2 appearance-none bg-gray-600 rounded-full cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:bg-accent-pink [&::-webkit-slider-thumb]:transition-colors [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
                     style={{ writingMode: 'vertical-lr', direction: 'rtl' }}
                   />
                 </div>
@@ -345,16 +345,16 @@ const AudioPlayer = ({ audioUrl }) => {
               </svg>
             </button>
             {showVolumeSlider && (
-              <div className="absolute bottom-full right-0 mb-2 p-2 bg-gray-700 rounded-lg shadow-lg z-10">
+              <div className="absolute bottom-full right-0 mb-2 p-3 bg-gray-700 rounded-lg shadow-lg z-50">
                 <input
                   type="range"
                   min="0"
                   max="1"
-                  step="0.1"
+                  step="0.01"
                   value={volume}
                   onChange={handleVolumeChange}
                   orient="vertical"
-                  className="h-20 w-2 appearance-none bg-gray-600 rounded-full cursor-pointer"
+                  className="h-24 w-2 appearance-none bg-gray-600 rounded-full cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:bg-accent-pink [&::-webkit-slider-thumb]:transition-colors [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
                   style={{ writingMode: 'vertical-lr', direction: 'rtl' }}
                 />
               </div>

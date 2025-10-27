@@ -14,10 +14,23 @@ const YouTubeForm = () => {
   const [progress, setProgress] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [estimatedTime, setEstimatedTime] = useState(null);
+  const [currentTip, setCurrentTip] = useState(0);
   const pollIntervalRef = useRef(null);
   const startTimeRef = useRef(null);
   const elapsedTimerRef = useRef(null);
   const navigate = useNavigate();
+
+  // 播客小贴士
+  const podcastTips = [
+    "💡 Did you know? The first podcast was created in 2003 by Adam Curry and Dave Winer.",
+    "🎙️ Tip: Clear audio quality can increase listener retention by up to 40%.",
+    "📊 Fun fact: Over 2 million podcasts exist worldwide with 48 million episodes.",
+    "⏱️ Studies show: The ideal podcast length is 20-40 minutes for maximum engagement.",
+    "🎵 Pro tip: Adding background music can make your podcast 30% more engaging.",
+    "🌍 Amazing: Podcasts are consumed in over 100 languages across the globe.",
+    "📈 Growth: Podcast listeners have grown by 20% year-over-year since 2015.",
+    "🎧 Insight: 80% of podcast listeners finish entire episodes they start.",
+  ];
 
   // 组件卸载时清理定时器
   useEffect(() => {
@@ -30,6 +43,17 @@ const YouTubeForm = () => {
       }
     };
   }, []);
+
+  // 提示轮换 - 每8秒切换一次
+  useEffect(() => {
+    if (!generating) return;
+    
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % podcastTips.length);
+    }, 8000);
+    
+    return () => clearInterval(tipInterval);
+  }, [generating, podcastTips.length]);
 
   // 格式化时间显示（秒 -> MM:SS）
   const formatTime = (seconds) => {
@@ -289,11 +313,7 @@ const YouTubeForm = () => {
               step="1"
               value={durationMinutes}
               onChange={(e) => setDurationMinutes(Number(e.target.value))}
-              className="w-full h-3 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary hover:accent-accent-pink transition-colors"
-              style={{
-                WebkitAppearance: 'none',
-                appearance: 'none',
-              }}
+              className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:bg-accent-pink [&::-webkit-slider-thumb]:transition-colors [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:hover:bg-accent-pink [&::-moz-range-thumb]:transition-colors"
               disabled={generating}
             />
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -373,6 +393,13 @@ const YouTubeForm = () => {
                 <span className="font-mono">{formatTime(estimatedTime)}</span>
               </div>
             )}
+          </div>
+
+          {/* Podcast Tips - Rotating */}
+          <div className="bg-gradient-to-r from-primary/10 to-accent-purple/10 dark:from-primary/20 dark:to-accent-purple/20 border border-primary/20 dark:border-primary/30 rounded-xl p-4 transition-all duration-500">
+            <p className="text-sm sm:text-base text-center text-gray-700 dark:text-gray-300 font-medium">
+              {podcastTips[currentTip]}
+            </p>
           </div>
 
           {/* Hint */}

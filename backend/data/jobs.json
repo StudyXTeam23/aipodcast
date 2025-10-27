@@ -792,6 +792,158 @@
       "created_at": "2025-10-27T03:55:24.576406",
       "updated_at": "2025-10-27T03:59:43.358938",
       "status_message": "🎉 YouTube 播客生成成功！时长 230 秒"
+    },
+    {
+      "id": "68795fd7-ab79-4d1e-9c41-77daf3795feb",
+      "podcast_id": "552f09e8-89f8-46b9-8a58-45f0f75e0485",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=yG-E3TpsBoE",
+        "youtube_metadata": {
+          "title": "YouTube Video yG-E3TpsBoE",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "yG-E3TpsBoE",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/yG-E3TpsBoE/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focus on japan development after ww2",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T07:44:04.449416",
+      "updated_at": "2025-10-27T07:51:24.065503",
+      "status_message": "🎉 YouTube 播客生成成功！时长 383 秒"
+    },
+    {
+      "id": "1acdbfe5-eb69-4b7a-af04-b88cca32ee2e",
+      "podcast_id": "53a25fa9-71a2-435e-ad74-21e3cb3a9d73",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=yG-E3TpsBoE",
+        "youtube_metadata": {
+          "title": "YouTube Video yG-E3TpsBoE",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "yG-E3TpsBoE",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/yG-E3TpsBoE/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focus on japan development after ww2",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T07:45:03.687401",
+      "updated_at": "2025-10-27T07:51:52.285786",
+      "status_message": "🎉 YouTube 播客生成成功！时长 403 秒"
+    },
+    {
+      "id": "f6eaa831-2e6f-4784-b54f-29196ed3b3ed",
+      "podcast_id": "0e21547f-da13-41e1-a93a-eb484e4522ec",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=yG-E3TpsBoE",
+        "youtube_metadata": {
+          "title": "YouTube Video yG-E3TpsBoE",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "yG-E3TpsBoE",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/yG-E3TpsBoE/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "test",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T07:52:33.712231",
+      "updated_at": "2025-10-27T07:58:56.178252",
+      "status_message": "🎉 YouTube 播客生成成功！时长 420 秒"
+    },
+    {
+      "id": "197c2b7b-dd1c-435d-9379-75e29e28fdf7",
+      "podcast_id": "59ddc2a2-5253-480e-ac29-8a2f5092a992",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+        "youtube_metadata": {
+          "title": "YouTube Video FwOTs4UxQS4",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "FwOTs4UxQS4",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focusing on AI agent workflow explaining and case study contents",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T08:06:41.995344",
+      "updated_at": "2025-10-27T08:10:47.432582",
+      "status_message": "🎉 YouTube 播客生成成功！时长 179 秒"
+    },
+    {
+      "id": "94259e40-9d10-404b-98c0-d8db9e87fb03",
+      "podcast_id": "9fb656bc-1069-442d-a425-cff18327c8d8",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/c9bb58d2-338e-402b-b84b-8d25012264c7.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T08:14:27.598771",
+      "updated_at": "2025-10-27T08:16:48.496146",
+      "status_message": "🎉 播客生成成功！时长 188 秒"
+    },
+    {
+      "id": "7b24cbdd-de73-4d87-bc3b-cb6e49f39e77",
+      "podcast_id": "74efb466-fadd-4c8f-a005-a5f8e7cc4684",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/00b90142-7109-4fb5-b0f2-42befbaad236.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T08:24:40.434509",
+      "updated_at": "2025-10-27T08:26:55.002727",
+      "status_message": "🎉 播客生成成功！时长 169 秒"
     }
   ]
 }
