@@ -12,7 +12,7 @@ const Header = () => {
           aria-label="Go to homepage"
         >
           <div className="h-5 w-5 sm:h-6 sm:w-6 text-primary flex-shrink-0">
-            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EchoCast logo">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIPodcast logo">
               <path
                 clipRule="evenodd"
                 d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
@@ -22,7 +22,7 @@ const Header = () => {
             </svg>
           </div>
           <h2 className="text-text-dark dark:text-text-dark text-base sm:text-lg font-bold leading-tight tracking-[-0.015em]">
-            EchoCast
+            AIPodcast
           </h2>
         </button>
       </div>

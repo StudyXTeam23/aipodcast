@@ -88,7 +88,7 @@ const ContactUs = () => {
                       Share your thoughts
                     </p>
                     <a 
-                      href="mailto:kimi@studyx.ai?subject=EchoCast Feedback" 
+                      href="mailto:kimi@studyx.ai?subject=AIPodcast Feedback" 
                       className="text-green-500 hover:text-green-600 transition-colors font-semibold text-base"
                     >
                       Send Feedback
@@ -199,7 +199,7 @@ const ContactUs = () => {
                   Ready to Transform Your Content?
                 </h2>
                 <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-                  Start creating professional podcasts today with EchoCast's AI-powered platform.
+                  Start creating professional podcasts today with AIPodcast's AI Podcast Generator.
                 </p>
                 <button
                   onClick={() => navigate('/')}
