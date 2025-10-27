@@ -67,23 +67,10 @@ const YouTubeForm = () => {
     const maxAttempts = 600; // 最多轮询 10 分钟
     let attempts = 0;
 
-    // 开始计时
-    startTimeRef.current = Date.now();
-    setElapsedTime(0);
-
-    // 清理旧的定时器
+    // 清理旧的轮询定时器
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
-    if (elapsedTimerRef.current) {
-      clearInterval(elapsedTimerRef.current);
-    }
-
-    // 启动已用时间计时器
-    elapsedTimerRef.current = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      setElapsedTime(elapsed);
-    }, 1000);
 
     pollIntervalRef.current = setInterval(async () => {
       try {
@@ -162,6 +149,21 @@ const YouTubeForm = () => {
     setProgress(0);
     setProcessingStatus('🎬 Fetching YouTube video...');
 
+    // 立即开始计时
+    startTimeRef.current = Date.now();
+    setElapsedTime(0);
+    
+    // 清理旧的定时器
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+    }
+    
+    // 启动已用时间计时器
+    elapsedTimerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setElapsedTime(elapsed);
+    }, 1000);
+
     try {
       const response = await podcastAPI.generateFromYouTube({
         youtubeUrl: youtubeUrl.trim(),
@@ -184,6 +186,13 @@ const YouTubeForm = () => {
         await pollJobStatus(response.job_id, response.podcast_id);
       } else {
         console.error('❌ 响应缺少必要字段:', response);
+        
+        // 清理计时器
+        if (elapsedTimerRef.current) {
+          clearInterval(elapsedTimerRef.current);
+          elapsedTimerRef.current = null;
+        }
+        
         setError('Invalid response from server. Please try again.');
         setGenerating(false);
         setProgress(0);
@@ -191,6 +200,13 @@ const YouTubeForm = () => {
     } catch (err) {
       console.error('❌ YouTube 生成错误:', err);
       console.error('   错误详情:', err.response?.data);
+      
+      // 清理计时器
+      if (elapsedTimerRef.current) {
+        clearInterval(elapsedTimerRef.current);
+        elapsedTimerRef.current = null;
+      }
+      
       setError(
         err.response?.data?.detail || 
         'Failed to start generation. Please check the YouTube URL and try again.'
