@@ -216,10 +216,15 @@ class AIService:
             
             result = response.json()
             
+            # 调试日志
+            print(f"📊 Gemini API 响应结构: {list(result.keys())}")
+            
             if "candidates" not in result or not result["candidates"]:
                 raise Exception("Gemini API 未返回有效内容")
             
             text = result["candidates"][0]["content"]["parts"][0]["text"]
+            print(f"✅ Gemini 返回文本长度: {len(text)} 字符")
+            print(f"   前100字符: {text[:100]}")
             return text.strip()
         
         except httpx.HTTPStatusError as e:
