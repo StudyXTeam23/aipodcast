@@ -187,6 +187,7 @@ class AIService:
             # 构建请求体（支持视频 URL）
             payload = {
                 "contents": [{
+                    "role": "user",  # ← 必须指定 role！
                     "parts": [
                         {"text": prompt},
                         {
