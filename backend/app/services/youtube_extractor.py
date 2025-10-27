@@ -1,13 +1,13 @@
 """
 YouTube 内容提取服务
-使用 yt-dlp 从 YouTube 视频提取内容和字幕
+使用 Gemini API 从 YouTube 视频提取内容（绕过 bot 检测）
 """
-import yt_dlp
 import tempfile
 import os
 from pathlib import Path
 from typing import Dict, Any, Optional
 import re
+import json
 from app.config import settings
 
 
@@ -70,7 +70,7 @@ class YouTubeExtractor:
     
     def extract_metadata(self, url: str) -> Dict[str, Any]:
         """
-        获取 YouTube 视频元数据（不下载视频）
+        使用 Gemini API 获取 YouTube 视频元数据
         
         Args:
             url: YouTube 视频链接
@@ -80,11 +80,8 @@ class YouTubeExtractor:
             {
                 'title': str,
                 'description': str,
-                'duration': int,  # 秒
+                'duration': int,  # 秒（估计值）
                 'uploader': str,
-                'upload_date': str,
-                'view_count': int,
-                'thumbnail': str,
                 'video_id': str
             }
         
@@ -92,70 +89,140 @@ class YouTubeExtractor:
             Exception: 如果提取失败
         """
         try:
-            print(f"📹 提取 YouTube 视频元数据...")
+            print(f"📹 使用 Gemini API 提取 YouTube 视频元数据...")
             print(f"   URL: {url}")
             
-            ydl_opts = {
-                'quiet': True,
-                'no_warnings': True,
-                'extract_flat': False,
-                'skip_download': True,
-                # 强力绕过 YouTube 的 bot 检测
-                'nocheckcertificate': True,
-                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'extractor_args': {
-                    'youtube': {
-                        'player_client': ['android', 'ios', 'web'],
-                        'player_skip': ['webpage', 'configs'],
-                        'skip': ['hls', 'dash'],
-                    }
-                },
-                # 额外的绕过选项
-                'age_limit': None,
-                'no_check_certificate': True,
-                'youtube_include_dash_manifest': False,
-                'youtube_include_hls_manifest': False,
+            # 使用 Gemini API 获取视频基本信息
+            from app.services.ai_service import ai_service
+            
+            metadata_prompt = f"""Analyze this YouTube video and extract metadata in JSON format:
+
+Video URL: {url}
+
+Please provide:
+1. Video title
+2. Brief description (1-2 sentences)
+3. Estimated duration in seconds (rough estimate from content)
+4. Channel/uploader name
+
+Return ONLY valid JSON with this exact structure:
+{{
+  "title": "video title here",
+  "description": "brief description",
+  "duration": 300,
+  "uploader": "channel name"
+}}
+
+CRITICAL: Return ONLY the JSON, no markdown code blocks, no extra text."""
+
+            # 调用 Gemini API（带视频 URL）
+            response_text = ai_service._call_gemini_api_with_video(
+                url=url,
+                prompt=metadata_prompt,
+                temperature=0.3,
+                max_tokens=500
+            )
+            
+            # 解析 JSON
+            response_text = response_text.strip()
+            if response_text.startswith("```json"):
+                response_text = response_text[7:]
+            if response_text.startswith("```"):
+                response_text = response_text[3:]
+            if response_text.endswith("```"):
+                response_text = response_text[:-3]
+            response_text = response_text.strip()
+            
+            metadata_json = json.loads(response_text)
+            
+            # 提取视频 ID
+            video_id = self.extract_video_id(url) or "unknown"
+            
+            metadata = {
+                'title': metadata_json.get('title', 'Unknown Title'),
+                'description': metadata_json.get('description', ''),
+                'duration': int(metadata_json.get('duration', 300)),  # 默认 5 分钟
+                'uploader': metadata_json.get('uploader', 'Unknown'),
+                'video_id': video_id,
+                'upload_date': '',
+                'view_count': 0,
+                'thumbnail': f'https://img.youtube.com/vi/{video_id}/maxresdefault.jpg',
+                'channel': metadata_json.get('uploader', 'Unknown'),
+                'channel_id': ''
             }
             
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=False)
-                
-                metadata = {
-                    'title': info.get('title', 'Unknown Title'),
-                    'description': info.get('description', ''),
-                    'duration': info.get('duration', 0),
-                    'uploader': info.get('uploader', 'Unknown'),
-                    'upload_date': info.get('upload_date', ''),
-                    'view_count': info.get('view_count', 0),
-                    'thumbnail': info.get('thumbnail', ''),
-                    'video_id': info.get('id', self.extract_video_id(url)),
-                    'channel': info.get('channel', ''),
-                    'channel_id': info.get('channel_id', '')
-                }
-                
-                print(f"✅ 元数据提取成功")
-                print(f"   标题: {metadata['title']}")
-                print(f"   时长: {metadata['duration']} 秒")
-                print(f"   作者: {metadata['uploader']}")
-                
-                return metadata
+            print(f"✅ 元数据提取成功（通过 Gemini API）")
+            print(f"   标题: {metadata['title']}")
+            print(f"   时长: {metadata['duration']} 秒（估计）")
+            print(f"   作者: {metadata['uploader']}")
+            
+            return metadata
         
         except Exception as e:
             error_msg = str(e)
             print(f"❌ 元数据提取失败: {error_msg}")
-            
-            # 检查是否是 YouTube bot 检测错误
-            if "Sign in to confirm" in error_msg or "bot" in error_msg.lower():
-                raise Exception(
-                    "YouTube 视频访问受限：YouTube 目前要求登录验证。\n\n"
-                    "📌 推荐替代方案：\n"
-                    "1. 使用【📁 File Upload】Tab 上传本地音频文件\n"
-                    "2. 使用【🤖 AI Generate】Tab 直接生成播客\n"
-                    "3. 或尝试其他视频源\n\n"
-                    "我们正在开发更稳定的 YouTube 支持方案。"
-                )
-            
             raise Exception(f"无法提取 YouTube 视频元数据: {error_msg}")
+    
+    def _extract_with_gemini(self, url: str, language: str = 'en', enhancement_prompt: Optional[str] = None) -> Dict[str, Any]:
+        """
+        使用 Gemini API 直接分析 YouTube 视频内容
+        
+        Args:
+            url: YouTube 视频链接
+            language: 目标语言
+            enhancement_prompt: 可选的增强提示
+        
+        Returns:
+            提取的内容和元数据
+        """
+        from app.services.ai_service import ai_service
+        
+        print(f"🤖 使用 Gemini API 分析视频内容...")
+        
+        # 构建分析提示
+        analysis_prompt = f"""Analyze this YouTube video and provide comprehensive content extraction in JSON format.
+
+Please provide:
+1. **Transcript**: A detailed transcript or summary of the key content discussed in the video (focus on main points, insights, and information - at least 500 words)
+2. **Summary**: A concise summary of the video (100-200 words)
+3. **Topics**: List 3-5 main topics or themes discussed
+4. **Insights**: List 3-5 key insights, takeaways, or important points
+
+"""
+        
+        if enhancement_prompt:
+            analysis_prompt += f"\nSpecial focus: {enhancement_prompt}\n"
+        
+        analysis_prompt += """
+Return ONLY valid JSON with this exact structure:
+{
+  "transcript": "detailed content transcript or summary here...",
+  "summary": "concise summary here...",
+  "topics": ["topic1", "topic2", "topic3"],
+  "insights": ["insight1", "insight2", "insight3"]
+}
+
+CRITICAL: Return ONLY the JSON, no markdown code blocks, no extra text."""
+
+        # 调用 Gemini API（带视频 URL）
+        response_text = ai_service._call_gemini_api_with_video(
+            url=url,
+            prompt=analysis_prompt,
+            temperature=0.3,
+            max_tokens=3000
+        )
+        
+        # 解析 JSON
+        response_text = response_text.strip()
+        if response_text.startswith("```json"):
+            response_text = response_text[7:]
+        if response_text.startswith("```"):
+            response_text = response_text[3:]
+        if response_text.endswith("```"):
+            response_text = response_text[:-3]
+        response_text = response_text.strip()
+        
+        return json.loads(response_text)
     
     def download_subtitles(self, url: str, language: str = 'en') -> Optional[str]:
         """
@@ -386,11 +453,9 @@ class YouTubeExtractor:
         enhancement_prompt: Optional[str] = None
     ) -> Dict[str, Any]:
         """
-        从 YouTube 视频提取内容（字幕或音频转录）
+        从 YouTube 视频提取内容（使用 Gemini API 直接分析）
         
-        策略：
-        1. 优先使用字幕（如果可用）
-        2. 否则提取音频并使用 Gemini 转录
+        完全使用 Gemini 2.5 Pro/Flash 的视频分析能力，绕过 YouTube bot 检测
         
         Args:
             url: YouTube 视频链接
@@ -405,101 +470,33 @@ class YouTubeExtractor:
                 'topics': list,
                 'insights': list,
                 'metadata': dict,  # YouTube 元数据
-                'source': str,     # 'subtitles' 或 'audio_transcription'
+                'source': str,     # 'gemini_video_analysis'
+                'duration': int
             }
         
         Raises:
             Exception: 如果提取失败
         """
         try:
-            # 1. 获取视频元数据
+            print(f"\n🎬 使用 Gemini API 分析 YouTube 视频...")
+            
+            # 1. 获取视频元数据（使用 Gemini）
             metadata = self.extract_metadata(url)
             
-            # 2. 尝试下载字幕
-            transcript = self.download_subtitles(url, language)
-            source = 'subtitles' if transcript else 'audio_transcription'
+            # 2. 使用 Gemini API 直接分析视频内容
+            content_analysis = self._extract_with_gemini(url, language, enhancement_prompt)
             
-            # 3. 如果没有字幕，提取音频并使用 Gemini 分析
-            if not transcript:
-                print(f"⚠️  没有字幕，将提取音频并使用 Gemini 分析...")
-                audio_content, audio_format = self.extract_audio(url)
-                
-                # 使用 ContentExtractor 分析音频
-                from app.services.content_extractor import content_extractor
-                
-                extraction_result = await content_extractor.extract_from_audio(
-                    audio_content=audio_content,
-                    filename=f"{metadata['video_id']}.{audio_format}",
-                    enhancement_prompt=enhancement_prompt
-                )
-                
-                return {
-                    'transcript': extraction_result.get('transcript', ''),
-                    'summary': extraction_result.get('summary', ''),
-                    'topics': extraction_result.get('topics', []),
-                    'insights': extraction_result.get('insights', []),
-                    'metadata': metadata,
-                    'source': source,
-                    'duration': metadata['duration']
-                }
-            
-            # 4. 如果有字幕，使用 Gemini 分析文本内容
-            from app.services.ai_service import ai_service
-            
-            print(f"🤖 使用 Gemini 分析字幕内容...")
-            
-            # 构建分析提示
-            analysis_prompt = f"""请分析以下 YouTube 视频字幕内容：
-
-视频标题：{metadata['title']}
-视频描述：{metadata.get('description', '')[:200]}...
-
-字幕内容：
-{transcript[:2000]}...
-
-请提供：
-1. **内容摘要**：简要概括主要内容（100-200字）
-2. **关键主题**：列出3-5个核心主题
-3. **核心观点**：提取3-5个关键观点或要点
-
-"""
-            
-            if enhancement_prompt:
-                analysis_prompt += f"\n特别关注：{enhancement_prompt}\n"
-            
-            analysis_prompt += """
-请以 JSON 格式返回：
-{
-  "summary": "内容摘要...",
-  "topics": ["主题1", "主题2", "主题3"],
-  "insights": ["观点1", "观点2", "观点3"]
-}
-
-CRITICAL: 直接返回 JSON，不要包含 markdown 代码块标记
-"""
-            
-            analysis_text = ai_service._call_gemini_api(analysis_prompt, temperature=0.3, max_tokens=2000)
-            
-            # 解析 JSON
-            import json
-            analysis_text = analysis_text.strip()
-            if analysis_text.startswith("```json"):
-                analysis_text = analysis_text[7:]
-            if analysis_text.startswith("```"):
-                analysis_text = analysis_text[3:]
-            if analysis_text.endswith("```"):
-                analysis_text = analysis_text[:-3]
-            analysis_text = analysis_text.strip()
-            
-            analysis = json.loads(analysis_text)
+            print(f"✅ 视频内容分析完成！")
+            print(f"   转录长度: {len(content_analysis.get('transcript', ''))} 字符")
+            print(f"   主题数: {len(content_analysis.get('topics', []))} 个")
             
             return {
-                'transcript': transcript,
-                'summary': analysis.get('summary', ''),
-                'topics': analysis.get('topics', []),
-                'insights': analysis.get('insights', []),
+                'transcript': content_analysis.get('transcript', ''),
+                'summary': content_analysis.get('summary', ''),
+                'topics': content_analysis.get('topics', []),
+                'insights': content_analysis.get('insights', []),
                 'metadata': metadata,
-                'source': source,
+                'source': 'gemini_video_analysis',
                 'duration': metadata['duration']
             }
         

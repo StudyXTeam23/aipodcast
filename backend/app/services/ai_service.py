@@ -163,6 +163,69 @@ class AIService:
             print(f"❌ 音频转录失败: {e}")
             raise Exception(f"ElevenLabs 转录 API 调用失败: {str(e)}")
     
+    def _call_gemini_api_with_video(self, url: str, prompt: str, temperature: float = 0.7, max_tokens: int = 4000) -> str:
+        """
+        调用 Gemini API 分析视频（支持 YouTube URL）
+        
+        Args:
+            url: YouTube 视频 URL
+            prompt: 输入提示词
+            temperature: 生成温度 (0.0-1.0)
+            max_tokens: 最大输出 token 数
+        
+        Returns:
+            生成的文本内容
+        
+        Raises:
+            Exception: 如果 API 调用失败
+        """
+        try:
+            # 使用 gemini-2.5-flash 或 gemini-2.5-pro 支持视频分析
+            model = "gemini-2.0-flash-exp" if "flash" in self.gemini_model else self.gemini_model
+            api_url = f"{self.gemini_api_url}/{model}:generateContent?key={self.gemini_api_key}"
+            
+            # 构建请求体（支持视频 URL）
+            payload = {
+                "contents": [{
+                    "parts": [
+                        {"text": prompt},
+                        {
+                            "fileData": {
+                                "fileUri": url
+                            }
+                        }
+                    ]
+                }],
+                "generationConfig": {
+                    "temperature": temperature,
+                    "maxOutputTokens": max_tokens,
+                    "topP": 0.95,
+                    "topK": 40
+                }
+            }
+            
+            with httpx.Client(timeout=120.0) as client:
+                response = client.post(
+                    api_url,
+                    json=payload,
+                    headers={"Content-Type": "application/json"}
+                )
+                response.raise_for_status()
+            
+            result = response.json()
+            
+            if "candidates" not in result or not result["candidates"]:
+                raise Exception("Gemini API 未返回有效内容")
+            
+            text = result["candidates"][0]["content"]["parts"][0]["text"]
+            return text.strip()
+        
+        except httpx.HTTPStatusError as e:
+            error_detail = e.response.text
+            raise Exception(f"Gemini API 调用失败 (HTTP {e.response.status_code}): {error_detail}")
+        except Exception as e:
+            raise Exception(f"Gemini API 调用异常: {str(e)}")
+    
     def _call_gemini_api(self, prompt: str, temperature: float = 0.7, max_tokens: int = 4000) -> str:
         """
         调用 Gemini API 生成文本
