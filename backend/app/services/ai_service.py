@@ -522,11 +522,19 @@ class AIService:
 
 请直接输出大纲内容，不要额外的解释。"""
 
+                # 根据语速计算合适的字数（中文对话式播客约140-170字/分钟）
+                min_chars = duration_minutes * 140
+                max_chars = duration_minutes * 170
+                
                 script_prompt_base = f"""你是一位专业的播客编剧。根据以下大纲，生成一份完整、专业的播客稿件。
 
 主题：{topic}
 风格：{style}
-目标时长：{duration_minutes} 分钟（约 {duration_minutes * 200}-{duration_minutes * 300} 字）
+
+⚠️ **严格时长要求**：
+- 目标时长：**必须严格控制在 {duration_minutes} 分钟**
+- 字数要求：**{min_chars}-{max_chars} 字**（对话式播客约140-170字/分钟）
+- 这是硬性要求，必须遵守！
 
 大纲：
 {{outline}}
@@ -534,18 +542,18 @@ class AIService:
 请按以下结构生成完整的播客稿件：
 
 **稿件结构：**
-1. 开场引子（10-15秒）
+1. 开场引子（占10%时长，约{int(min_chars * 0.1)}-{int(max_chars * 0.1)}字）
    - 以吸引人的问题或陈述开场
    - 自然地介绍主持人
    - 预告将要讨论的内容
 
-2. 主体内容（占80%时长）
+2. 主体内容（占80%时长，约{int(min_chars * 0.8)}-{int(max_chars * 0.8)}字）
    - 根据大纲逐一展开要点
    - 使用对话式来回交流
    - 包含具体例子和深入见解
    - 保持自然节奏，流畅过渡
 
-3. 结尾总结（10-15秒）
+3. 结尾总结（占10%时长，约{int(min_chars * 0.1)}-{int(max_chars * 0.1)}字）
    - 总结核心要点
    - 以令人印象深刻的语句结束
    - 感谢听众
@@ -601,6 +609,10 @@ Alex：**这很重要**。我们的[嘉宾]会解释...
 - 不要标题、不要元数据、不要舞台指示
 - 只输出纯对话稿件
 
+⚠️ **再次强调时长控制**：
+生成的稿件必须严格控制在 **{min_chars}-{max_chars} 字**，确保朗读时长正好是 **{duration_minutes} 分钟**。
+如果内容过多，请精简；如果内容过少，请适当扩展。时长精确度是评价稿件质量的关键指标！
+
 现在请根据上述大纲生成完整的播客稿件。"""
             else:  # English
                 outline_prompt = f"""You are a professional podcast scriptwriter. Generate a podcast outline for the following topic.
@@ -622,11 +634,19 @@ Requirements:
 
 Output the outline directly without extra explanations."""
 
+                # Calculate appropriate word count (conversational English podcast: ~120-150 words/minute)
+                min_words = duration_minutes * 120
+                max_words = duration_minutes * 150
+                
                 script_prompt_base = f"""You are a professional podcast scriptwriter. Based on the following outline, generate a complete, professional podcast script.
 
 Topic: {topic}
 Style: {style}
-Target Duration: {duration_minutes} minutes (approximately {duration_minutes * 150}-{duration_minutes * 250} words)
+
+⚠️ **STRICT DURATION REQUIREMENT**:
+- Target Duration: **MUST be strictly {duration_minutes} minutes**
+- Word Count: **{min_words}-{max_words} words** (conversational podcast: ~120-150 words/minute)
+- This is a HARD requirement - you MUST comply!
 
 Outline:
 {{outline}}
@@ -634,18 +654,18 @@ Outline:
 Generate a complete podcast script with the following structure:
 
 **Script Structure:**
-1. Opening hook (10-15 seconds)
+1. Opening hook (10% of duration, ~{int(min_words * 0.1)}-{int(max_words * 0.1)} words)
    - Start with an engaging question or statement
    - Introduce the hosts naturally
    - Preview what will be covered
 
-2. Main content (80% of duration)
+2. Main content (80% of duration, ~{int(min_words * 0.8)}-{int(max_words * 0.8)} words)
    - Develop each point from the outline
    - Use conversational back-and-forth dialogue
    - Include specific examples and insights
    - Maintain natural pacing with smooth transitions
 
-3. Closing (10-15 seconds)
+3. Closing (10% of duration, ~{int(min_words * 0.1)}-{int(max_words * 0.1)} words)
    - Summarize key takeaways
    - End with a memorable statement
    - Thank the audience
@@ -701,6 +721,10 @@ Output Format:
 - No title, no metadata, no stage directions
 - Pure conversational script only
 
+⚠️ **FINAL REMINDER - DURATION CONTROL**:
+The script MUST be strictly **{min_words}-{max_words} words** to ensure it takes exactly **{duration_minutes} minutes** to read.
+If content is too long, condense it; if too short, expand appropriately. Duration accuracy is KEY to script quality!
+
 Now generate the complete podcast script based on the outline above."""
             
             print("\n📋 步骤1: 生成大纲...")
@@ -714,8 +738,39 @@ Now generate the complete podcast script based on the outline above."""
             script = self._call_gemini_api(script_prompt, temperature=0.7, max_tokens=4000)
             print(f"✅ 完整稿件生成完成")
             
+            # 验证字数/单词数
+            if language == "zh":
+                actual_length = len(script)
+                target_min = duration_minutes * 140
+                target_max = duration_minutes * 170
+                print(f"\n📊 时长验证:")
+                print(f"   目标时长: {duration_minutes} 分钟")
+                print(f"   目标字数: {target_min}-{target_max} 字")
+                print(f"   实际字数: {actual_length} 字")
+                
+                # 估算实际时长（按155字/分钟计算）
+                estimated_minutes = actual_length / 155
+                print(f"   预估时长: {estimated_minutes:.1f} 分钟")
+                
+                if actual_length < target_min * 0.9 or actual_length > target_max * 1.1:
+                    print(f"   ⚠️  警告: 字数偏离目标较多，实际播放时长可能不准确")
+            else:
+                word_count = len(script.split())
+                target_min = duration_minutes * 120
+                target_max = duration_minutes * 150
+                print(f"\n📊 Duration Verification:")
+                print(f"   Target Duration: {duration_minutes} minutes")
+                print(f"   Target Word Count: {target_min}-{target_max} words")
+                print(f"   Actual Word Count: {word_count} words")
+                
+                # 估算实际时长（按135词/分钟计算）
+                estimated_minutes = word_count / 135
+                print(f"   Estimated Duration: {estimated_minutes:.1f} minutes")
+                
+                if word_count < target_min * 0.9 or word_count > target_max * 1.1:
+                    print(f"   ⚠️  Warning: Word count deviates significantly, actual duration may be inaccurate")
+            
             print(f"\n🎉 播客稿件生成成功！")
-            print(f"   最终字数: {len(script)} 字符")
             
             return script
         
