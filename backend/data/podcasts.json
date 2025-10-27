@@ -157,53 +157,6 @@
       "duration_seconds": 167
     },
     {
-      "id": "59ddc2a2-5253-480e-ac29-8a2f5092a992",
-      "title": "AI Agents Explained: LLMs, Workflows & ReAct",
-      "original_filename": "YouTube-FwOTs4UxQS4",
-      "status": "completed",
-      "source_type": "youtube",
-      "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
-      "extraction_metadata": {
-        "summary": "This video explains the concept of AI agents for a non-technical audience by using a three-level progression. It starts with Level 1, Large Language Models (LLMs) like ChatGPT, which are passive and limited to their training data. Level 2 introduces AI Workflows, where humans pre-define a rigid, multi-step path for an LLM to follow, allowing it to use external tools. The final and most advanced stage, Level 3, is AI Agents. Unlike workflows, AI agents are autonomous. Given a goal, they can reason to create their own plan, act by selecting and using tools, and iterate on their own work to improve the outcome. The core difference is that the AI, not a human, becomes the decision-maker in the process. The video uses a social media automation workflow and a vision agent from LandingAI as case studies to illustrate these concepts.",
-        "topics": [
-          "AI Agents vs. AI Workflows",
-          "Large Language Models (LLMs)",
-          "The ReAct Framework (Reasoning + Acting)",
-          "Autonomous Iteration and Decision-Making in AI",
-          "Case Studies in AI Automation"
-        ],
-        "insights": [
-          "The primary difference between an AI Workflow and an AI Agent is the locus of decision-making: in a workflow, a human defines a rigid, pre-programmed path, whereas an agent autonomously reasons and decides its own path to achieve a goal.",
-          "AI Agents operate using a framework like ReAct (Reasoning + Acting), where they first break down a goal into a logical sequence of steps (Reason) and then execute those steps by selecting and using appropriate tools (Act).",
-          "A key capability that distinguishes AI agents is autonomous iteration. They can self-critique their output, identify shortcomings, and repeat the process until the result meets the required standard, all without human intervention.",
-          "AI Workflows, while powerful for automation, are fundamentally rigid. They follow a fixed 'control logic' and cannot adapt to unexpected follow-up questions or tasks that fall outside their pre-defined path.",
-          "Concepts like RAG (Retrieval-Augmented Generation) are essentially a type of AI workflow, designed to help LLMs 'look things up' from external sources before answering, thereby overcoming their inherent knowledge limitations."
-        ],
-        "transcript_length": 4011,
-        "source": "gemini_video_analysis",
-        "youtube_metadata": {
-          "title": "YouTube Video FwOTs4UxQS4",
-          "description": "Failed to extract metadata",
-          "duration": 300,
-          "uploader": "Unknown",
-          "video_id": "FwOTs4UxQS4",
-          "upload_date": "",
-          "view_count": 0,
-          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
-          "channel": "Unknown",
-          "channel_id": ""
-        }
-      },
-      "original_duration": 300.0,
-      "original_format": "youtube",
-      "created_at": "2025-10-27T08:06:41.979101",
-      "updated_at": "2025-10-27T08:10:47.428387",
-      "audio_s3_key": "podcasts/59ddc2a2-5253-480e-ac29-8a2f5092a992.mp3",
-      "transcript": "Mike: Hey everyone, and welcome back to Tech Unpacked! I'm Mike, and today we're diving into something that's buzzing in the tech world, and it's the next big leap beyond what we're all used to with tools like ChatGPT.\n\nSarah: Hi there! I'm Sarah, and I'm really excited about this one. We've all played around with LLMs, right? You ask it to write an email, summarize something, maybe even write a poem. But what if AI could do *more* than just follow our instructions?\n\nMike: That's exactly where we're heading today – to understand the concept of AI Agents. Think of it as AI graduating from being a helpful assistant to a truly autonomous problem-solver. We're going to break it down for you into three simple levels, so stick around.\n\nSarah: So, first up, the familiar territory: Large Language Models, or LLMs. You know, ChatGPT, Gemini, Claude. They're amazing, but fundamentally, they're like super-smart parrots. You give them a prompt, and they give you an answer based on what they've learned.\n\nMike: Right, they're passive. They can't really go out and *do* things for you beyond generating text. Their knowledge is limited to their training data, and they don't really 'understand' the world outside of that. For example, if you asked ChatGPT to draft an email to Elon Musk for a coffee chat, it would give you a great draft, but it couldn't actually *send* that email or schedule the chat. Its capability stops at generating the text output.\n\nSarah: Now, Level 2 is where we start giving LLMs a bit more power – we call these AI Workflows. Imagine you want to automate posting to social media. You'd pre-define a rigid, step-by-step process. Like, 'Step 1: Draft a tweet. Step 2: Find an image. Step 3: Post it.'\n\nMike: Exactly! It's like giving the LLM a very specific recipe to follow. It can use external tools, like a search engine or an image generator, but *only* in the way we've told it to. The human is still very much in control of the entire sequence. Think about concepts like RAG, Retrieval-Augmented Generation. That's essentially a type of AI workflow designed to help LLMs 'look things up' from external sources before answering, thereby overcoming their inherent knowledge limitations. It’s powerful for automation, but it’s still a pre-programmed path. If you ask it a follow-up question that deviates from that path, it might get stuck.\n\nSarah: This is where it gets really exciting: Level 3, AI Agents. The core difference? Autonomy. You give an AI Agent a *goal*, not a step-by-step plan.\n\nMike: So, instead of saying, 'Draft a tweet, find an image, post,' you might say, 'Boost engagement on our Twitter account this week.' The agent then figures out *how* to do that. It’s not just executing a script; it's making decisions.\n\nSarah: They use something called the ReAct framework – Reasoning and Acting.",
-      "duration_seconds": 179,
-      "file_size_bytes": 2870588
-    },
-    {
       "id": "74efb466-fadd-4c8f-a005-a5f8e7cc4684",
       "title": "Porter Airlines: Better Air Travel Experience",
       "original_filename": "AlanCross-Porter-v2.mp3",
@@ -239,20 +192,50 @@
     },
     {
       "id": "da1e9236-ccf2-42f8-a76f-d780d21ce312",
-      "title": "Processing: YouTube Video FwOTs4UxQS4...",
+      "title": "AI Agents Explained: LLMs, Workflows, & Beyond",
       "original_filename": "YouTube-FwOTs4UxQS4",
-      "status": "processing",
+      "status": "completed",
       "source_type": "youtube",
       "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
       "extraction_metadata": {
-        "youtube_title": "YouTube Video FwOTs4UxQS4",
-        "youtube_uploader": "Unknown",
-        "youtube_duration": 300
+        "summary": "This video explains the concept of AI agents for a non-technical audience by progressing through three distinct levels of AI complexity. It starts with Level 1, defining Large Language Models (LLMs) like ChatGPT as passive, input-output systems with knowledge limitations. Level 2 introduces AI Workflows, which are human-defined, step-by-step processes (like RAG) that allow LLMs to use external tools but are rigid in their execution. The video demonstrates this with a Make.com automation. Finally, Level 3 defines AI Agents as autonomous systems that replace the human decision-maker. Given a goal, an agent uses a framework like ReAct (Reason + Act) to create its own plan, select tools, and iterate on its work to achieve the desired outcome, showcasing true autonomy.",
+        "topics": [
+          "Large Language Models (LLMs) vs. AI Workflows vs. AI Agents",
+          "AI Agent Workflow and the ReAct Framework",
+          "Limitations of LLMs and AI Workflows",
+          "Autonomous Reasoning and Iteration in AI Agents",
+          "Case Studies of AI Workflows and Agents"
+        ],
+        "insights": [
+          "The primary distinction between an AI Workflow and an AI Agent is the decision-maker: a human defines the rigid path for a workflow, whereas an agent (an LLM) autonomously reasons and determines its own path to achieve a goal.",
+          "AI Workflows, including techniques like Retrieval-Augmented Generation (RAG), are a bridge between passive LLMs and autonomous agents, allowing AI to access external data and tools via a predefined 'control logic'.",
+          "A core capability of an AI Agent is its ability to iterate—it can autonomously observe, critique, and refine its own output in a loop until the result meets a certain quality standard, a process not inherent in rigid workflows.",
+          "The ReAct (Reason + Act) framework is fundamental to how AI agents operate, enabling them to first break down a problem and plan a sequence of steps (Reason) and then execute those steps using available tools (Act).",
+          "While LLMs are powerful text generators, they are passive and have knowledge cutoffs. AI agents make them active and dynamic by giving them the ability to reason, plan, and interact with the digital world to complete complex tasks."
+        ],
+        "transcript_length": 3915,
+        "source": "gemini_video_analysis",
+        "youtube_metadata": {
+          "title": "YouTube Video FwOTs4UxQS4",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "FwOTs4UxQS4",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        }
       },
       "original_duration": 300.0,
       "original_format": "youtube",
       "created_at": "2025-10-27T08:36:00.689790",
-      "updated_at": "2025-10-27T08:36:00.689800"
+      "updated_at": "2025-10-27T08:40:07.553879",
+      "audio_s3_key": "podcasts/da1e9236-ccf2-42f8-a76f-d780d21ce312.mp3",
+      "transcript": "Mike: Hey everyone, I'm Mike, and welcome back to the podcast where we break down complex tech into easy-to-understand bites.\n\nSarah: And I'm Sarah, thrilled to be here with you all today!\n\nMike: So Sarah, we've all been playing around with AI chatbots like ChatGPT, right? They're amazing for drafting emails or explaining concepts. But what if those chatbots could actually *do* things for us, all on their own? That's the frontier we're exploring today: AI Agents.\n\nSarah: It sounds like science fiction, but it's rapidly becoming reality. And to make sense of it, we're going to break it down into three clear levels, kind of like building blocks, that we saw illustrated in a really helpful YouTube video. It makes the whole concept so much more accessible.\n\nMike: Exactly. Think of it as a journey from a very smart assistant to a truly independent worker. So, let's kick things off with Level 1.\n\nSarah: Level 1 is where most of us are already comfortable. We're talking about Large Language Models, or LLMs. These are the engines behind the AI assistants we interact with daily, like ChatGPT, Google Gemini, or Claude.\n\nMike: Right. At their core, LLMs are incredible text generators. You give them an input, a prompt, and they produce an output based on the vast amount of data they were trained on. It’s like having a super-powered encyclopedia that can also write for you.\n\nSarah: But as powerful as they are, they have significant limitations. They're essentially passive. They don't have real-time access to information, they can't access your personal data, like your calendar, and their knowledge has a cutoff point. So, if you ask ChatGPT, \"When is my next coffee chat?\", it has no way of knowing.\n\nMike: That’s a perfect illustration. They're brilliant at processing and generating text based on what they already know, but they can't reach out and grab new information or act on it in the real world. This leads us to Level 2.\n\nSarah: Level 2 is where things start to get more interesting. We move into the realm of AI Workflows. This is where we start giving these LLMs a bit more structure and the ability to interact with external tools, but still in a very controlled way.\n\nMike: Think of an AI Workflow as a recipe or a script. A human designer defines a set of specific steps that the AI needs to follow. A really common example that helps illustrate this is Retrieval-Augmented Generation, or RAG.\n\nSarah: RAG is a great example because it shows how we can enhance an LLM’s capabilities. With RAG, we can connect an LLM to an external knowledge base, like a company's internal documents or a specific database. So, when you ask a question, the AI can first go and retrieve relevant information from that external source, and *then* use its LLM capabilities to generate an answer based on that retrieved data.\n\nMike: It’s like giving ChatGPT access to your company’s entire knowledge library. It can use that information to answer questions more accurately and contextually.",
+      "duration_seconds": 180,
+      "file_size_bytes": 2888142
     }
   ]
 }

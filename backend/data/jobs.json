@@ -968,11 +968,97 @@
         "duration_minutes": 5,
         "language": "en"
       },
-      "status": "processing",
-      "progress": 85,
+      "status": "completed",
+      "progress": 100,
       "created_at": "2025-10-27T08:36:00.692488",
-      "updated_at": "2025-10-27T08:39:55.973129",
-      "status_message": "✅ 音频生成完成 (180秒)"
+      "updated_at": "2025-10-27T08:40:07.555386",
+      "status_message": "🎉 YouTube 播客生成成功！时长 180 秒"
+    },
+    {
+      "id": "9294dd7e-b8da-4ef7-9aba-56eb1ae9a52e",
+      "podcast_id": "90157842-e074-495f-95ea-d067cee78ad5",
+      "status": "completed",
+      "progress": 100,
+      "s3_key": "uploads/34aa02e7-38ff-43d9-95fe-54a96cf86b5a.pdf",
+      "created_at": "2025-10-27T08:41:05.954678",
+      "updated_at": "2025-10-27T08:42:02.536361",
+      "status_message": "🎉 处理完成！"
+    },
+    {
+      "id": "61b20124-d877-4655-9891-c31d7101e91f",
+      "podcast_id": "5fe1da49-8269-4d06-b3a2-16557608526e",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/e92eb38c-4f7d-4561-a2e6-fd359df58a91.mp3",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T08:42:37.470809",
+      "updated_at": "2025-10-27T08:44:52.907660",
+      "status_message": "🎉 播客生成成功！时长 164 秒"
+    },
+    {
+      "id": "7ed9868a-fd24-4e74-bcd3-815343dda908",
+      "podcast_id": "a94c2784-e99d-4eea-b0b9-d96c8589990c",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+        "youtube_metadata": {
+          "title": "YouTube Video mEBCQidaNTQ",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "mEBCQidaNTQ",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/mEBCQidaNTQ/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focus on explaining what is quantum advantage in details",
+        "style": "Storytelling",
+        "duration_minutes": 7,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T08:47:14.623429",
+      "updated_at": "2025-10-27T08:51:31.976826",
+      "status_message": "🎉 YouTube 播客生成成功！时长 181 秒"
+    },
+    {
+      "id": "e998e171-5512-4c51-90fe-d59edfd2a639",
+      "podcast_id": "eac45849-8b8f-4138-86dc-7e881b7507c7",
+      "type": "youtube_generate",
+      "inputs": {
+        "youtube_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+        "youtube_metadata": {
+          "title": "YouTube Video mEBCQidaNTQ",
+          "description": "Failed to extract metadata",
+          "duration": 300,
+          "uploader": "Unknown",
+          "video_id": "mEBCQidaNTQ",
+          "upload_date": "",
+          "view_count": 0,
+          "thumbnail": "https://img.youtube.com/vi/mEBCQidaNTQ/maxresdefault.jpg",
+          "channel": "Unknown",
+          "channel_id": ""
+        },
+        "enhancement_prompt": "focus on explaining what is quantum advantage in details",
+        "style": "Storytelling",
+        "duration_minutes": 7,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T08:48:06.792076",
+      "updated_at": "2025-10-27T08:52:31.588031",
+      "status_message": "🎉 YouTube 播客生成成功！时长 184 秒"
     }
   ]
 }
