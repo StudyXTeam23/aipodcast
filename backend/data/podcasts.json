@@ -167,6 +167,40 @@
       "transcript": "Mike: Hey everyone, and welcome back to \"The Investor's Dilemma\"! I'm Mike, and we're here to untangle the sometimes confusing, often exciting world of finance so you don't have to.\n\nSarah: And I'm Sarah, thrilled to be joining you today! We've got a question that lands in our inbox more often than you'd think, and it's a big one: \"What's the deal with the stock market and the crypto market, and how are they even different?\"\n\nMike: Exactly! It can feel like you're trying to decipher an alien language sometimes, can't it? But at its core, it's all about putting your money to work, hoping it grows. So, let's break it down and make it as clear as possible.\n\nMike: So, imagine you've got some cash, and you're thinking, \"This money needs to do more than just sit in my bank account.\" For decades, the classic answer has been the stock market. Think big, established companies, the household names you see every day.\n\nSarah: Right. When you buy a stock, you're essentially becoming a tiny owner of that company. If the company thrives, your stock price generally climbs. If it stumbles, well, you get the picture. It's a system that's been around forever, and it's pretty well-regulated.\n\nMike: But then, BAM! Out of nowhere, it feels like, comes crypto. This whole new digital frontier. What's the super-quick elevator pitch for that, Sarah?\n\nSarah: Okay, so stocks are all about owning a piece of a real, tangible company. Think Apple, Coca-Cola, companies with physical assets, profit reports, and a whole corporate structure behind them.\n\nMike: And crypto? It’s… digital, right? Like Bitcoin or Ethereum. It’s not a company you can point to in the same way. It's more about the underlying technology, the blockchain, and the idea of a decentralized digital currency.\n\nSarah: Precisely. It's a digital asset, often secured by complex cryptography. Its value can be driven by a whole different set of factors like widespread adoption, inherent scarcity, and ongoing technological innovation, rather than just traditional company performance metrics.\n\nMike: Now, let's talk about the wild ride! My gut feeling is that crypto is way more… bumpy. Like, a lot bumpier.\n\nSarah: You're absolutely right. The stock market, while it certainly experiences its ups and downs, is generally considered more stable, especially when you're looking at well-established, blue-chip companies. It's heavily regulated, so there are built-in safeguards.\n\nMike: Whereas crypto? I've heard stories of prices going absolutely bonkers overnight! It can be incredibly exhilarating, but I imagine it can also be pretty terrifying for investors.\n\nSarah: Absolutely. Cryptocurrencies are notorious for their high volatility. Prices can swing dramatically and unpredictably due to breaking news, shifts in market sentiment, or even just the actions of a few influential players.",
       "extracted_text": "Mike: Hey everyone, and welcome back to \"The Investor's Dilemma\"! I'm Mike, and we're here to untangle the sometimes confusing, often exciting world of finance so you don't have to.\n\nSarah: And I'm Sarah, thrilled to be joining you today! We've got a question that lands in our inbox more often than you'd think, and it's a big one: \"What's the deal with the stock market and the crypto market, and how are they even different?\"\n\nMike: Exactly! It can feel like you're trying to decipher an alien language sometimes, can't it? But at its core, it's all about putting your money to work, hoping it grows. So, let's break it down and make it as clear as possible.\n\nMike: So, imagine you've got some cash, and you're thinking, \"This money needs to do more than just sit in my bank account.\" For decades, the classic answer has been the stock market. Think big, established companies, the household names you see every day.\n\nSarah: Right. When you buy a stock, you're essentially becoming a tiny owner of that company. If the company thrives, your stock price generally climbs. If it stumbles, well, you get the picture. It's a system that's been around forever, and it's pretty well-regulated.\n\nMike: But then, BAM! Out of nowhere, it feels like, comes crypto. This whole new digital frontier. What's the super-quick elevator pitch for that, Sarah?\n\nSarah: Okay, so stocks are all about owning a piece of a real, tangible company. Think Apple, Coca-Cola, companies with physical assets, profit reports, and a whole corporate structure behind them.\n\nMike: And crypto? It’s… digital, right? Like Bitcoin or Ethereum. It’s not a company you can point to in the same way. It's more about the underlying technology, the blockchain, and the idea of a decentralized digital currency.\n\nSarah: Precisely. It's a digital asset, often secured by complex cryptography. Its value can be driven by a whole different set of factors like widespread adoption, inherent scarcity, and ongoing technological innovation, rather than just traditional company performance metrics.\n\nMike: Now, let's talk about the wild ride! My gut feeling is that crypto is way more… bumpy. Like, a lot bumpier.\n\nSarah: You're absolutely right. The stock market, while it certainly experiences its ups and downs, is generally considered more stable, especially when you're looking at well-established, blue-chip companies. It's heavily regulated, so there are built-in safeguards.\n\nMike: Whereas crypto? I've heard stories of prices going absolutely bonkers overnight! It can be incredibly exhilarating, but I imagine it can also be pretty terrifying for investors.\n\nSarah: Absolutely. Cryptocurrencies are notorious for their high volatility. Prices can swing dramatically and unpredictably due to breaking news, shifts in market sentiment, or even just the actions of a few influential players.",
       "duration_seconds": 167
+    },
+    {
+      "id": "70cbce7f-8f9f-475e-b487-e86f008c110d",
+      "title": "Processing: YouTube Video mEBCQidaNTQ...",
+      "original_filename": "YouTube-mEBCQidaNTQ",
+      "status": "processing",
+      "source_type": "youtube",
+      "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+      "extraction_metadata": {
+        "youtube_title": "YouTube Video mEBCQidaNTQ",
+        "youtube_uploader": "Unknown",
+        "youtube_duration": 300
+      },
+      "original_duration": 300.0,
+      "original_format": "youtube",
+      "created_at": "2025-10-27T03:46:34.434304",
+      "updated_at": "2025-10-27T03:46:34.434315"
+    },
+    {
+      "id": "ee445c2b-cc9a-4b74-b84b-189ed10aafaf",
+      "title": "Processing: YouTube Video mEBCQidaNTQ...",
+      "original_filename": "YouTube-mEBCQidaNTQ",
+      "status": "processing",
+      "source_type": "youtube",
+      "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+      "extraction_metadata": {
+        "youtube_title": "YouTube Video mEBCQidaNTQ",
+        "youtube_uploader": "Unknown",
+        "youtube_duration": 300
+      },
+      "original_duration": 300.0,
+      "original_format": "youtube",
+      "created_at": "2025-10-27T03:47:24.892800",
+      "updated_at": "2025-10-27T03:47:24.892811"
     }
   ]
 }

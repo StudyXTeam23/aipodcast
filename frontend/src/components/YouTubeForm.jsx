@@ -171,13 +171,22 @@ const YouTubeForm = () => {
         enhancementPrompt: enhancementPrompt.trim() || undefined,
       });
 
-      if (response.data.podcast_id && response.data.job_id) {
+      console.log('✅ YouTube API 响应:', response.data);
+
+      if (response.data && response.data.podcast_id && response.data.job_id) {
+        console.log('🎯 开始轮询任务状态:', response.data.job_id);
         setProcessingStatus('📥 Extracting content from YouTube...');
         setProgress(5);
         await pollJobStatus(response.data.job_id, response.data.podcast_id);
+      } else {
+        console.error('❌ 响应缺少必要字段:', response.data);
+        setError('Invalid response from server. Please try again.');
+        setGenerating(false);
+        setProgress(0);
       }
     } catch (err) {
-      console.error('Generation error:', err);
+      console.error('❌ YouTube 生成错误:', err);
+      console.error('   错误详情:', err.response?.data);
       setError(
         err.response?.data?.detail || 
         'Failed to start generation. Please check the YouTube URL and try again.'
