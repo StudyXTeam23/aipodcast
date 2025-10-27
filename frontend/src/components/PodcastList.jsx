@@ -180,39 +180,39 @@ const PodcastList = () => {
       ) : (
         <>
           {/* Podcast List */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 sm:gap-4">
             {currentPodcasts.map((podcast) => (
               <div
                 key={podcast.id}
-                className="flex items-center gap-4 bg-background-dark px-4 min-h-[72px] py-2 justify-between border border-transparent hover:border-gray-700 rounded-lg transition-all"
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 bg-background-dark px-3 sm:px-4 py-3 sm:py-2 sm:min-h-[72px] justify-between border border-transparent hover:border-gray-700 rounded-lg transition-all"
               >
-                <div className="flex items-center gap-4 flex-grow">
+                <div className="flex items-center gap-3 sm:gap-4 flex-grow w-full sm:w-auto">
                   <button
                     onClick={() => handlePlayClick(podcast.id)}
-                    className="text-white flex items-center justify-center rounded-lg bg-gray-800 shrink-0 h-12 w-12 hover:bg-primary/20 transition-colors"
+                    className="text-white flex items-center justify-center rounded-lg bg-gray-800 shrink-0 h-10 w-10 sm:h-12 sm:w-12 hover:bg-primary/20 transition-colors"
                   >
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </button>
                   <div className="flex flex-col justify-center flex-grow min-w-0">
-                    <p className="text-white text-base font-medium leading-normal truncate">
+                    <p className="text-white text-sm sm:text-base font-medium leading-normal truncate">
                       {podcast.title || 'Untitled Podcast'}
                     </p>
-                    <p className="text-gray-400 text-sm font-normal leading-normal">
+                    <p className="text-gray-400 text-xs sm:text-sm font-normal leading-normal">
                       Created: {formatDate(podcast.created_at)}
                     </p>
                   </div>
                 </div>
-                <div className="shrink-0 flex items-center gap-2">
+                <div className="shrink-0 flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto justify-end">
                   {podcast.status === 'completed' && (
                     <>
                       <button
                         onClick={() => handleDownloadClick(podcast.id)}
-                        className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
+                        className="p-1.5 sm:p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
                         title="Download"
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -223,10 +223,10 @@ const PodcastList = () => {
                       </button>
                       <button
                         onClick={() => handleShareClick(podcast.id)}
-                        className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
+                        className="p-1.5 sm:p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
                         title="Share"
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -237,10 +237,10 @@ const PodcastList = () => {
                       </button>
                       <button
                         onClick={() => handleDeleteClick(podcast.id)}
-                        className="p-2 rounded-full hover:bg-red-800 transition-colors text-gray-400 hover:text-red-400"
+                        className="p-1.5 sm:p-2 rounded-full hover:bg-red-800 transition-colors text-gray-400 hover:text-red-400"
                         title="Delete"
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -252,17 +252,17 @@ const PodcastList = () => {
                     </>
                   )}
                   {podcast.status === 'processing' && (
-                    <span className="text-sm text-yellow-500 font-medium">Processing...</span>
+                    <span className="text-xs sm:text-sm text-yellow-500 font-medium">Processing...</span>
                   )}
                   {podcast.status === 'failed' && (
                     <>
-                      <span className="text-sm text-red-500 font-medium mr-2">Failed</span>
+                      <span className="text-xs sm:text-sm text-red-500 font-medium mr-1 sm:mr-2">Failed</span>
                       <button
                         onClick={() => handleDeleteClick(podcast.id)}
-                        className="p-2 rounded-full hover:bg-red-800 transition-colors text-gray-400 hover:text-red-400"
+                        className="p-1.5 sm:p-2 rounded-full hover:bg-red-800 transition-colors text-gray-400 hover:text-red-400"
                         title="Delete failed podcast"
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"

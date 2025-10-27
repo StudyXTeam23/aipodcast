@@ -74,18 +74,18 @@ function PodcastDetail() {
         <div className="layout-container flex h-full grow flex-col">
           <div className="flex flex-1 justify-center py-5">
             <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-              <main className="p-4 sm:p-10">
+              <main className="p-4 sm:p-6 md:p-10">
                 {/* Back Button & Title */}
-                <div className="flex items-center gap-2 mb-8">
+                <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
                   <button
                     onClick={() => navigate('/library')}
-                    className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
+                    className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white flex-shrink-0"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
-                  <p className="text-[#1b140d] dark:text-[#f3ede7] text-4xl font-black leading-tight tracking-[-0.033em]">
+                  <p className="text-[#1b140d] dark:text-[#f3ede7] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black leading-tight tracking-[-0.033em] break-words">
                     {podcast.title || 'Untitled Podcast'}
                   </p>
                 </div>
@@ -107,20 +107,20 @@ function PodcastDetail() {
 
                   {/* Transcript */}
                   <div>
-                    <h2 className="text-2xl font-bold mb-4 text-[#1b140d] dark:text-[#f3ede7]">
+                    <h2 className="text-xl sm:text-2xl font-bold mb-4 text-[#1b140d] dark:text-[#f3ede7]">
                       Transcript
                     </h2>
                     <Transcript text={podcast.transcript || podcast.extracted_text} />
                   </div>
 
                   {/* Metadata */}
-                  <div className="text-sm text-gray-500 dark:text-gray-400 space-y-2">
-                    <p>
+                  <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <p className="break-words">
                       <span className="font-semibold">Created:</span>{' '}
                       {new Date(podcast.created_at).toLocaleString()}
                     </p>
                     {podcast.original_filename && (
-                      <p>
+                      <p className="break-all">
                         <span className="font-semibold">Original file:</span> {podcast.original_filename}
                       </p>
                     )}

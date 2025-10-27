@@ -655,6 +655,40 @@
       "created_at": "2025-10-24T09:20:07.572925",
       "updated_at": "2025-10-24T09:23:36.918210",
       "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "a1f83a6a-752b-488f-b2b4-3d5e9f527efd",
+      "podcast_id": "0e0015b0-0625-43ea-84e2-660e4fadbcc9",
+      "type": "generate",
+      "inputs": {
+        "topic": "steve curry vs lebron legacy competition",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "zh"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-24T09:48:49.014619",
+      "updated_at": "2025-10-24T09:52:29.368400",
+      "status_message": "💾 保存播客信息..."
+    },
+    {
+      "id": "8d1b37e0-f355-4e11-ad84-4390d1f10492",
+      "podcast_id": "a6298168-4b2e-4f53-ac40-9ed6bfef533b",
+      "type": "analyze_generate",
+      "inputs": {
+        "file_s3_key": "uploads/d6a42186-5f96-4c8b-b91e-ecf4c8a99d15.wav",
+        "source_type": "audio",
+        "enhancement_prompt": "",
+        "style": "Conversation",
+        "duration_minutes": 5,
+        "language": "en"
+      },
+      "status": "completed",
+      "progress": 100,
+      "created_at": "2025-10-27T01:04:48.633496",
+      "updated_at": "2025-10-27T01:07:09.708054",
+      "status_message": "🎉 播客生成成功！时长 168 秒"
     }
   ]
 }
