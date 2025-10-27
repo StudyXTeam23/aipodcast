@@ -21,7 +21,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "script-src 'self' 'unsafe-inline' https://p.studyx.ai https://plausible.io; connect-src 'self' https://p.studyx.ai https://plausible.io;"
+          "value": "script-src 'self' 'unsafe-inline' https://p.studyx.ai https://plausible.io; connect-src 'self' https://echocast.genstudy.ai https://p.studyx.ai https://plausible.io;"
         }
       ]
     }
