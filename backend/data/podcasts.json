@@ -211,6 +211,23 @@
       "original_format": "youtube",
       "created_at": "2025-10-27T03:47:24.892800",
       "updated_at": "2025-10-27T03:47:24.892811"
+    },
+    {
+      "id": "c723f9d1-8b66-4cd5-b4e5-b52f50242f65",
+      "title": "Processing: YouTube Video mEBCQidaNTQ...",
+      "original_filename": "YouTube-mEBCQidaNTQ",
+      "status": "processing",
+      "source_type": "youtube",
+      "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+      "extraction_metadata": {
+        "youtube_title": "YouTube Video mEBCQidaNTQ",
+        "youtube_uploader": "Unknown",
+        "youtube_duration": 300
+      },
+      "original_duration": 300.0,
+      "original_format": "youtube",
+      "created_at": "2025-10-27T03:55:24.573030",
+      "updated_at": "2025-10-27T03:55:24.573039"
     }
   ]
 }

@@ -171,15 +171,23 @@ const YouTubeForm = () => {
         enhancementPrompt: enhancementPrompt.trim() || undefined,
       });
 
-      console.log('✅ YouTube API 响应:', response.data);
+      console.log('✅ YouTube API 完整响应:', response);
+      console.log('✅ YouTube API response.data:', response.data);
+      console.log('   podcast_id:', response.data?.podcast_id);
+      console.log('   job_id:', response.data?.job_id);
+      console.log('   类型检查:', typeof response.data);
 
-      if (response.data && response.data.podcast_id && response.data.job_id) {
-        console.log('🎯 开始轮询任务状态:', response.data.job_id);
+      // 提取数据（兼容不同的响应结构）
+      const data = response.data || response;
+      
+      if (data && data.podcast_id && data.job_id) {
+        console.log('🎯 开始轮询任务状态:', data.job_id);
         setProcessingStatus('📥 Extracting content from YouTube...');
         setProgress(5);
-        await pollJobStatus(response.data.job_id, response.data.podcast_id);
+        await pollJobStatus(data.job_id, data.podcast_id);
       } else {
-        console.error('❌ 响应缺少必要字段:', response.data);
+        console.error('❌ 响应缺少必要字段:', data);
+        console.error('   完整响应对象:', response);
         setError('Invalid response from server. Please try again.');
         setGenerating(false);
         setProgress(0);
