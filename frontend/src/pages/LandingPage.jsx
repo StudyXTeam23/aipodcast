@@ -16,20 +16,20 @@ const LandingPage = () => {
 
   const faqs = [
     {
-      question: 'What is EchoCast?',
-      answer: 'EchoCast is an AI-powered platform that transforms your existing content into high-quality podcasts.',
+      question: 'What is AIPODCAST?',
+      answer: 'AIPODCAST is an AI Podcast Generator that transforms your existing content into high-quality podcasts using advanced artificial intelligence.',
     },
     {
       question: 'What file formats do you support?',
-      answer: 'We support a wide range of formats including .txt, .pdf, .doc, .mp3, .wav, .mp4, and .mov.',
+      answer: 'Our AI Podcast Generator supports a wide range of formats including .txt, .pdf, .doc, .mp3, .wav, .mp4, .mov, and YouTube video URLs.',
     },
     {
       question: 'Is there a free trial?',
-      answer: 'Yes, we offer a free trial that allows you to convert up to 10 minutes of content to see how EchoCast works.',
+      answer: 'Yes, we offer a free trial that allows you to test our AI Podcast Generator with up to 10 minutes of content to see how AIPODCAST works.',
     },
     {
       question: 'How do you ensure data privacy?',
-      answer: 'We take data privacy seriously. Your uploaded files are encrypted and processed securely. We do not store your content after conversion unless you explicitly choose to save it.',
+      answer: 'We take data privacy seriously. Your uploaded files are encrypted and processed securely by our AI Podcast Generator. We do not store your content after conversion unless you explicitly choose to save it.',
     },
   ];
 
@@ -60,11 +60,11 @@ const LandingPage = () => {
   // 缓存描述文字以减少重新渲染
   const heroDescription = useMemo(() => {
     if (activeTab === 'upload') {
-      return 'Upload your text, PDF, or audio files and let our AI transform them into engaging podcast episodes.';
+      return 'Transform any content into professional podcasts. Upload text, PDF, audio, or video files and let our AI Podcast Generator create engaging episodes instantly.';
     } else if (activeTab === 'youtube') {
-      return 'Paste a YouTube video URL and watch as AI converts it into a professional podcast episode.';
+      return 'Turn YouTube videos into podcasts. Paste a YouTube video URL and our AI Podcast Generator converts it into a professional podcast episode in minutes.';
     } else {
-      return 'Describe your podcast topic and let AI generate a complete script and audio for you.';
+      return 'Create podcasts from ideas. Describe your podcast topic and our AI Podcast Generator will produce a complete script and studio-quality audio for you.';
     }
   }, [activeTab]);
 
@@ -93,7 +93,7 @@ const LandingPage = () => {
                 {/* Hero Content */}
                 <div className="relative z-10 px-4 sm:px-6 lg:px-8">
                   <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-purple will-change-transform">
-                    Turn Content into Conversation
+                    AI Podcast Generator
                   </h1>
                   <p className="mt-4 text-lg sm:text-xl max-w-3xl mx-auto text-gray-700 dark:text-gray-200 will-change-transform">
                     {heroDescription}
@@ -143,7 +143,7 @@ const LandingPage = () => {
               {/* Features Section */}
               <div className="py-16 bg-white dark:bg-background-dark rounded-2xl my-10 shadow-sm min-h-[400px]">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <h2 className="text-4xl font-extrabold text-center mb-12">Why Choose EchoCast</h2>
+                  <h2 className="text-4xl font-extrabold text-center mb-12">Why Choose Our AI Podcast Generator</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div className="flex flex-col items-center p-4">
                       <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-accent-pink to-accent-purple mb-5 shadow-lg transform hover:scale-105 transition-transform duration-300">

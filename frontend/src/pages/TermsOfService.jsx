@@ -29,18 +29,18 @@ const TermsOfService = () => {
                 <div className="prose prose-lg dark:prose-invert max-w-none">
                   
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    Welcome to EchoCast! Please carefully read and review these <strong>Terms of Service</strong> (these "<strong>Terms</strong>") before you ("<strong>User</strong>", "<strong>Users</strong>") can use EchoCast. These Terms govern your use of and access to all EchoCast website(s), products, services and applications ("<strong>EchoCast</strong>"). By agreeing to these Terms, you expressly acknowledge that you fully understand and accept all clauses and provisions of these Terms.
+                    Welcome to AIPODCAST! Please carefully read and review these <strong>Terms of Service</strong> (these "<strong>Terms</strong>") before you ("<strong>User</strong>", "<strong>Users</strong>") can use AIPODCAST. These Terms govern your use of and access to all AIPODCAST website(s), products, services and applications ("<strong>AIPODCAST</strong>"). By agreeing to these Terms, you expressly acknowledge that you fully understand and accept all clauses and provisions of these Terms.
                   </p>
 
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    EchoCast is offered and operated by <strong>StudyX</strong> ("<strong>StudyX</strong>", "<strong>we</strong>", "<strong>our</strong>" and "<strong>us</strong>"). Unless otherwise stated, your use of EchoCast is bound by these Terms between you and us. <strong>By using EchoCast, you agree to these Terms. If you do not agree to these Terms, you may not use or access EchoCast.</strong>
+                    AIPODCAST is offered and operated by <strong>StudyX</strong> ("<strong>StudyX</strong>", "<strong>we</strong>", "<strong>our</strong>" and "<strong>us</strong>"). Unless otherwise stated, your use of AIPODCAST is bound by these Terms between you and us. <strong>By using AIPODCAST, you agree to these Terms. If you do not agree to these Terms, you may not use or access AIPODCAST.</strong>
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     Changes to these Terms
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    We may make changes to these Terms from time to time to reflect our service improvements. We will notify you via a notice either on our website or EchoCast platform prior to any changes becoming effective. Your continued use of EchoCast after the effective date of any changes to these Terms constitutes your agreeing to the revised Terms.
+                    We may make changes to these Terms from time to time to reflect our service improvements. We will notify you via a notice either on our website or AIPODCAST platform prior to any changes becoming effective. Your continued use of AIPODCAST after the effective date of any changes to these Terms constitutes your agreeing to the revised Terms.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
@@ -53,46 +53,46 @@ const TermsOfService = () => {
                     <li><strong>Upload Content:</strong> Users may upload text files, audio files, or video files to generate podcasts.</li>
                     <li><strong>AI Generation:</strong> Users may use our AI-powered tools to generate podcast scripts and audio from their content.</li>
                     <li><strong>Podcast Management:</strong> Users can manage, edit, and download their generated podcasts.</li>
-                    <li><strong>Other Services:</strong> Other online services provided by EchoCast.</li>
+                    <li><strong>Other Services:</strong> Other online services provided by AIPODCAST.</li>
                   </ul>
 
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300 mt-4">
-                    We reserve the right to make changes to EchoCast anytime, including but not limited to, adding, deleting or modifying any part of EchoCast website(s), products, services, documents and applications. Notice shall be published on EchoCast website or platform prior to any changes becoming effective.
+                    We reserve the right to make changes to AIPODCAST anytime, including but not limited to, adding, deleting or modifying any part of AIPODCAST website(s), products, services, documents and applications. Notice shall be published on AIPODCAST website or platform prior to any changes becoming effective.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     Your Account
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    To use certain features of our Services, you may be required to create an EchoCast account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.
+                    To use certain features of our Services, you may be required to create an AIPODCAST account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     Your Content
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    When you submit, upload, transmit or display any information, content or materials in connection with your use of EchoCast ("<strong>Your Content</strong>"), you understand and agree that you will continue to own and be responsible for Your Content. By using EchoCast, you are granting us a limited, non-exclusive, royalty-free license to use Your Content solely for the purposes of providing and improving EchoCast services.
+                    When you submit, upload, transmit or display any information, content or materials in connection with your use of AIPODCAST ("<strong>Your Content</strong>"), you understand and agree that you will continue to own and be responsible for Your Content. By using AIPODCAST, you are granting us a limited, non-exclusive, royalty-free license to use Your Content solely for the purposes of providing and improving AIPODCAST services.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     Our Intellectual Property Rights
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    All intellectual property rights in or to EchoCast (including any future updates, upgrades and new versions to EchoCast) belong to us and our licensors. Without our prior written consent, you have no right to use our intellectual property rights, including but not limited to, our product names, logos, designs, domain names or other distinctive brand features.
+                    All intellectual property rights in or to AIPODCAST (including any future updates, upgrades and new versions to AIPODCAST) belong to us and our licensors. Without our prior written consent, you have no right to use our intellectual property rights, including but not limited to, our product names, logos, designs, domain names or other distinctive brand features.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     Prohibited Uses
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    You agree not to use EchoCast for any unlawful purpose or in any way that could damage, disable, overburden, or impair our services. You shall not upload content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, or otherwise objectionable.
+                    You agree not to use AIPODCAST for any unlawful purpose or in any way that could damage, disable, overburden, or impair our services. You shall not upload content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, or otherwise objectionable.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     Limitation of Liability
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    To the maximum extent permitted by applicable law, EchoCast and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.
+                    To the maximum extent permitted by applicable law, AIPODCAST and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">

@@ -29,11 +29,11 @@ const PrivacyPolicy = () => {
                 <div className="prose prose-lg dark:prose-invert max-w-none">
                   
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    Thank you for using EchoCast ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>"). We understand the importance of personal information to you and appreciate your trust in us. To the extent permitted by applicable laws and regulations, we will take appropriate security measures to protect your personal information and keep your personal information safe and secure.
+                    Thank you for using AIPODCAST ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>"). We understand the importance of personal information to you and appreciate your trust in us. To the extent permitted by applicable laws and regulations, we will take appropriate security measures to protect your personal information and keep your personal information safe and secure.
                   </p>
 
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    This EchoCast Privacy Policy ("<strong>Privacy Policy</strong>") explains how we collect, store, use and secure your personal information and your rights. This Privacy Policy applies to all EchoCast products and services. <strong>By using EchoCast, you fully understand, acknowledge and agree to this Privacy Policy.</strong>
+                    This AIPODCAST Privacy Policy ("<strong>Privacy Policy</strong>") explains how we collect, store, use and secure your personal information and your rights. This Privacy Policy applies to all AIPODCAST products and services, including our AI Podcast Generator. <strong>By using AIPODCAST, you fully understand, acknowledge and agree to this Privacy Policy.</strong>
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
@@ -44,21 +44,21 @@ const PrivacyPolicy = () => {
                     Account Information
                   </h4>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    To use EchoCast, you may provide your email address and create an account password. Optionally, you may provide additional profile information.
+                    To use AIPODCAST's AI Podcast Generator, you may provide your email address and create an account password. Optionally, you may provide additional profile information.
                   </p>
 
                   <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-800 dark:text-gray-200">
                     Your Content
                   </h4>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    When you upload files (text, audio, video) or generate podcasts using our AI features, these files are temporarily stored on our servers to provide the service. We do not access or use your content for any purpose other than providing EchoCast services, unless required by law.
+                    When you upload files (text, audio, video, YouTube URLs) or generate podcasts using our AI Podcast Generator, these files are temporarily stored on our servers to provide the service. We do not access or use your content for any purpose other than providing AIPODCAST services, unless required by law.
                   </p>
 
                   <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-800 dark:text-gray-200">
                     Usage Information
                   </h4>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    We automatically collect certain information about your device and how you use EchoCast, including your IP address, device type, browser type, operating system, and usage patterns.
+                    We automatically collect certain information about your device and how you use AIPODCAST, including your IP address, device type, browser type, operating system, and usage patterns.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
@@ -68,7 +68,7 @@ const PrivacyPolicy = () => {
                     We use your information for the following purposes:
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                    <li>To provide, operate, and maintain EchoCast services</li>
+                    <li>To provide, operate, and maintain AIPODCAST's AI Podcast Generator services</li>
                     <li>To process your uploaded content and generate podcasts</li>
                     <li>To improve and optimize our services and user experience</li>
                     <li>To communicate with you about service updates and support</li>
@@ -149,28 +149,28 @@ const PrivacyPolicy = () => {
                     7. Cookies and Tracking Technologies
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    We use cookies and similar tracking technologies to improve your experience on EchoCast. You can control cookies through your browser settings. However, disabling cookies may affect some features of our service.
+                    We use cookies and similar tracking technologies to improve your experience on AIPODCAST. You can control cookies through your browser settings. However, disabling cookies may affect some features of our AI Podcast Generator service.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     8. Third-Party Services
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    EchoCast uses third-party services (such as ElevenLabs for text-to-speech and Google Gemini for AI generation) to provide our features. These services have their own privacy policies, and we encourage you to review them. We only share the minimum necessary information with these services to provide our features.
+                    AIPODCAST uses third-party services (such as ElevenLabs for text-to-speech and Google Gemini for AI generation) to power our AI Podcast Generator. These services have their own privacy policies, and we encourage you to review them. We only share the minimum necessary information with these services to provide our features.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     9. Children's Privacy
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    EchoCast is not intended for users under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
+                    AIPODCAST is not intended for users under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
                     10. Changes to this Privacy Policy
                   </h3>
                   <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                    We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. Your continued use of EchoCast after any changes constitutes your acceptance of the updated Privacy Policy.
+                    We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. Your continued use of AIPODCAST after any changes constitutes your acceptance of the updated Privacy Policy.
                   </p>
 
                   <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
