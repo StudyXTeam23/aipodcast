@@ -6,16 +6,30 @@ const GenerateForm = () => {
   const [topic, setTopic] = useState('');
   const [style, setStyle] = useState('Solo Talk Show');
   const [language, setLanguage] = useState('en');
+  const [durationMinutes, setDurationMinutes] = useState(5);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState('');
   const [processingStatus, setProcessingStatus] = useState('');
   const [progress, setProgress] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [estimatedTime, setEstimatedTime] = useState(null);
+  const [currentTip, setCurrentTip] = useState(0);
   const pollIntervalRef = useRef(null);
   const startTimeRef = useRef(null);
   const elapsedTimerRef = useRef(null);
   const navigate = useNavigate();
+
+  // 播客小贴士
+  const podcastTips = [
+    "💡 Did you know? The first podcast was created in 2003 by Adam Curry and Dave Winer.",
+    "🎙️ Tip: Clear audio quality can increase listener retention by up to 40%.",
+    "📊 Fun fact: Over 2 million podcasts exist worldwide with 48 million episodes.",
+    "⏱️ Studies show: The ideal podcast length is 20-40 minutes for maximum engagement.",
+    "🎵 Pro tip: Adding background music can make your podcast 30% more engaging.",
+    "🌍 Amazing: Podcasts are consumed in over 100 languages across the globe.",
+    "📈 Growth: Podcast listeners have grown by 20% year-over-year since 2015.",
+    "🎧 Insight: 80% of podcast listeners finish entire episodes they start.",
+  ];
 
   // 组件卸载时清理定时器
   useEffect(() => {
@@ -28,6 +42,17 @@ const GenerateForm = () => {
       }
     };
   }, []);
+
+  // 提示轮换 - 每8秒切换一次
+  useEffect(() => {
+    if (!generating) return;
+    
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % podcastTips.length);
+    }, 8000);
+    
+    return () => clearInterval(tipInterval);
+  }, [generating, podcastTips.length]);
 
   // 格式化时间显示（秒 -> MM:SS）
   const formatTime = (seconds) => {
@@ -64,23 +89,10 @@ const GenerateForm = () => {
     const maxAttempts = 600; // 最多轮询 10 分钟 (AI 生成和音频处理需要更长时间)
     let attempts = 0;
 
-    // 开始计时
-    startTimeRef.current = Date.now();
-    setElapsedTime(0);
-
-    // 清理旧的定时器
+    // 清理旧的轮询定时器（计时器已在 handleSubmit 中启动）
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
-    if (elapsedTimerRef.current) {
-      clearInterval(elapsedTimerRef.current);
-    }
-
-    // 启动已用时间计时器
-    elapsedTimerRef.current = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      setElapsedTime(elapsed);
-    }, 1000);
 
     pollIntervalRef.current = setInterval(async () => {
       try {
@@ -106,13 +118,34 @@ const GenerateForm = () => {
         } else if (response) {
           // 更新处理进度和状态消息
           if (response.progress) {
-            setProgress(response.progress);
+            const currentProgress = response.progress;
+            setProgress(currentProgress);
             
-            // 根据进度估算剩余时间
-            if (response.progress > 5) {
-              const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-              const estimatedTotal = (elapsed / response.progress) * 100;
-              const remaining = Math.max(0, Math.floor(estimatedTotal - elapsed));
+            // 改进的预估时间算法 - 基于阶段权重
+            if (startTimeRef.current && currentProgress > 5) {
+              const elapsed = (Date.now() - startTimeRef.current) / 1000;
+              
+              // 不同阶段的预估时间权重（AI Generate 相对更快）
+              // 0-40%: 生成脚本（较快）- 60秒
+              // 40-80%: 生成音频（较慢）- 90秒  
+              // 80-100%: 上传和保存（快）- 10秒
+              
+              let estimatedTotal;
+              if (currentProgress < 40) {
+                // 前期阶段：预估总时间约 2.5 分钟
+                estimatedTotal = 150;
+              } else if (currentProgress < 80) {
+                // 音频生成阶段：根据实际进度调整
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                // 使用加权平均，避免剧烈波动
+                estimatedTotal = estimatedTotal * 0.7 + 180 * 0.3;
+              } else {
+                // 最后阶段：快速完成
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                estimatedTotal = Math.min(estimatedTotal, elapsed + 20);
+              }
+              
+              const remaining = Math.max(5, Math.ceil(estimatedTotal - elapsed));
               setEstimatedTime(remaining);
             }
           }
@@ -153,11 +186,27 @@ const GenerateForm = () => {
     setProgress(0);
     setProcessingStatus('Generating podcast script...');
 
+    // 立即开始计时
+    startTimeRef.current = Date.now();
+    setElapsedTime(0);
+    setEstimatedTime(180); // 初始预估3分钟
+    
+    // 清理旧的定时器
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+    }
+    
+    // 启动已用时间计时器
+    elapsedTimerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setElapsedTime(elapsed);
+    }, 1000);
+
     try {
       const response = await podcastAPI.generate({
         topic: topic.trim(),
         style: style,
-        duration_minutes: 5,
+        duration_minutes: parseInt(durationMinutes),
         language: language
       });
 
@@ -172,6 +221,12 @@ const GenerateForm = () => {
       setError(err.message || 'AI generation failed. Please try again later');
       setGenerating(false);
       setProcessingStatus('');
+      
+      // 清理计时器
+      if (elapsedTimerRef.current) {
+        clearInterval(elapsedTimerRef.current);
+        elapsedTimerRef.current = null;
+      }
     }
   };
 
@@ -238,6 +293,29 @@ const GenerateForm = () => {
           </select>
         </div>
 
+        {/* Duration Selection */}
+        <div>
+          <label htmlFor="duration" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            ⏱️ Target Duration: <span className="text-primary font-bold">{durationMinutes}</span> minutes
+          </label>
+          <input
+            id="duration"
+            type="range"
+            min="3"
+            max="15"
+            step="1"
+            value={durationMinutes}
+            onChange={(e) => setDurationMinutes(Number(e.target.value))}
+            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:bg-accent-pink [&::-webkit-slider-thumb]:transition-colors [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:hover:bg-accent-pink [&::-moz-range-thumb]:transition-colors"
+            disabled={generating}
+          />
+          <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <span>3 min</span>
+            <span>9 min</span>
+            <span>15 min</span>
+          </div>
+        </div>
+
         {/* Submit Button or Progress Display */}
         {!generating ? (
           <>
@@ -275,22 +353,25 @@ const GenerateForm = () => {
               {processingStatus || 'Generating...'}
             </p>
 
-            {/* 时间信息 */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-2 justify-center">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Elapsed: {formatTime(elapsedTime)}</span>
+            {/* 时间信息 - 改进样式 */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
+                <span className="font-semibold">⏱️ Elapsed:</span>
+                <span className="font-mono font-bold text-primary">{formatTime(elapsedTime)}</span>
               </div>
               {estimatedTime !== null && estimatedTime > 0 && (
-                <div className="flex items-center gap-2 justify-center">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  <span>Est. remaining: ~{formatTime(estimatedTime)}</span>
+                <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
+                  <span className="font-semibold">⏳ Remaining:</span>
+                  <span className="font-mono font-bold text-accent-purple">{formatTime(estimatedTime)}</span>
                 </div>
               )}
+            </div>
+
+            {/* 播客小贴士 */}
+            <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-accent-purple/10 rounded-xl border border-primary/20">
+              <p className="text-sm sm:text-base text-center text-gray-700 dark:text-gray-200 italic animate-fade-in">
+                {podcastTips[currentTip]}
+              </p>
             </div>
 
             {/* 提示信息 */}

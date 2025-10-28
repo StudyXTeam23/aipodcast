@@ -10,6 +10,7 @@ const FileUpload = () => {
   const [processingStatus, setProcessingStatus] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
   const [estimatedTime, setEstimatedTime] = useState(null);
+  const [currentTip, setCurrentTip] = useState(0);
   const [style, setStyle] = useState('Conversation');
   const [language, setLanguage] = useState('en');
   const [durationMinutes, setDurationMinutes] = useState(5);
@@ -20,6 +21,18 @@ const FileUpload = () => {
   const startTimeRef = useRef(null);
   const elapsedTimerRef = useRef(null);
   const navigate = useNavigate();
+
+  // 播客小贴士
+  const podcastTips = [
+    "💡 Did you know? The first podcast was created in 2003 by Adam Curry and Dave Winer.",
+    "🎙️ Tip: Clear audio quality can increase listener retention by up to 40%.",
+    "📊 Fun fact: Over 2 million podcasts exist worldwide with 48 million episodes.",
+    "⏱️ Studies show: The ideal podcast length is 20-40 minutes for maximum engagement.",
+    "🎵 Pro tip: Adding background music can make your podcast 30% more engaging.",
+    "🌍 Amazing: Podcasts are consumed in over 100 languages across the globe.",
+    "📈 Growth: Podcast listeners have grown by 20% year-over-year since 2015.",
+    "🎧 Insight: 80% of podcast listeners finish entire episodes they start.",
+  ];
 
   // 组件卸载时清理定时器
   useEffect(() => {
@@ -32,6 +45,17 @@ const FileUpload = () => {
       }
     };
   }, []);
+
+  // 提示轮换 - 每8秒切换一次
+  useEffect(() => {
+    if (!uploading) return;
+    
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % podcastTips.length);
+    }, 8000);
+    
+    return () => clearInterval(tipInterval);
+  }, [uploading, podcastTips.length]);
 
   // 格式化时间显示（秒 -> MM:SS）
   const formatTime = (seconds) => {
@@ -85,23 +109,10 @@ const FileUpload = () => {
     const maxAttempts = isMediaFile ? 600 : 120;
     let attempts = 0;
 
-    // 开始计时
-    startTimeRef.current = Date.now();
-    setElapsedTime(0);
-
-    // 清理旧的定时器
+    // 清理旧的轮询定时器（计时器已在handleFileUpload中启动）
     if (pollIntervalRef.current) {
       clearInterval(pollIntervalRef.current);
     }
-    if (elapsedTimerRef.current) {
-      clearInterval(elapsedTimerRef.current);
-    }
-
-    // 启动已用时间计时器
-    elapsedTimerRef.current = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      setElapsedTime(elapsed);
-    }, 1000);
 
     pollIntervalRef.current = setInterval(async () => {
       try {
@@ -129,13 +140,41 @@ const FileUpload = () => {
         } else if (response) {
           // 更新处理进度和状态消息
           if (response.progress) {
-            setUploadProgress(response.progress);
+            const currentProgress = response.progress;
+            setUploadProgress(currentProgress);
             
-            // 根据进度估算剩余时间
-            if (response.progress > 5) {
-              const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-              const estimatedTotal = (elapsed / response.progress) * 100;
-              const remaining = Math.max(0, Math.floor(estimatedTotal - elapsed));
+            // 改进的预估时间算法 - 基于阶段权重
+            if (startTimeRef.current && currentProgress > 5) {
+              const elapsed = (Date.now() - startTimeRef.current) / 1000;
+              
+              // 不同阶段的预估时间权重
+              // 0-30%: 上传和解析（快）- 30秒
+              // 30-70%: AI生成脚本（较慢）- 90秒  
+              // 70-95%: 生成音频（最慢）- 90秒
+              // 95-100%: 上传和保存（快）- 10秒
+              
+              let estimatedTotal;
+              if (currentProgress < 30) {
+                // 前期阶段：预估总时间约 3.5 分钟
+                estimatedTotal = 210;
+              } else if (currentProgress < 70) {
+                // 脚本生成阶段：根据实际进度调整
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                // 使用加权平均，避免剧烈波动
+                estimatedTotal = estimatedTotal * 0.6 + 220 * 0.4;
+              } else if (currentProgress < 95) {
+                // 音频生成阶段：最耗时
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                // 确保预估时间合理（3-4.5分钟）
+                estimatedTotal = Math.min(estimatedTotal, 270);
+                estimatedTotal = Math.max(estimatedTotal, 180);
+              } else {
+                // 最后阶段：快速完成
+                estimatedTotal = (elapsed / currentProgress) * 100;
+                estimatedTotal = Math.min(estimatedTotal, elapsed + 15);
+              }
+              
+              const remaining = Math.max(5, Math.ceil(estimatedTotal - elapsed));
               setEstimatedTime(remaining);
             }
           }
@@ -173,6 +212,22 @@ const FileUpload = () => {
     setError('');
     setUploading(true);
     setUploadProgress(0);
+
+    // 立即开始计时
+    startTimeRef.current = Date.now();
+    setElapsedTime(0);
+    setEstimatedTime(180); // 初始预估3分钟
+    
+    // 清理旧的定时器
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+    }
+    
+    // 启动已用时间计时器
+    elapsedTimerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setElapsedTime(elapsed);
+    }, 1000);
 
     try {
       // 自动检测：音频文件使用 AI 分析生成，文档文件使用原有流程
@@ -394,11 +449,7 @@ const FileUpload = () => {
                   step="1"
                   value={durationMinutes}
                   onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                  className="w-full h-3 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary hover:accent-accent-pink transition-colors"
-                  style={{
-                    WebkitAppearance: 'none',
-                    appearance: 'none',
-                  }}
+                  className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:bg-accent-pink [&::-webkit-slider-thumb]:transition-colors [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:hover:bg-accent-pink [&::-moz-range-thumb]:transition-colors"
                 />
                 <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                   <span>3 min</span>
@@ -468,17 +519,24 @@ const FileUpload = () => {
           </div>
 
           {/* Time Information */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
               <span className="font-semibold">⏱️ Elapsed:</span>
-              <span className="font-mono">{formatTime(elapsedTime)}</span>
+              <span className="font-mono font-bold text-primary">{formatTime(elapsedTime)}</span>
             </div>
-            {estimatedTime !== null && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">⏳ Estimated:</span>
-                <span className="font-mono">{formatTime(estimatedTime)}</span>
+            {estimatedTime !== null && estimatedTime > 0 && (
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
+                <span className="font-semibold">⏳ Remaining:</span>
+                <span className="font-mono font-bold text-accent-purple">{formatTime(estimatedTime)}</span>
               </div>
             )}
+          </div>
+
+          {/* Podcast Tips - Rotating */}
+          <div className="bg-gradient-to-r from-primary/10 to-accent-purple/10 dark:from-primary/20 dark:to-accent-purple/20 border border-primary/20 dark:border-primary/30 rounded-xl p-4 transition-all duration-500">
+            <p className="text-sm sm:text-base text-center text-gray-700 dark:text-gray-300 font-medium">
+              {podcastTips[currentTip]}
+            </p>
           </div>
 
           {/* Hint */}

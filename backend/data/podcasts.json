@@ -157,99 +157,132 @@
       "duration_seconds": 167
     },
     {
-      "id": "70cbce7f-8f9f-475e-b487-e86f008c110d",
-      "title": "Video Analysis: What Went Wrong?",
-      "original_filename": "YouTube-mEBCQidaNTQ",
+      "id": "74efb466-fadd-4c8f-a005-a5f8e7cc4684",
+      "title": "Porter Airlines: Better Air Travel Experience",
+      "original_filename": "AlanCross-Porter-v2.mp3",
       "status": "completed",
-      "source_type": "youtube",
-      "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+      "source_type": "audio",
+      "source_url": null,
       "extraction_metadata": {
-        "summary": "Failed to parse video content",
+        "summary": "The speaker expresses dissatisfaction with the current state of commercial air travel, describing it as often miserable due to airport and airline hassles. They contrast this with the experience of flying Porter Airlines, which they highlight as a refined and pleasant alternative. The speaker praises Porter's convenient downtown Toronto location (Billy Bishop Airport), easy drop-off, free shuttle service to Union Station for transit connections, quick check-in, comfortable lounges, friendly onboard service, and complimentary drinks and snacks. They recommend Porter for business trips and getaways, directing listeners to flyporter.com/newmusic.",
         "topics": [
-          "video analysis"
+          "Air travel dissatisfaction",
+          "Porter Airlines experience",
+          "Convenient airport location",
+          "Refined flying experience",
+          "Travel recommendations"
         ],
         "insights": [
-          "Unable to extract insights"
+          "Commercial air travel is often a miserable experience.",
+          "Porter Airlines offers a superior, refined flying experience.",
+          "Billy Bishop Airport provides convenient downtown access and transit connections.",
+          "Porter's service includes complimentary drinks and snacks.",
+          "Porter is recommended for business trips and getaways."
         ],
-        "transcript_length": 1000,
+        "transcript_length": 1282
+      },
+      "original_duration": 168,
+      "original_format": "mp3",
+      "created_at": "2025-10-27T08:24:40.432336",
+      "updated_at": "2025-10-27T08:26:55.000912",
+      "audio_s3_key": "podcasts/74efb466-fadd-4c8f-a005-a5f8e7cc4684.mp3",
+      "transcript": "Mike: Hey everyone, I'm Mike, and I've been doing a lot of flying lately, and honestly, most of the time it feels like a battle. Getting to the airport, dealing with the crowds, the whole \"cattle car\" experience... it's just not fun anymore.\n\nSarah: Oh, tell me about it! I'm Sarah, and I dread air travel sometimes. It feels like there's so little civility in civil aviation these days, right?\n\nMike: Exactly! But you know what? I recently discovered an airline that’s completely changed my perspective. It's Porter Airlines, and honestly, it's a breath of fresh air.\n\nSarah: That sounds amazing! So, what makes them so different? Is it the planes?\n\nMike: It's more than just the planes. Porter is all about a truly refined flying experience. They've managed to ditch that \"cattle car\" treatment you get on so many other airlines. It feels like they actually care about making your journey pleasant.\n\nSarah: I can see how that would make a huge difference. I've had my fair share of uncomfortable flights, and the thought of a more refined experience is very appealing. So, what's the secret sauce? Where does this refined experience begin?\n\nMike: It starts with their incredible location. Their main hub, Billy Bishop Airport, is right in downtown Toronto! Can you believe it? At the base of Bathurst Street.\n\nSarah: Wow, that's a game-changer! No more battling traffic out to Pearson. I always find that part of flying to be such a drain.\n\nMike: Exactly! Drop-off is a breeze, it's so quick. And get this – they have a free shuttle service to and from Union Station. That means super easy connections to the TTC and the Go Train. It's so convenient for business trips or just getting around. Imagine actually enjoying the start of your trip instead of stressing about transit.\n\nSarah: That’s brilliant! I can already picture how much smoother that makes the whole process. No more worrying about being late because of unpredictable highway traffic. And what about the airport itself? Is it as streamlined as the location suggests?\n\nMike: The whole process is just smooth. Check-in is quick and easy. And their departure lounges are actually clean and comfortable, not like some other places I could mention where you’re just crammed into a crowded space. You can actually relax before your flight.\n\nSarah: And what about onboard? Is the service as good as you say? Because a comfortable lounge is one thing, but the actual flight experience is crucial.\n\nMike: Absolutely. The onboard service is genuinely friendly. The flight attendants are attentive and pleasant, not rushed or indifferent. And here's a little perk that always makes me happy – complimentary drinks and snacks. It’s a small thing, but it makes a huge difference. They offer a selection of complimentary beer and wine, along with a variety of snacks. It feels like a genuine amenity, not a luxury add-on.\n\nSarah: Complimentary drinks and snacks? That’s fantastic! It really does elevate the whole experience.",
+      "duration_seconds": 169,
+      "file_size_bytes": 2713018
+    },
+    {
+      "id": "da1e9236-ccf2-42f8-a76f-d780d21ce312",
+      "title": "AI Agents Explained: LLMs, Workflows, & Beyond",
+      "original_filename": "YouTube-FwOTs4UxQS4",
+      "status": "completed",
+      "source_type": "youtube",
+      "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
+      "extraction_metadata": {
+        "summary": "This video explains the concept of AI agents for a non-technical audience by progressing through three distinct levels of AI complexity. It starts with Level 1, defining Large Language Models (LLMs) like ChatGPT as passive, input-output systems with knowledge limitations. Level 2 introduces AI Workflows, which are human-defined, step-by-step processes (like RAG) that allow LLMs to use external tools but are rigid in their execution. The video demonstrates this with a Make.com automation. Finally, Level 3 defines AI Agents as autonomous systems that replace the human decision-maker. Given a goal, an agent uses a framework like ReAct (Reason + Act) to create its own plan, select tools, and iterate on its work to achieve the desired outcome, showcasing true autonomy.",
+        "topics": [
+          "Large Language Models (LLMs) vs. AI Workflows vs. AI Agents",
+          "AI Agent Workflow and the ReAct Framework",
+          "Limitations of LLMs and AI Workflows",
+          "Autonomous Reasoning and Iteration in AI Agents",
+          "Case Studies of AI Workflows and Agents"
+        ],
+        "insights": [
+          "The primary distinction between an AI Workflow and an AI Agent is the decision-maker: a human defines the rigid path for a workflow, whereas an agent (an LLM) autonomously reasons and determines its own path to achieve a goal.",
+          "AI Workflows, including techniques like Retrieval-Augmented Generation (RAG), are a bridge between passive LLMs and autonomous agents, allowing AI to access external data and tools via a predefined 'control logic'.",
+          "A core capability of an AI Agent is its ability to iterate—it can autonomously observe, critique, and refine its own output in a loop until the result meets a certain quality standard, a process not inherent in rigid workflows.",
+          "The ReAct (Reason + Act) framework is fundamental to how AI agents operate, enabling them to first break down a problem and plan a sequence of steps (Reason) and then execute those steps using available tools (Act).",
+          "While LLMs are powerful text generators, they are passive and have knowledge cutoffs. AI agents make them active and dynamic by giving them the ability to reason, plan, and interact with the digital world to complete complex tasks."
+        ],
+        "transcript_length": 3915,
         "source": "gemini_video_analysis",
         "youtube_metadata": {
-          "title": "YouTube Video mEBCQidaNTQ",
+          "title": "YouTube Video FwOTs4UxQS4",
           "description": "Failed to extract metadata",
           "duration": 300,
           "uploader": "Unknown",
-          "video_id": "mEBCQidaNTQ",
+          "video_id": "FwOTs4UxQS4",
           "upload_date": "",
           "view_count": 0,
-          "thumbnail": "https://img.youtube.com/vi/mEBCQidaNTQ/maxresdefault.jpg",
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
           "channel": "Unknown",
           "channel_id": ""
         }
       },
       "original_duration": 300.0,
       "original_format": "youtube",
-      "created_at": "2025-10-27T03:46:34.434304",
-      "updated_at": "2025-10-27T03:50:43.334064",
-      "audio_s3_key": "podcasts/70cbce7f-8f9f-475e-b487-e86f008c110d.mp3",
-      "transcript": "Mike: Hey everyone, and welcome back to Tech Unpacked! I'm Mike, and I'm super excited to dive into something that sounds straight out of a sci-fi movie today.\n\nSarah: And I'm Sarah, and I'm equally thrilled, Mike! Because what we're talking about today is a genuine leap forward. Imagine a computer so powerful, it can tackle problems that are literally impossible for even the biggest supercomputers on Earth.\n\nMike: Sounds like science fiction, right? Well, Google Quantum AI just made a huge leap towards that reality. They've announced their first demonstration of what they're calling \"verifiable quantum advantage.\"\n\nSarah: And we're here to break down exactly what that means for you, in plain English. Because it's a pretty big deal.\n\nMike: So, Sarah, let's start with the fundamental question: why do we even need quantum computers? I mean, our current computers are pretty amazing, aren't they?\n\nSarah: They are, Mike, they absolutely are. But think about it – our universe is incredibly complex. For centuries, scientists have been trying to understand it, from the smallest subatomic particles to the vastness of galaxies. And the deeper we dig, the more we realize how intricate and mind-bogglingly complicated nature actually is.\n\nMike: Right. It’s like trying to map out every single grain of sand on every beach in the world simultaneously.\n\nSarah: Exactly! And our current computational tools, as powerful as they are, hit a wall when it comes to simulating or understanding these incredibly complex systems. They just don't have the capacity. Quantum computers are designed to overcome this barrier. They offer a fundamentally new way to compute that can handle these intricate problems that are currently beyond our reach.\n\nMike: So, it’s like upgrading from a basic calculator to a super-powered research lab specifically designed to understand the deepest mysteries of nature. That makes a lot of sense.\n\nSarah: Precisely. It's about unlocking new frontiers of scientific understanding. And that brings us to the core of Google's announcement: this concept of \"quantum advantage.\" Now, it's not *just* about being faster, which is what a lot of people initially think.\n\nMike: That's the crucial part, isn't it? Because we hear \"faster\" and we think, \"Okay, my laptop will be faster.\" But it's more profound than that.\n\nSarah: Absolutely. Google's achievement isn't just about speed for speed's sake. It’s about performing a computation that is *both* significantly faster than any classical supercomputer could ever hope to achieve, *and* – and this is the \"verifiable\" part – whose results can be independently proven to be correct.\n\nMike: So, it's not just about getting an answer, but about being absolutely certain that the answer is right, even though it was obtained in a way that a classical computer simply couldn't replicate.\n\nSarah: Exactly.",
-      "duration_seconds": 160,
-      "file_size_bytes": 2572165
+      "created_at": "2025-10-27T08:36:00.689790",
+      "updated_at": "2025-10-27T08:40:07.553879",
+      "audio_s3_key": "podcasts/da1e9236-ccf2-42f8-a76f-d780d21ce312.mp3",
+      "transcript": "Mike: Hey everyone, I'm Mike, and welcome back to the podcast where we break down complex tech into easy-to-understand bites.\n\nSarah: And I'm Sarah, thrilled to be here with you all today!\n\nMike: So Sarah, we've all been playing around with AI chatbots like ChatGPT, right? They're amazing for drafting emails or explaining concepts. But what if those chatbots could actually *do* things for us, all on their own? That's the frontier we're exploring today: AI Agents.\n\nSarah: It sounds like science fiction, but it's rapidly becoming reality. And to make sense of it, we're going to break it down into three clear levels, kind of like building blocks, that we saw illustrated in a really helpful YouTube video. It makes the whole concept so much more accessible.\n\nMike: Exactly. Think of it as a journey from a very smart assistant to a truly independent worker. So, let's kick things off with Level 1.\n\nSarah: Level 1 is where most of us are already comfortable. We're talking about Large Language Models, or LLMs. These are the engines behind the AI assistants we interact with daily, like ChatGPT, Google Gemini, or Claude.\n\nMike: Right. At their core, LLMs are incredible text generators. You give them an input, a prompt, and they produce an output based on the vast amount of data they were trained on. It’s like having a super-powered encyclopedia that can also write for you.\n\nSarah: But as powerful as they are, they have significant limitations. They're essentially passive. They don't have real-time access to information, they can't access your personal data, like your calendar, and their knowledge has a cutoff point. So, if you ask ChatGPT, \"When is my next coffee chat?\", it has no way of knowing.\n\nMike: That’s a perfect illustration. They're brilliant at processing and generating text based on what they already know, but they can't reach out and grab new information or act on it in the real world. This leads us to Level 2.\n\nSarah: Level 2 is where things start to get more interesting. We move into the realm of AI Workflows. This is where we start giving these LLMs a bit more structure and the ability to interact with external tools, but still in a very controlled way.\n\nMike: Think of an AI Workflow as a recipe or a script. A human designer defines a set of specific steps that the AI needs to follow. A really common example that helps illustrate this is Retrieval-Augmented Generation, or RAG.\n\nSarah: RAG is a great example because it shows how we can enhance an LLM’s capabilities. With RAG, we can connect an LLM to an external knowledge base, like a company's internal documents or a specific database. So, when you ask a question, the AI can first go and retrieve relevant information from that external source, and *then* use its LLM capabilities to generate an answer based on that retrieved data.\n\nMike: It’s like giving ChatGPT access to your company’s entire knowledge library. It can use that information to answer questions more accurately and contextually.",
+      "duration_seconds": 180,
+      "file_size_bytes": 2888142
     },
     {
-      "id": "ee445c2b-cc9a-4b74-b84b-189ed10aafaf",
-      "title": "Processing: YouTube Video mEBCQidaNTQ...",
-      "original_filename": "YouTube-mEBCQidaNTQ",
-      "status": "processing",
-      "source_type": "youtube",
-      "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
-      "extraction_metadata": {
-        "youtube_title": "YouTube Video mEBCQidaNTQ",
-        "youtube_uploader": "Unknown",
-        "youtube_duration": 300
-      },
-      "original_duration": 300.0,
-      "original_format": "youtube",
-      "created_at": "2025-10-27T03:47:24.892800",
-      "updated_at": "2025-10-27T03:47:24.892811"
-    },
-    {
-      "id": "c723f9d1-8b66-4cd5-b4e5-b52f50242f65",
-      "title": "Video Analysis: Unpacking YouTube Content",
-      "original_filename": "YouTube-mEBCQidaNTQ",
+      "id": "27b30e57-ba88-4388-ab91-2648e05afe2d",
+      "title": "AI Agents Explained: Levels 1, 2 & Beyond",
+      "original_filename": "YouTube-FwOTs4UxQS4",
       "status": "completed",
       "source_type": "youtube",
-      "source_url": "https://www.youtube.com/watch?v=mEBCQidaNTQ",
+      "source_url": "https://www.youtube.com/watch?v=FwOTs4UxQS4",
       "extraction_metadata": {
-        "summary": "Failed to parse video content",
+        "summary": "This video explains AI Agents for a non-technical audience by breaking the concept down into three progressive levels. It starts with Level 1, Large Language Models (LLMs) like ChatGPT, which are passive text generators. Level 2 introduces AI Workflows, where humans create pre-defined, multi-step processes that connect LLMs to external tools (like calendars or databases) to perform more complex tasks. The key limitation is that these workflows are rigid and human-directed. Finally, Level 3 defines AI Agents as autonomous systems that replace the human decision-maker. Given a goal, an agent uses a framework like ReAct (Reasoning + Act) to independently plan steps, select tools, and iterate on its own work to achieve the desired outcome. The core distinction is the agent's ability to reason and make decisions autonomously, moving beyond simple, pre-programmed instructions.",
         "topics": [
-          "video analysis"
+          "Large Language Models (LLMs)",
+          "AI Workflows vs. AI Agents",
+          "Autonomous Reasoning and Action (ReAct Framework)",
+          "Retrieval-Augmented Generation (RAG)",
+          "The role of iteration in AI systems"
         ],
         "insights": [
-          "Unable to extract insights"
+          "The primary difference between an AI Workflow and an AI Agent is the decision-maker: in a workflow, a human defines the steps, whereas an agent uses its own reasoning to decide the steps needed to achieve a goal.",
+          "AI Agents are not just executing tasks; they operate on a 'Reasoning + Act' (ReAct) loop, allowing them to plan, use tools, and self-critique their outputs.",
+          "AI Workflows and Agents are evolutions of LLMs, designed to overcome their inherent limitations, such as the inability to access real-time or private data.",
+          "Concepts like Retrieval-Augmented Generation (RAG) are essentially a specific type of AI workflow where the system is programmed to 'look up' information before responding.",
+          "The true power of AI Agents lies in their autonomy—they can independently iterate and refine their approach to a problem until the goal is met, without continuous human intervention."
         ],
-        "transcript_length": 1000,
+        "transcript_length": 3571,
         "source": "gemini_video_analysis",
         "youtube_metadata": {
-          "title": "YouTube Video mEBCQidaNTQ",
+          "title": "YouTube Video FwOTs4UxQS4",
           "description": "Failed to extract metadata",
           "duration": 300,
           "uploader": "Unknown",
-          "video_id": "mEBCQidaNTQ",
+          "video_id": "FwOTs4UxQS4",
           "upload_date": "",
           "view_count": 0,
-          "thumbnail": "https://img.youtube.com/vi/mEBCQidaNTQ/maxresdefault.jpg",
+          "thumbnail": "https://img.youtube.com/vi/FwOTs4UxQS4/maxresdefault.jpg",
           "channel": "Unknown",
           "channel_id": ""
         }
       },
       "original_duration": 300.0,
       "original_format": "youtube",
-      "created_at": "2025-10-27T03:55:24.573030",
-      "updated_at": "2025-10-27T03:59:43.357576",
-      "audio_s3_key": "podcasts/c723f9d1-8b66-4cd5-b4e5-b52f50242f65.mp3",
-      "transcript": "Alex：嘿，大家好！我是Alex，欢迎来到我们的播客。今天我们要聊一个超级酷、超级前沿的话题，可能会彻底改变我们对世界的认知！\n\nEmma：你好！我是Emma，很高兴来到这里。没错，想象一下，我们正在见证一项科学上的重大突破，由 Google Quantum AI 带来的，叫做“量子优势”！听起来是不是有点像科幻电影？\n\nAlex：完全是！但它却是真实发生的。而且，今天我们就要用最通俗易懂的方式，来聊聊这个“量子优势”到底是什么意思，为什么它如此重要。\n\nEmma：我们先从一个宏大的视角说起。人类探索自然的历程，其实就是不断挑战我们认知边界的过程。而在这个过程中，我们最强大的工具之一就是计算。\n\nAlex：对，就像我们过去只能用肉眼看星星，后来发明了望远镜，才能看到更远更深邃的宇宙。计算也是如此，我们现在的计算机虽然很强大，但在处理某些极其复杂的问题时，还是显得力不从心。\n\nEmma：而量子计算机，就是为了突破这些计算的极限而诞生的！\n\nAlex：之前我们可能听到过“量子霸权”这个词，听起来很厉害，但 Google 这次提出的“量子优势”，有更深一层的含义。\n\nEmma：没错，简单来说，“量子霸权”可能只是说量子计算机在某个特定任务上比最快的经典计算机快一点点，但“量子优势”则强调的是，量子计算机能够完成一项有意义的任务，而经典计算机无论如何都无法高效完成。\n\nAlex：就像不是跑得快多少的问题，而是能不能跑起来，能不能完成这项任务的问题。Google 这次用他们的“Willow”量子芯片，通过一个叫做“Quantum Echoes”的算法，就证明了这一点。\n\nEmma：这个“Quantum Echoes”算法，它就像一个全新的探测器，能够以前所未有的方式去研究和理解那些极其复杂的量子系统。\n\nAlex：听起来就超神奇！这些复杂的量子系统，比如分子、磁铁，甚至… 黑洞！我们之前可能只能隔靴搔痒，但有了量子计算机，我们就能更深入地一探究竟。\n\nEmma：这就意味着，在药物研发、材料科学、人工智能，甚至天体物理学等领域，都可能迎来颠覆性的进展。想想看，我们可以设计出更有效的药物，创造出更先进的材料，甚至更准确地模拟宇宙的运行。\n\nAlex：所以，“量子优势”不仅仅是一个技术上的里程碑，它更是开启了人类理解和改造世界的新篇章。\n\nEmma：没错！这是一个激动人心的时刻，预示着量子计算的时代真的要来了。\n\nAlex：感谢收听！我们下期再见！",
-      "duration_seconds": 230,
-      "file_size_bytes": 3691042
+      "created_at": "2025-10-27T09:36:44.213849",
+      "updated_at": "2025-10-27T09:41:00.518264",
+      "audio_s3_key": "podcasts/27b30e57-ba88-4388-ab91-2648e05afe2d.mp3",
+      "transcript": "Mike: Hey everyone, I'm Mike, and welcome back to The AI Evolution, the podcast that demystifies the incredible world of artificial intelligence.\n\nSarah: Hi there! I'm Sarah, and I'm thrilled to be diving into today's topic with you.\n\nMike: So Sarah, remember that feeling when you first used a tool like ChatGPT? Asking it to draft an email, write a poem, or even explain a complex concept felt like pure magic. We’ve all been there, right? Marveling at what these AI tools can do. But what if I told you that’s just the very beginning of the AI story? Today, we're going to unlock the next level, moving from those simple, passive text generators to something truly revolutionary: AI Agents.\n\nSarah: That’s such a great starting point, Mike. It really feels like we’ve moved beyond just marveling at AI to seeing it as a potential partner. And breaking it down into three simple steps is brilliant, because the concept of an AI agent can sound a bit intimidating.\n\nMike: Exactly! So, let's start with the foundation, Level 1. This is where we meet the building blocks: Large Language Models, or LLMs. These are the powerhouses behind your ChatGPTs, your Geminis, your Claudes. They are essentially incredibly powerful text generators and editors. The basic interaction is a simple input-output loop. You give it a prompt – your instructions – and the LLM produces an output, text, based on its vast training data. It’s like having a super-smart scribe at your fingertips.\n\nSarah: And it’s amazing what they can do with just that. I mean, I’ve used them to brainstorm ideas, draft social media posts, even help me understand complex reports. But you mentioned a big 'but' there, Mike. What are those limitations of standalone LLMs?\n\nMike: Well, the first critical limitation is that they lack knowledge of proprietary or personal information. They can't peek into your private calendar, access your company's internal databases, or know what you had for breakfast unless you tell them. They're essentially confined to the data they were trained on. The second, and this is crucial, is that LLMs are passive. They only react to a direct prompt. They can't initiate tasks or take action on their own.\n\nSarah: So, it’s like having a brilliant author who can only write based on books they’ve already read, and only when you hand them a specific topic. They can’t go out and research something new or decide to write a sequel on their own.\n\nMike: Precisely! And that leads us to Level 2: AI Workflows. This is where we, the humans, step in and become the choreographers. We create a pre-set dance for the LLM. We connect it to other tools – maybe your calendar, a database, or an email app. So, instead of just writing an email, a workflow could be programmed to first find a meeting time in your calendar, then draft an email to confirm that meeting. It’s a multi-step process, but the crucial part is that we, the humans, pre-program every single step.\n\nSarah: Ah, I see.",
+      "duration_seconds": 188,
+      "file_size_bytes": 3011022
     }
   ]
 }

@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     
     # Gemini API 配置
     gemini_api_key: str = ""
-    gemini_model: str = "gemini-2.5-flash-lite"
+    gemini_model: str = "gemini-2.5-pro"  # 升级到 2.5 Pro 以获得更好的内容质量
     gemini_api_url: str = "https://aiplatform.googleapis.com/v1/publishers/google/models"
     
     # 数据目录配置
